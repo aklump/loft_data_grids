@@ -1,3 +1,11 @@
+## Summary
+This package is a lightweight means of working with data in a grid.  You can think of this as a lean spreadsheet with rows and columns.
+
+It allows a single data class to be used to organize your data in a grid, with various output styles so you can easily get a `.csv` file or a `.xlsx` file.
+
+See the code for more documentation.
+
+
 ## Excel (.xls) Support
 1. For `.xlsx` files you will need to grab PHPExcel
 2. This is easy using composer, just navigate to the root folder for loft_data_grids and type

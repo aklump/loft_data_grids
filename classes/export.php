@@ -400,7 +400,7 @@ class CSVExporter extends Exporter implements ExporterInterface {
 }
 
 /**
- * Class CSVExporter
+ * Class XLSXExporter
  */
 class XLSXExporter extends Exporter implements ExporterInterface {
 
