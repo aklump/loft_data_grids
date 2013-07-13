@@ -7,6 +7,10 @@
  * @{
  */
 
+if (is_file(dirname(__FILE__) . '/../vendor/autoload.php')) {
+  require_once dirname(__FILE__) . '/../vendor/autoload.php';
+}
+
 /**
  * Interface ExportDataInterface
  */
@@ -213,6 +217,14 @@ interface ExporterInterface {
    * @return ExportData
    */
   public function getData();
+
+  /**
+   * Return an array containing the header values
+   *
+   * @return array
+   */
+  public function getHeader();
+
 }
 /**
  * Class Exporter
@@ -246,6 +258,12 @@ abstract class Exporter implements ExporterInterface {
     return $this->data;
   }
 
+  public function getHeader() {
+    $data = $this->export_data->get();
+    $header = array_keys(reset($data));
+    return $header;
+  }
+
   public function setData(ExportData $data) {
     $this->export_data = $data;
 
@@ -257,7 +275,7 @@ abstract class Exporter implements ExporterInterface {
    *
    * This is the main method to be extended for the different exporters
    */
-  abstract protected function compile();
+  abstract public function compile();
 
   public function export() {
     $this->compile();
@@ -326,12 +344,10 @@ class CSVExporter extends Exporter implements ExporterInterface {
     $this->format->html   = FALSE;
   }
 
-  protected function compile() {
+  public function compile() {
     $data = $this->export_data->get();
     $this->output = '';
-    // Format the header row:
-    $header = array_keys(reset($data));
-    $this->output .= $this->collapseRow($header);
+    $this->output .= $this->collapseRow($this->getHeader());
     // Format the rows:
     foreach ($data as $row) {
       $this->output .= $this->collapseRow($row);
@@ -380,6 +396,142 @@ class CSVExporter extends Exporter implements ExporterInterface {
     }
     $output = implode($this->format->sep, $output) . $this->format->eol;
     return $output;
+  }
+}
+
+/**
+ * Class CSVExporter
+ */
+class XLSXExporter extends Exporter implements ExporterInterface {
+
+  protected $extension = '.xlsx';
+
+  /**
+   * @var $worksheet
+   * The PHPExcel object
+   */
+  protected $excel;
+
+  /**
+   * Constructor
+   *
+   * @param ExportData $data
+   * @param string $filename
+   *   (Optional) Defaults to ''.
+   * @param array $properties
+   */
+  public function __construct(ExportData $data, $filename = '', $properties = array()) {
+    parent::__construct($data, $filename);
+    $this->output = FALSE;
+    $this->excel = new PHPExcel();
+    if ($properties) {
+      $this->setProperties($properties);
+    }
+  }
+
+  /**
+   * Set properties
+   *
+   * @param array $properties
+   *   - Creator
+   *   - LastModifiedBy
+   *   - Title
+   *   - Description
+   *   - Keywords
+   *   - Category
+   *
+   * @return $this
+   */
+  public function setProperties($properties) {
+    foreach ($properties as $key => $value) {
+      if (($method = "set$key")
+          && ($obj_properties = $this->excel->getProperties())
+          && method_exists($obj_properties, $method)) {
+        $obj_properties->{$method}($value);
+      }
+    }
+
+    return $this;
+  }
+
+  public function compile() {
+    $data = $this->export_data->get();
+    $this->output = TRUE;
+
+    $this->excel->setActiveSheetIndex(0);
+    $worksheet = $this->excel->getActiveSheet();
+
+    // Format the header row:
+    $header = $this->getHeader();
+
+    // Format the rows:
+    $row_index = 1;
+    $worksheet->fromArray($header, NULL, 'A' . $row_index++, TRUE);
+    foreach ($data as $row) {
+      $col_index = 'A';
+      $worksheet->fromArray($row, NULL, 'A' . $row_index, TRUE);
+      $row_index++;
+    }
+  }
+
+  /**
+   * Returns the PHPExcel object
+   *
+   * @return PHPExcel
+   */
+  public function export() {
+    return $this->excel;
+  }
+
+  public function save($filename = '') {
+    if (!$this->output) {
+      $this->compile();
+    }
+
+    // Redirect output to a client’s web browser (Excel2007)
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="' . $this->filename . '"');
+    header('Cache-Control: max-age=0');
+
+    $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
+    $objWriter->save('php://output');
+    exit;
+  }
+
+  /**
+   * Format a single column with a number format
+   *
+   * You must do this after calling $this->compile!
+   *
+   * @param string $column
+   * @param string $format_code
+   *
+   * @return $this
+   */
+  public function formatColumnNumberFormat($column, $format_code) {
+    foreach ($this->excel->getActiveSheet()->getRowIterator() as $row) {
+      $row_index = $row->getRowIndex();
+      $this->excel->getActiveSheet()->getStyle("$column$row_index")->getNumberFormat()
+      ->setFormatCode($format_code);
+    }
+    return $this;
+  }
+
+  /**
+   * Return the header keyed by column letter beginning with 'A'
+   *
+   * @return array
+   * - keys: column letters
+   * - values: header strings
+   */
+  public function getHeader() {
+    $header = parent::getHeader();
+    $revised = array();
+    $column = 'A';
+    foreach ($header as $value) {
+      $revised[$column++] = $value;
+    }
+    return $revised;
   }
 }
 
