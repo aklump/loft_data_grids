@@ -17,8 +17,6 @@
     "phpoffice/phpexcel": "1.7.*"
   },
   "autoload": {
-    "psr-0": {
-      "AKlump\\LoftDataGrids\\": "classes/"
-    }
+    "classmap" : [ "classes/" ]
   }
 }
