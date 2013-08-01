@@ -1,5 +1,19 @@
 {
+    "name": "aklump/loft_data_grids",
+    "type": "library",
+    "description": "PHP Classes to allow data placement in a grid structure and exporting in various data formats.",
+    "keywords": ["spreadsheet","csv","excel","export"],
+    "homepage": "http://github.com/aklump/loft_data_grids",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Aaron Klump",
+            "email": "sourcecode@intheloftstudios.com",
+            "homepage": "http://www.intheloftstudios.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "phpoffice/phpexcel": "1.7.*"
-    }
+    },
 }
