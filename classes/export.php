@@ -6,6 +6,7 @@
  * @ingroup loft_data_grids
  * @{
  */
+use Symfony\Component\Yaml\Yaml;
 
 if (is_file(dirname(__FILE__) . '/../vendor/autoload.php')) {
   require_once dirname(__FILE__) . '/../vendor/autoload.php';
@@ -668,10 +669,18 @@ class XMLExporter extends Exporter implements ExporterInterface {
       $set = $xml->addChild('record');
       $set->addAttribute('id', $id);
       foreach ($data_set as $key => $value) {
+        // make sure the key is in good format
+        $key = preg_replace('/[^a-z0-9_-]/', '_', strtolower($key));
+        // Wrap cdata as needed
+        if (strstr($value, '<') || strstr($value, '&')) {
+          $value = '<![CDATA[' . $value . ']]>';
+        }
         $set->addChild($key, $value);
       }
     }
     $this->output = $xml->asXML();
+    $this->output = str_replace('&lt;![CDATA[', '<![CDATA[', $this->output);
+    $this->output = str_replace(']]&gt;</', ']]></', $this->output);
   }
 }
 
@@ -685,5 +694,14 @@ class JSONExporter extends Exporter implements ExporterInterface {
   }
 }
 
+/**
+ * Class YAMLExporter
+ */
+class YAMLExporter extends Exporter implements ExporterInterface {
+  public function compile() {
+    $data = $this->export_data->get();
+    $this->output = Yaml::dump($data);
+  }
+}
 
 /** @} */ //end of grouploft_data_grids loft_data_grids
