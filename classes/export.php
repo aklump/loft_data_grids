@@ -336,6 +336,7 @@ class CSVExporter extends Exporter implements ExporterInterface {
   public function __construct(ExportData $data, $filename = '') {
     parent::__construct($data, $filename);
     $this->format = new stdClass;
+    $this->format->bol    = '';
     $this->format->eol    = "\r\n";
     $this->format->left   = '"';
     $this->format->right  = '"';
@@ -394,7 +395,7 @@ class CSVExporter extends Exporter implements ExporterInterface {
         $output[] = $this->format->left . $cell . $this->format->right;
       }
     }
-    $output = implode($this->format->sep, $output) . $this->format->eol;
+    $output = $this->format->bol . implode($this->format->sep, $output) . $this->format->eol;
     return $output;
   }
 }
@@ -532,6 +533,121 @@ class XLSXExporter extends Exporter implements ExporterInterface {
       $revised[$column++] = $value;
     }
     return $revised;
+  }
+}
+
+/**
+ * Class HTMLExporter
+ */
+class HTMLExporter extends CSVExporter implements ExporterInterface {
+  protected $extension = '.html';
+  protected $format;
+
+  /**
+   * Constructor
+   */
+  public function __construct(ExportData $data, $filename = '') {
+    parent::__construct($data, $filename);
+    $this->format = new stdClass;
+    $this->format->bol    = "<tr>";
+    $this->format->cr     = "\n";
+    $this->format->eol    = "</tr>" . $this->format->cr;
+    $this->format->sep    = '';
+    $this->format->escape = '';
+    $this->format->html   = TRUE;
+  }
+
+  public function compile() {
+    $data = $this->export_data->get();
+    $this->output = '';
+    $this->output .= '<thead>' . $this->format->cr;
+    $this->format->left = '<th>';
+    $this->format->right = '</th>';
+    $this->output .= $this->collapseRow($this->getHeader());
+    $this->output .= '</thead>' . $this->format->cr;
+
+    // Format the rows:
+    $this->format->left = '<td>';
+    $this->format->right = '</td>';
+    $this->output .= '<tbody>' . $this->format->cr;
+    foreach ($data as $row) {
+      $this->output .= $this->collapseRow($row);
+    }
+    $this->output .= '</tbody>' . $this->format->cr;
+
+    $this->output = '<table>' . $this->format->cr . $this->output . '</table>' . $this->format->cr;
+  }
+}
+
+/**
+ * Class FlatTextExporter
+ */
+class FlatTextExporter extends CSVExporter implements ExporterInterface {
+  protected $extension = '.txt';
+  protected $format;
+
+  /**
+   * Constructor
+   */
+  public function __construct(ExportData $data, $filename = '') {
+    parent::__construct($data, $filename);
+    $this->format = new stdClass;
+    $this->format->cr     = "\n";
+    $this->format->hline  = "-";
+    $this->format->vline  = "|";
+    $this->format->bol    = $this->format->vline;
+    $this->format->eol    = $this->format->vline . $this->format->cr;
+    $this->format->left   = ' ';
+    $this->format->right  = ' ';
+    $this->format->sep    = $this->format->vline;
+    $this->format->escape = '';
+    $this->format->html   = TRUE;
+  }
+
+  public function compile() {
+    $data = $this->export_data->get();
+    $header = $this->getHeader();
+    foreach ($header as $key => $title) {
+      $header[$key] = strtoupper($title);
+    }
+    $header = array_combine(array_keys(reset($data)), $header);
+    array_unshift($data, $header);
+
+    // Scan the data to determine the total width of each column
+    $columns = array();
+    foreach ($data as $row) {
+      foreach ($row as $key => $value) {
+        if (empty($columns[$key])) {
+          $columns[$key] = 0;
+        }
+        $columns[$key] = max($columns[$key], strlen($value));
+      }
+    }
+
+    // Pad all the cells based on our determination from above
+    foreach ($data as $row_key => $row) {
+      foreach ($row as $key => $value) {
+        $data[$row_key][$key] = str_pad($value, $columns[$key], ' ');
+      }
+    }
+
+    // Determine the width of a single row in chars
+    $row_width  = 0;
+    $row_width += array_sum($columns);
+    $row_width += strlen($this->format->bol);
+    $row_width += strlen($this->format->left) * count($columns);
+    $row_width += strlen($this->format->sep) * count($columns) - 2;
+    $row_width += strlen($this->format->right) * count($columns);
+    $row_width += strlen($this->format->eol);
+    $hrule = str_repeat($this->format->hline, $row_width);
+
+    // Build the output
+    $this->output = '';
+    $this->output .= $hrule . $this->format->cr;
+    foreach ($data as $row) {
+      $this->output .= $this->collapseRow($row);
+      $this->output .= $hrule . $this->format->cr;
+    }
   }
 }
 
