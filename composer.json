@@ -14,7 +14,8 @@
     }
   ],
   "require": {
-    "phpoffice/phpexcel": "1.7.*"
+    "phpoffice/phpexcel": "1.7.*",
+    "symfony/yaml": "2.3.*"
   },
   "autoload": {
     "classmap" : [ "classes/" ]

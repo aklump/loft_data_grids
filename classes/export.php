@@ -485,8 +485,14 @@ class XLSXExporter extends Exporter implements ExporterInterface {
   }
 
   public function save($filename = '') {
-    if (!$this->output) {
+    // Make sure we have rendered the data
+    if (empty($this->output)) {
       $this->compile();
+    }
+
+    // Assure the correct file extension
+    if ($filename) {
+      $this->setFilename($filename);
     }
 
     // Redirect output to a client’s web browser (Excel2007)
@@ -650,5 +656,34 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
     }
   }
 }
+
+/**
+ * Class XMLExporter
+ */
+class XMLExporter extends Exporter implements ExporterInterface {
+  public function compile() {
+    $data = $this->export_data->get();
+    $xml = new SimpleXMLElement('<data/>');
+    foreach ($data as $id => $data_set) {
+      $set = $xml->addChild('record');
+      $set->addAttribute('id', $id);
+      foreach ($data_set as $key => $value) {
+        $set->addChild($key, $value);
+      }
+    }
+    $this->output = $xml->asXML();
+  }
+}
+
+/**
+ * Class JSONExporter
+ */
+class JSONExporter extends Exporter implements ExporterInterface {
+  public function compile() {
+    $data = $this->export_data->get();
+    $this->output = json_encode($data);
+  }
+}
+
 
 /** @} */ //end of grouploft_data_grids loft_data_grids
