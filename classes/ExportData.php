@@ -53,6 +53,13 @@ interface ExportDataInterface {
   public function setPointer($index);
 
   /**
+   * Return the current pointer
+   *
+   * @return int
+   */
+  public function getPointer();
+
+  /**
    * Set the current page
    *
    * It's possible to store multiple pages or grids in one object, use this to
@@ -130,7 +137,24 @@ interface ExportDataInterface {
    *
    * @see ExportData::normalize()
    */
-  public function merge(ExportData $data, $empty_value);
+  public function merge(ExportDataInterface $data, $empty_value);
+
+  /**
+   * Find a value in the dataset of the current page
+   *
+   * @param mixed $value
+   * @param mixed $key
+   *   (Optional) Defaults to NULL.  Set this to constrain the search by key.
+   * @param int $results
+   *   (Optional) Defaults to 1. The number of results to return.  Enter 0 for no limit.
+   * @param int $direction
+   *   (Optional) Defaults to 0. 0 to search from beginning, 1 to search backward from end.
+   *
+   * @return array
+   *   - Keys are the pointers.
+   *   - Values are an array of fields in the current pointer
+   */
+  public function find($value, $key = NULL, $results = 1, $direction = 0);
 }
 
 /*
@@ -164,7 +188,7 @@ class ExportData implements ExportDataInterface {
   /**
    * Return the current record pointer for the current page
    */
-  protected function getPointer() {
+  public function getPointer() {
     $this->current_page;
     if (!isset($this->current_pointers[$this->current_page])) {
       $this->current_pointers[$this->current_page] = 0;
@@ -289,7 +313,7 @@ class ExportData implements ExportDataInterface {
     return $this;
   }
 
-  public function merge(ExportData $data, $empty_value) {
+  public function merge(ExportDataInterface $data, $empty_value) {
 
     // Normalize columns on incoming
     $this->normalize($empty_value);
@@ -305,5 +329,27 @@ class ExportData implements ExportDataInterface {
     $this->normalize($empty_value);
 
     return $this;
+  }
+
+  public function find($needle, $key = NULL, $results = 1, $direction = 0) {
+    $result_set = array();
+    $haystack = $this->getPage($this->current_page);
+    if ($direction = 1) {
+      $haystack = array_reverse($haystack, TRUE);
+    }
+    foreach ($haystack as $pointer => $row) {
+      $set = $row;
+      if ($key !== NULL) {
+        $set = array($key => $row[$key]);
+      }
+      if ($found = array_intersect($set, array($needle))) {
+        $result_set[$pointer] = $found;
+      }
+      if ($results && count($result_set) === $results) {
+        break;
+      }
+    }
+
+    return $result_set;
   }
 }

@@ -20,11 +20,11 @@ interface ExporterInterface {
   /**
    * Set the export data object
    *
-   * @param ExportData $data
+   * @param ExportDataInterface $data
    *
    * @return $this
    */
-  public function setData(ExportData $data);
+  public function setData(ExportDataInterface $data);
 
   /**
    * Set a title for the exported document
@@ -72,9 +72,9 @@ interface ExporterInterface {
   public function save($filename = '', $page_id = NULL);
 
   /**
-   * Return the ExportData object
+   * Return the ExportDataInterface object
    *
-   * @return ExportData
+   * @return ExportDataInterface
    */
   public function getData();
 
@@ -100,11 +100,11 @@ abstract class Exporter implements ExporterInterface {
 
   /**
    * Constructor
-   * @param ExportData $data
+   * @param ExportDataInterface $data
    * @param string $filename
    *   (Optional) Defaults to ''.
    */
-  public function __construct(ExportData $data, $filename = '') {
+  public function __construct(ExportDataInterface $data, $filename = '') {
     $this->setData($data);
     $this->setFilename($filename);
   }
@@ -200,7 +200,7 @@ abstract class Exporter implements ExporterInterface {
     return $header;
   }
 
-  public function setData(ExportData $data) {
+  public function setData(ExportDataInterface $data) {
     $this->export_data = $data;
     $data->normalize('');
 
@@ -279,12 +279,12 @@ class XLSXExporter extends Exporter implements ExporterInterface {
   /**
    * Constructor
    *
-   * @param ExportData $data
+   * @param ExportDataInterface $data
    * @param string $filename
    *   (Optional) Defaults to ''.
    * @param array $properties
    */
-  public function __construct(ExportData $data, $filename = '', $properties = array()) {
+  public function __construct(ExportDataInterface $data, $filename = '', $properties = array()) {
     parent::__construct($data, $filename);
     $this->output = FALSE;
     $this->excel = new PHPExcel();
@@ -494,7 +494,7 @@ class CSVExporter extends Exporter implements ExporterInterface {
   /**
    * Constructor
    */
-  public function __construct(ExportData $data, $filename = '') {
+  public function __construct(ExportDataInterface $data, $filename = '') {
     parent::__construct($data, $filename);
     $this->format = new stdClass;
     $this->format->bol    = '';
@@ -577,7 +577,7 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
   /**
    * Constructor
    */
-  public function __construct(ExportData $data, $filename = '') {
+  public function __construct(ExportDataInterface $data, $filename = '') {
     parent::__construct($data, $filename);
     $this->format = new stdClass;
     $this->format->cr     = "\n";
