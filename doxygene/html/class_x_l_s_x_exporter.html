@@ -59,7 +59,8 @@ Inheritance diagram for XLSXExporter:</div>
 </div>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#ab5ea0df3d52f01d651a37f46784a4197">__construct</a> (<a class="el" href="class_export_data.html">ExportData</a> $data, $filename= '', $properties=array())</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#ad7f780165fbe3d3576295be13e04e8e5">__construct</a> (<a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> $data, $filename= '', $properties=array())</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#a164026f74736817927e1cacd282a2e28">getInfo</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#ac1b79f5a16bd9e0216a6ac0969ff666e">setProperties</a> ($properties)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">compile</a> ($page_id=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#a5b8d2fbc01b6e091448f513bef7b621d">export</a> ($page_id=NULL)</td></tr>
@@ -73,14 +74,14 @@ Inheritance diagram for XLSXExporter:</div>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Class <a class="el" href="class_x_l_s_x_exporter.html">XLSXExporter</a> </p>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ab5ea0df3d52f01d651a37f46784a4197"></a><!-- doxytag: member="XLSXExporter::__construct" ref="ab5ea0df3d52f01d651a37f46784a4197" args="(ExportData $data, $filename= '', $properties=array())" -->
+<a class="anchor" id="ad7f780165fbe3d3576295be13e04e8e5"></a><!-- doxytag: member="XLSXExporter::__construct" ref="ad7f780165fbe3d3576295be13e04e8e5" args="(ExportDataInterface $data, $filename= '', $properties=array())" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">__construct </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_export_data.html">ExportData</a> $&nbsp;</td>
+          <td class="paramtype"><a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> $&nbsp;</td>
           <td class="paramname"> <em>data</em>, </td>
         </tr>
         <tr>
@@ -106,7 +107,7 @@ Inheritance diagram for XLSXExporter:</div>
 <p>Constructor</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="class_export_data.html">ExportData</a></em>&nbsp;</td><td>$data </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="interface_export_data_interface.html">ExportDataInterface</a></em>&nbsp;</td><td>$data </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>string</em>&nbsp;</td><td>$filename (Optional) Defaults to ''. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>array</em>&nbsp;</td><td>$properties </td></tr>
   </table>
@@ -194,6 +195,38 @@ Inheritance diagram for XLSXExporter:</div>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>$this </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a164026f74736817927e1cacd282a2e28"></a><!-- doxytag: member="XLSXExporter::getInfo" ref="a164026f74736817927e1cacd282a2e28" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getInfo </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return info about this class</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>type</em>&nbsp;</td><td>$string description</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array<ul>
+<li>name string The human name of this exporter</li>
+<li>descripttion string A further description</li>
+<li>extension string The file extension used by this class </li>
+</ul>
+</dd></dl>
+
+<p>Implements <a class="el" href="interface_exporter_interface.html#a164026f74736817927e1cacd282a2e28">ExporterInterface</a>.</p>
 
 </div>
 </div>
@@ -329,7 +362,7 @@ Inheritance diagram for XLSXExporter:</div>
 </iframe>
 </div>
 
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Aug 18 12:03:13 2013 for Loft Data Grids by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Fri Aug 30 18:24:17 2013 for Loft Data Grids by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

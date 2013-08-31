@@ -64,7 +64,7 @@ Inheritance diagram for ExporterInterface:</div>
 </div>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_exporter_interface.html#ad42ce2bfa444968dce408a9d81202853">setData</a> (<a class="el" href="class_export_data.html">ExportData</a> $data)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_exporter_interface.html#a6e13e5c380efa37d62f1d1719473b9ad">setData</a> (<a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> $data)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_exporter_interface.html#a884ba9bb0d54bde7839e798db7964476">setTitle</a> ($title)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_exporter_interface.html#ab441a5ddefb06b8324cc8e8a583295a9">setFilename</a> ($filename)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_exporter_interface.html#a2982abe8d7b767602a1485dfb4cf653d">getFilename</a> ()</td></tr>
@@ -72,6 +72,7 @@ Inheritance diagram for ExporterInterface:</div>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_exporter_interface.html#a21324fcf5d61fde9d0ff271a2d5cac5a">save</a> ($filename= '', $page_id=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_exporter_interface.html#a81a67162a6288d78fc4c55283325f0b4">getData</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_exporter_interface.html#a158235e0b768c738d0f7d4d7e6d62b83">getHeader</a> ($page_id=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_exporter_interface.html#a164026f74736817927e1cacd282a2e28">getInfo</a> ()</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Interface <a class="el" href="interface_exporter_interface.html">ExporterInterface</a> </p>
@@ -118,8 +119,8 @@ Inheritance diagram for ExporterInterface:</div>
       </table>
 </div>
 <div class="memdoc">
-<p>Return the <a class="el" href="class_export_data.html">ExportData</a> object</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="class_export_data.html">ExportData</a> </dd></dl>
+<p>Return the <a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> object</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="class_exporter.html#a81a67162a6288d78fc4c55283325f0b4">Exporter</a>.</p>
 
@@ -177,6 +178,38 @@ Inheritance diagram for ExporterInterface:</div>
 
 </div>
 </div>
+<a class="anchor" id="a164026f74736817927e1cacd282a2e28"></a><!-- doxytag: member="ExporterInterface::getInfo" ref="a164026f74736817927e1cacd282a2e28" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getInfo </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return info about this class</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>type</em>&nbsp;</td><td>$string description</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array<ul>
+<li>name string The human name of this exporter</li>
+<li>descripttion string A further description</li>
+<li>extension string The file extension used by this class </li>
+</ul>
+</dd></dl>
+
+<p>Implemented in <a class="el" href="class_exporter.html#a164026f74736817927e1cacd282a2e28">Exporter</a>, <a class="el" href="class_x_l_s_x_exporter.html#a164026f74736817927e1cacd282a2e28">XLSXExporter</a>, <a class="el" href="class_x_m_l_exporter.html#a164026f74736817927e1cacd282a2e28">XMLExporter</a>, <a class="el" href="class_j_s_o_n_exporter.html#a164026f74736817927e1cacd282a2e28">JSONExporter</a>, <a class="el" href="class_y_a_m_l_exporter.html#a164026f74736817927e1cacd282a2e28">YAMLExporter</a>, <a class="el" href="class_c_s_v_exporter.html#a164026f74736817927e1cacd282a2e28">CSVExporter</a>, and <a class="el" href="class_flat_text_exporter.html#a164026f74736817927e1cacd282a2e28">FlatTextExporter</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a21324fcf5d61fde9d0ff271a2d5cac5a"></a><!-- doxytag: member="ExporterInterface::save" ref="a21324fcf5d61fde9d0ff271a2d5cac5a" args="($filename= '', $page_id=NULL)" -->
 <div class="memitem">
 <div class="memproto">
@@ -214,14 +247,14 @@ Inheritance diagram for ExporterInterface:</div>
 
 </div>
 </div>
-<a class="anchor" id="ad42ce2bfa444968dce408a9d81202853"></a><!-- doxytag: member="ExporterInterface::setData" ref="ad42ce2bfa444968dce408a9d81202853" args="(ExportData $data)" -->
+<a class="anchor" id="a6e13e5c380efa37d62f1d1719473b9ad"></a><!-- doxytag: member="ExporterInterface::setData" ref="a6e13e5c380efa37d62f1d1719473b9ad" args="(ExportDataInterface $data)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">setData </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_export_data.html">ExportData</a> $&nbsp;</td>
+          <td class="paramtype"><a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> $&nbsp;</td>
           <td class="paramname"> <em>data</em></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
@@ -232,13 +265,13 @@ Inheritance diagram for ExporterInterface:</div>
 <p>Set the export data object</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="class_export_data.html">ExportData</a></em>&nbsp;</td><td>$data</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="interface_export_data_interface.html">ExportDataInterface</a></em>&nbsp;</td><td>$data</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>$this </dd></dl>
 
-<p>Implemented in <a class="el" href="class_exporter.html#ad42ce2bfa444968dce408a9d81202853">Exporter</a>.</p>
+<p>Implemented in <a class="el" href="class_exporter.html#a6e13e5c380efa37d62f1d1719473b9ad">Exporter</a>.</p>
 
 </div>
 </div>
@@ -310,7 +343,7 @@ Inheritance diagram for ExporterInterface:</div>
 </iframe>
 </div>
 
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Aug 18 12:03:13 2013 for Loft Data Grids by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Fri Aug 30 18:24:17 2013 for Loft Data Grids by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

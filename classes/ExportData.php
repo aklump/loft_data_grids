@@ -16,14 +16,22 @@ if (is_file(dirname(__FILE__) . '/../vendor/autoload.php')) {
 interface ExportDataInterface {
 
   /**
-   * Set the data key order
+   * Set the data key order for the current page
    *
-   * @param mixed $key
-   *   List individual keys in correct order as function arguments
+   * @param array|mixed $key
+   *   - If this is an array, it will be taken as the key order
+   *   - Or, you can list individual keys in correct order as function arguments
    *
    * @return $this
    */
   public function setKeys($key);
+
+  /**
+   * Return an array of all keys for current of specified page
+   *
+   * @return array
+   */
+  public function getKeys($page_id = NULL);
 
   /**
    * Add data to the current record
@@ -44,13 +52,15 @@ interface ExportDataInterface {
   public function next();
 
   /**
-   * Advance the record pointer to a given index
+   * Advance the record pointer to a given index or all the way to the end
    *
-   * @param int $index
+   * @param int|NULL $index
+   *   (Optional) Defaults to NULL. When NULL the pointer will move to the end
+       to begin a new row of data.
    *
    * @return $this
    */
-  public function setPointer($index);
+  public function setPointer($index = NULL);
 
   /**
    * Return the current pointer
@@ -72,7 +82,14 @@ interface ExportDataInterface {
   public function setPage($page_id);
 
   /**
-   * Set the page order
+   * Return an array of all page ids
+   *
+   * @return array
+   */
+  public function getAllPageIds();
+
+  /**
+   * Set the order the pages appear in the data array
    *
    * @param string $page_id
    *   Enter all page_ids in correct order as function arguments
@@ -99,6 +116,13 @@ interface ExportDataInterface {
    * @return array | mixed
    */
   public function getCurrent($key = NULL);
+
+  /**
+   * Get the current page id
+   *
+   * @return mixed
+   */
+  public function getCurrentPageId();
 
   /**
    * Return a single page of data
@@ -174,22 +198,52 @@ class ExportData implements ExportDataInterface {
    *   (Optional) Defaults to 0.
    */
   public function __construct($page_id = 0) {
-    if ($page_id !== 0) {
-      $this->setPage($page_id);
-    }
+    $this->setPage($page_id);
   }
 
   public function setKeys($key) {
-    $this->keys[$this->current_page] = func_get_args();
+    if (is_array($key)) {
+      $this->keys[$this->current_page] = $key;
+    }
+    else {
+      $this->keys[$this->current_page] = func_get_args();
+    }
+
+    // If we have data then we need to go through and modify the order
+    if (!empty($this->data[$this->current_page])) {
+      foreach ($this->data[$this->current_page] as $row => $data) {
+        $new_row = array();
+        foreach ($this->keys[$this->current_page] as $key) {
+          if (array_key_exists($key, $data)) {
+            $new_row[$key] = $data[$key];
+          }
+        }
+        $new_row += $data;
+        $this->data[$this->current_page][$row] = $new_row;
+      }
+    }
 
     return $this;
+  }
+
+  public function getKeys($page_id = NULL) {
+    if ($page_id === NULL) {
+      $page_id = $this->current_page;
+    }
+    $keys = array();
+    foreach ($this->data[$page_id] as $row) {
+      $keys += $row;
+    }
+    $keys = array_keys($keys);
+    $this->setKeys($keys);
+
+    return $keys;
   }
 
   /**
    * Return the current record pointer for the current page
    */
   public function getPointer() {
-    $this->current_page;
     if (!isset($this->current_pointers[$this->current_page])) {
       $this->current_pointers[$this->current_page] = 0;
     }
@@ -223,7 +277,10 @@ class ExportData implements ExportDataInterface {
     return $return;
   }
 
-  public function setPointer($index) {
+  public function setPointer($index = NULL) {
+    if ($index === NULL) {
+      $index = count($this->data[$this->current_page]);
+    }
     $this->current_pointers[$this->current_page] = $index;
 
     return $this;
@@ -233,6 +290,19 @@ class ExportData implements ExportDataInterface {
     $this->current_page = $page_id;
 
     return $this;
+  }
+
+  public function getCurrentPageId() {
+    return $this->current_page;
+  }
+
+  public function getAllPageIds() {
+    $ids = array_keys($this->get());
+    if (!in_array($this->current_page, $ids)) {
+      $ids[] = $this->current_page;
+    }
+
+    return $ids;
   }
 
   public function setPageOrder($page_id) {
@@ -252,9 +322,9 @@ class ExportData implements ExportDataInterface {
   }
 
   public function getCurrent($key = NULL) {
-    $current_pointers = $this->getPointer();
-    $data = isset($this->data[$this->current_page][$current_pointers])
-    ? $this->data[$this->current_page][$current_pointers]
+    $current_pointer = $this->getPointer();
+    $data = isset($this->data[$this->current_page][$current_pointer])
+    ? $this->data[$this->current_page][$current_pointer]
     : array();
     if ($key === NULL) {
       return $data;
@@ -268,13 +338,7 @@ class ExportData implements ExportDataInterface {
 
   public function normalize($empty_value) {
     foreach (array_keys($this->data) as $page_id) {
-      $columns = array();
-
-      // First discover all the columns
-      foreach ($this->data[$page_id] as $row) {
-        $columns += $row;
-      }
-      $columns = array_keys($columns);
+      $columns = $this->getKeys($page_id);
 
       // Now go through and add all columns
       $column_order = array();
@@ -309,10 +373,10 @@ class ExportData implements ExportDataInterface {
       }
     }
 
-
     return $this;
   }
 
+  //@todo write a test for merge
   public function merge(ExportDataInterface $data, $empty_value) {
 
     // Normalize columns on incoming
@@ -334,7 +398,7 @@ class ExportData implements ExportDataInterface {
   public function find($needle, $key = NULL, $results = 1, $direction = 0) {
     $result_set = array();
     $haystack = $this->getPage($this->current_page);
-    if ($direction = 1) {
+    if ($direction == 1) {
       $haystack = array_reverse($haystack, TRUE);
     }
     foreach ($haystack as $pointer => $row) {
