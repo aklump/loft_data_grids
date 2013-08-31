@@ -61,7 +61,8 @@ Inheritance diagram for CSVExporter:</div>
 </div>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_v_exporter.html#a0b5edf33206ada8654c3d0176eb5eaa2">__construct</a> (<a class="el" href="class_export_data.html">ExportData</a> $data, $filename= '')</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_v_exporter.html#a9358a74a6cc706cf8d40e71d110e8157">__construct</a> (<a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> $data, $filename= '')</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_v_exporter.html#a164026f74736817927e1cacd282a2e28">getInfo</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_v_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">compile</a> ($page_id=NULL)</td></tr>
 <tr><td colspan="2"><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_s_v_exporter.html#a294b397deccc55e2afc748af6774e019">collapseRow</a> ($row)</td></tr>
@@ -73,14 +74,14 @@ Inheritance diagram for CSVExporter:</div>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Class <a class="el" href="class_c_s_v_exporter.html">CSVExporter</a> </p>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a0b5edf33206ada8654c3d0176eb5eaa2"></a><!-- doxytag: member="CSVExporter::__construct" ref="a0b5edf33206ada8654c3d0176eb5eaa2" args="(ExportData $data, $filename= '')" -->
+<a class="anchor" id="a9358a74a6cc706cf8d40e71d110e8157"></a><!-- doxytag: member="CSVExporter::__construct" ref="a9358a74a6cc706cf8d40e71d110e8157" args="(ExportDataInterface $data, $filename= '')" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">__construct </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_export_data.html">ExportData</a> $&nbsp;</td>
+          <td class="paramtype"><a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> $&nbsp;</td>
           <td class="paramname"> <em>data</em>, </td>
         </tr>
         <tr>
@@ -99,9 +100,9 @@ Inheritance diagram for CSVExporter:</div>
 <div class="memdoc">
 <p>Constructor </p>
 
-<p>Reimplemented from <a class="el" href="class_exporter.html#a0b5edf33206ada8654c3d0176eb5eaa2">Exporter</a>.</p>
+<p>Reimplemented from <a class="el" href="class_exporter.html#a9358a74a6cc706cf8d40e71d110e8157">Exporter</a>.</p>
 
-<p>Reimplemented in <a class="el" href="class_flat_text_exporter.html#a0b5edf33206ada8654c3d0176eb5eaa2">FlatTextExporter</a>, and <a class="el" href="class_h_t_m_l_exporter.html#a0b5edf33206ada8654c3d0176eb5eaa2">HTMLExporter</a>.</p>
+<p>Reimplemented in <a class="el" href="class_flat_text_exporter.html#a9358a74a6cc706cf8d40e71d110e8157">FlatTextExporter</a>.</p>
 
 </div>
 </div>
@@ -146,6 +147,40 @@ Inheritance diagram for CSVExporter:</div>
 <p>Reimplemented from <a class="el" href="class_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">Exporter</a>.</p>
 
 <p>Reimplemented in <a class="el" href="class_flat_text_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">FlatTextExporter</a>, and <a class="el" href="class_h_t_m_l_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">HTMLExporter</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a164026f74736817927e1cacd282a2e28"></a><!-- doxytag: member="CSVExporter::getInfo" ref="a164026f74736817927e1cacd282a2e28" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getInfo </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return info about this class</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>type</em>&nbsp;</td><td>$string description</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array<ul>
+<li>name string The human name of this exporter</li>
+<li>descripttion string A further description</li>
+<li>extension string The file extension used by this class </li>
+</ul>
+</dd></dl>
+
+<p>Implements <a class="el" href="interface_exporter_interface.html#a164026f74736817927e1cacd282a2e28">ExporterInterface</a>.</p>
+
+<p>Reimplemented in <a class="el" href="class_flat_text_exporter.html#a164026f74736817927e1cacd282a2e28">FlatTextExporter</a>.</p>
 
 </div>
 </div>
@@ -213,7 +248,7 @@ Inheritance diagram for CSVExporter:</div>
 </iframe>
 </div>
 
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Aug 18 12:03:13 2013 for Loft Data Grids by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Fri Aug 30 18:24:17 2013 for Loft Data Grids by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

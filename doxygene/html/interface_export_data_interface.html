@@ -58,16 +58,21 @@ Inheritance diagram for ExportDataInterface:</div>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#a53b071ebc71cf6ea4379cacefe343337">setKeys</a> ($key)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#abee98d8a291eeab2f92747662ac4fed9">getKeys</a> ($page_id=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#ac65b58932a1a462e0a344545d775efaa">add</a> ($key, $value)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#acea62048bfee7b3cd80ed446c86fb78a">next</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#a45c255b163eb147182c3fbfa0f568364">setPointer</a> ($index)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#aa26366a2d9a4ab37217150f4d9a484c8">setPointer</a> ($index=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#af1df25980cf1c41f38a43fdc718c1516">getPointer</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#a5a5da4ca3716f85b6fd777985bc66cd3">setPage</a> ($page_id)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#a555652858e90bb51a0b32432853c78f1">getAllPageIds</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#a940d5145ff76d5d198cc0a7d7154ac64">setPageOrder</a> ($page_id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#ac33ee765f5ad9f134540bac393721cfe">get</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#a0e7fb9d0f7b4135301809366054f7225">getCurrent</a> ($key=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#a3bfe3452963b48e44edfe97354d74bb0">getCurrentPageId</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#a8aa60aad910d4f87f791ad3d9070bfa0">getPage</a> ($page_id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#a020473bc30af955bb2eb05f6a21aac8d">normalize</a> ($empty_value)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#a1c82203cd3df87f4fe334d425eb411d2">merge</a> (<a class="el" href="class_export_data.html">ExportData</a> $data, $empty_value)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#a17b26e50c03f96f83e452d2bb3c30334">merge</a> (<a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> $data, $empty_value)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_export_data_interface.html#a54140f43cd2156681639c5451a59a952">find</a> ($value, $key=NULL, $results=1, $direction=0)</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <p>Interface <a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> </p>
@@ -110,6 +115,62 @@ Inheritance diagram for ExportDataInterface:</div>
 
 </div>
 </div>
+<a class="anchor" id="a54140f43cd2156681639c5451a59a952"></a><!-- doxytag: member="ExportDataInterface::find" ref="a54140f43cd2156681639c5451a59a952" args="($value, $key=NULL, $results=1, $direction=0)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">find </td>
+          <td>(</td>
+          <td class="paramtype">$&nbsp;</td>
+          <td class="paramname"> <em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&nbsp;</td>
+          <td class="paramname"> <em>key</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&nbsp;</td>
+          <td class="paramname"> <em>results</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&nbsp;</td>
+          <td class="paramname"> <em>direction</em> = <code>0</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Find a value in the dataset of the current page</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>mixed</em>&nbsp;</td><td>$value </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>mixed</em>&nbsp;</td><td>$key (Optional) Defaults to NULL. Set this to constrain the search by key. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>int</em>&nbsp;</td><td>$results (Optional) Defaults to 1. The number of results to return. Enter 0 for no limit. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>int</em>&nbsp;</td><td>$direction (Optional) Defaults to 0. 0 to search from beginning, 1 to search backward from end.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array<ul>
+<li>Keys are the pointers.</li>
+<li>Values are an array of fields in the current pointer </li>
+</ul>
+</dd></dl>
+
+<p>Implemented in <a class="el" href="class_export_data.html#ae110ac39257915ca6aa453c9d7233b94">ExportData</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ac33ee765f5ad9f134540bac393721cfe"></a><!-- doxytag: member="ExportDataInterface::get" ref="ac33ee765f5ad9f134540bac393721cfe" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -128,6 +189,27 @@ Inheritance diagram for ExportDataInterface:</div>
 <dl class="return"><dt><b>Returns:</b></dt><dd>array </dd></dl>
 
 <p>Implemented in <a class="el" href="class_export_data.html#ac33ee765f5ad9f134540bac393721cfe">ExportData</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a555652858e90bb51a0b32432853c78f1"></a><!-- doxytag: member="ExportDataInterface::getAllPageIds" ref="a555652858e90bb51a0b32432853c78f1" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getAllPageIds </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return an array of all page ids</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array </dd></dl>
+
+<p>Implemented in <a class="el" href="class_export_data.html#a555652858e90bb51a0b32432853c78f1">ExportData</a>.</p>
 
 </div>
 </div>
@@ -159,6 +241,49 @@ Inheritance diagram for ExportDataInterface:</div>
 
 </div>
 </div>
+<a class="anchor" id="a3bfe3452963b48e44edfe97354d74bb0"></a><!-- doxytag: member="ExportDataInterface::getCurrentPageId" ref="a3bfe3452963b48e44edfe97354d74bb0" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getCurrentPageId </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get the current page id</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>mixed </dd></dl>
+
+<p>Implemented in <a class="el" href="class_export_data.html#a3bfe3452963b48e44edfe97354d74bb0">ExportData</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abee98d8a291eeab2f92747662ac4fed9"></a><!-- doxytag: member="ExportDataInterface::getKeys" ref="abee98d8a291eeab2f92747662ac4fed9" args="($page_id=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getKeys </td>
+          <td>(</td>
+          <td class="paramtype">$&nbsp;</td>
+          <td class="paramname"> <em>page_id</em> = <code>NULL</code></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return an array of all keys for current of specified page</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array </dd></dl>
+
+<p>Implemented in <a class="el" href="class_export_data.html#abee98d8a291eeab2f92747662ac4fed9">ExportData</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a8aa60aad910d4f87f791ad3d9070bfa0"></a><!-- doxytag: member="ExportDataInterface::getPage" ref="a8aa60aad910d4f87f791ad3d9070bfa0" args="($page_id)" -->
 <div class="memitem">
 <div class="memproto">
@@ -187,14 +312,35 @@ Inheritance diagram for ExportDataInterface:</div>
 
 </div>
 </div>
-<a class="anchor" id="a1c82203cd3df87f4fe334d425eb411d2"></a><!-- doxytag: member="ExportDataInterface::merge" ref="a1c82203cd3df87f4fe334d425eb411d2" args="(ExportData $data, $empty_value)" -->
+<a class="anchor" id="af1df25980cf1c41f38a43fdc718c1516"></a><!-- doxytag: member="ExportDataInterface::getPointer" ref="af1df25980cf1c41f38a43fdc718c1516" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getPointer </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return the current pointer</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>int </dd></dl>
+
+<p>Implemented in <a class="el" href="class_export_data.html#af1df25980cf1c41f38a43fdc718c1516">ExportData</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a17b26e50c03f96f83e452d2bb3c30334"></a><!-- doxytag: member="ExportDataInterface::merge" ref="a17b26e50c03f96f83e452d2bb3c30334" args="(ExportDataInterface $data, $empty_value)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">merge </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_export_data.html">ExportData</a> $&nbsp;</td>
+          <td class="paramtype"><a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> $&nbsp;</td>
           <td class="paramname"> <em>data</em>, </td>
         </tr>
         <tr>
@@ -292,10 +438,15 @@ Inheritance diagram for ExportDataInterface:</div>
       </table>
 </div>
 <div class="memdoc">
-<p>Set the data key order</p>
+<p>Set the data key order for the current page</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>mixed</em>&nbsp;</td><td>$key List individual keys in correct order as function arguments</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>array|mixed</em>&nbsp;</td><td>$key</p>
+<ul>
+<li>If this is an array, it will be taken as the key order</li>
+<li>Or, you can list individual keys in correct order as function arguments</li>
+</ul>
+</td></tr>
   </table>
   </dd>
 </dl>
@@ -349,7 +500,7 @@ Inheritance diagram for ExportDataInterface:</div>
       </table>
 </div>
 <div class="memdoc">
-<p>Set the page order</p>
+<p>Set the order the pages appear in the data array</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>string</em>&nbsp;</td><td>$page_id Enter all page_ids in correct order as function arguments</td></tr>
@@ -362,7 +513,7 @@ Inheritance diagram for ExportDataInterface:</div>
 
 </div>
 </div>
-<a class="anchor" id="a45c255b163eb147182c3fbfa0f568364"></a><!-- doxytag: member="ExportDataInterface::setPointer" ref="a45c255b163eb147182c3fbfa0f568364" args="($index)" -->
+<a class="anchor" id="aa26366a2d9a4ab37217150f4d9a484c8"></a><!-- doxytag: member="ExportDataInterface::setPointer" ref="aa26366a2d9a4ab37217150f4d9a484c8" args="($index=NULL)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -370,23 +521,23 @@ Inheritance diagram for ExportDataInterface:</div>
           <td class="memname">setPointer </td>
           <td>(</td>
           <td class="paramtype">$&nbsp;</td>
-          <td class="paramname"> <em>index</em></td>
+          <td class="paramname"> <em>index</em> = <code>NULL</code></td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Advance the record pointer to a given index</p>
+<p>Advance the record pointer to a given index or all the way to the end</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>int</em>&nbsp;</td><td>$index</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>int|NULL</em>&nbsp;</td><td>$index (Optional) Defaults to NULL. When NULL the pointer will move to the end to begin a new row of data.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>$this </dd></dl>
 
-<p>Implemented in <a class="el" href="class_export_data.html#a45c255b163eb147182c3fbfa0f568364">ExportData</a>.</p>
+<p>Implemented in <a class="el" href="class_export_data.html#aa26366a2d9a4ab37217150f4d9a484c8">ExportData</a>.</p>
 
 </div>
 </div>
@@ -408,7 +559,7 @@ Inheritance diagram for ExportDataInterface:</div>
 </iframe>
 </div>
 
-<hr size="1"/><address style="text-align: right;"><small>Generated on Sun Aug 18 12:03:13 2013 for Loft Data Grids by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Fri Aug 30 18:24:17 2013 for Loft Data Grids by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

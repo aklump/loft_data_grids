@@ -88,6 +88,19 @@ interface ExporterInterface {
    * - The keys of the header MUST match the keys of each row of data
    */
   public function getHeader($page_id = 0);
+
+  /**
+   * Return info about this class
+   *
+   * @param type $string
+   *   description
+   *
+   * @return array
+   *   - name string The human name of this exporter
+   *   - descripttion string A further description
+   *   - extension string The file extension used by this class
+   */
+  public function getInfo();
 }
 
 /**
@@ -100,6 +113,7 @@ abstract class Exporter implements ExporterInterface {
 
   /**
    * Constructor
+   *
    * @param ExportDataInterface $data
    * @param string $filename
    *   (Optional) Defaults to ''.
@@ -107,6 +121,15 @@ abstract class Exporter implements ExporterInterface {
   public function __construct(ExportDataInterface $data, $filename = '') {
     $this->setData($data);
     $this->setFilename($filename);
+  }
+
+  public function getInfo() {
+    return array(
+      'class' => get_class($this),
+      'name' => get_class($this),
+      'description' => get_class($this),
+      'extension' => $this->extension,
+    );
   }
 
   /**
@@ -186,8 +209,9 @@ abstract class Exporter implements ExporterInterface {
         $temp->next();
       }
     }
-
-    return $temp;
+    $this->setData($temp);
+    
+    return $this->export_data;
   }
 
   public function getHeader($page_id = 0) {
@@ -291,6 +315,16 @@ class XLSXExporter extends Exporter implements ExporterInterface {
     if ($properties) {
       $this->setProperties($properties);
     }
+  }
+
+  public function getInfo() {
+    $info = parent::getInfo();
+    $info = array(
+      'name' => 'Excel Format',
+      'description' => 'Export data in the .xlsx file format.',
+    ) + $info;
+
+    return $info;
   }
 
   /**
@@ -423,6 +457,16 @@ class XLSXExporter extends Exporter implements ExporterInterface {
 class XMLExporter extends Exporter implements ExporterInterface {
   protected $extension = '.xml';
 
+  public function getInfo() {
+    $info = parent::getInfo();
+    $info = array(
+      'name' => 'XML Format',
+      'description' => 'Export data in XML file format.',
+    ) + $info;
+
+    return $info;
+  }
+
   public function compile($page_id = NULL) {
     $data = $this->getData()->get();
     $xml = new SimpleXMLElement('<data/>');
@@ -459,6 +503,16 @@ class XMLExporter extends Exporter implements ExporterInterface {
 class JSONExporter extends Exporter implements ExporterInterface {
   protected $extension = '.json';
 
+  public function getInfo() {
+    $info = parent::getInfo();
+    $info = array(
+      'name' => 'JSON Format',
+      'description' => 'Export data in JSON file format. For more information visit: http://www.json.org.',
+    ) + $info;
+
+    return $info;
+  }
+
   public function compile($page_id = NULL) {
     $pages = $this->getData()->get();
     if ($page_id && array_key_exists($page_id, $pages)) {
@@ -473,6 +527,16 @@ class JSONExporter extends Exporter implements ExporterInterface {
  */
 class YAMLExporter extends Exporter implements ExporterInterface {
   protected $extension = '.yaml';
+
+  public function getInfo() {
+    $info = parent::getInfo();
+    $info = array(
+      'name' => 'YAML Format',
+      'description' => 'Export data in YAML file format. For more information visit: http://www.yaml.org.',
+    ) + $info;
+
+    return $info;
+  }
 
   public function compile($page_id = NULL) {
     $pages = $this->getData()->get();
@@ -504,6 +568,16 @@ class CSVExporter extends Exporter implements ExporterInterface {
     $this->format->sep    = ',';
     $this->format->escape = '"';
     $this->format->html   = FALSE;
+  }
+
+  public function getInfo() {
+    $info = parent::getInfo();
+    $info = array(
+      'name' => 'Comma Separated Values Format',
+      'description' => 'Export data in the .csv file format.  Fields are wrapped with double quotes, separated by commas.  Lines are separated by \r\n',
+    ) + $info;
+
+    return $info;
   }
 
   public function compile($page_id = NULL) {
@@ -590,6 +664,16 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
     $this->format->sep    = $this->format->vline;
     $this->format->escape = '';
     $this->format->html   = TRUE;
+  }
+
+  public function getInfo() {
+    $info = parent::getInfo();
+    $info = array(
+      'name' => 'Monospace Flatfile Text',
+      'description' => 'Export data in a plain-text format.  Columns and rows are drawn with text pipes and hyphens.  Best results when using monospaced fonts.',
+    ) + $info;
+
+    return $info;
   }
 
   public function compile($page_id = NULL) {
