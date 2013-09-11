@@ -1,17 +1,18 @@
 ## Summary
-This package is a lightweight means of working with data in a grid.  You can think of this as a lean spreadsheet with rows and columns.
+This package is a means of working with data in one or more grids in PHP.  You can think of this as a lean spreadsheet with rows and columns, and optionally, pages.
 
-It allows a single data class to be used to organize your data in a grid, with various output styles so you can easily get a `.csv` file or a `.xlsx` file.
+It allows a single data class `ExportData` to be used to organize your data in a grid, with various output styles `Exporter` so you can easily get a `.csv` file or a `.xlsx` file, among others.
 
 See the code for more documentation.
 
 
-## Excel (.xls) Support
-1. For `.xlsx` files you will need to grab PHPExcel
-2. This is easy using composer, just navigate to the root folder for loft_data_grids and type
+## Installation
+1. Please install necessary dependencies using [Composer](http://getcomposer.org/).
+2. Navigate to the root of this package and type: `composer install`      
 
-        composer install
 
+## Documentation
+1. Refer to the Doxygene documentation included in this package.
 
 ## Automated Tests
 1. Download a copy of [simpletest](http://simpletest.org/) to the `tests` directory
