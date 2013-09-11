@@ -112,6 +112,16 @@ abstract class Exporter implements ExporterInterface {
   protected $header = array();
 
   /**
+   * @var $dependencies
+   * You may check this public variable to see if any dependencies for this
+   * class are missing. If this is false it means a dependency is missing and
+   * the exporter cannot function properly. The way to do this is to instantiate
+   * the class and then immediately check this variable, before calling any
+   * other methods.
+   */
+  public $dependencies = TRUE;
+
+  /**
    * Constructor
    *
    * @param ExportDataInterface $data
@@ -311,7 +321,12 @@ class XLSXExporter extends Exporter implements ExporterInterface {
   public function __construct(ExportDataInterface $data, $filename = '', $properties = array()) {
     parent::__construct($data, $filename);
     $this->output = FALSE;
-    $this->excel = new PHPExcel();
+    if (!class_exists('PHPExcel')) {
+      $this->dependencies = FALSE;
+    }
+    else {
+      $this->excel = new PHPExcel();
+    }
     if ($properties) {
       $this->setProperties($properties);
     }
@@ -527,6 +542,13 @@ class JSONExporter extends Exporter implements ExporterInterface {
  */
 class YAMLExporter extends Exporter implements ExporterInterface {
   protected $extension = '.yaml';
+
+  public function __construct(ExportDataInterface $data, $filename = '') {
+    parent::__construct($data, $filename);
+    if (!class_exists('Symfony\Component\Yaml\Yaml')) {
+      $this->dependencies = FALSE;
+    }
+  }
 
   public function getInfo() {
     $info = parent::getInfo();
