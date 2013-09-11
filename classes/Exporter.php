@@ -210,7 +210,7 @@ abstract class Exporter implements ExporterInterface {
       }
     }
     $this->setData($temp);
-    
+
     return $this->export_data;
   }
 
@@ -573,7 +573,7 @@ class CSVExporter extends Exporter implements ExporterInterface {
   public function getInfo() {
     $info = parent::getInfo();
     $info = array(
-      'name' => 'Comma Separated Values Format',
+      'name' => 'Comma-separated Values Format',
       'description' => 'Export data in the .csv file format.  Fields are wrapped with double quotes, separated by commas.  Lines are separated by \r\n',
     ) + $info;
 
@@ -641,6 +641,39 @@ class CSVExporter extends Exporter implements ExporterInterface {
     return $output;
   }
 }
+
+/**
+ * Class TabTextExporter
+ */
+class TabTextExporter extends CSVExporter implements ExporterInterface {
+  protected $extension = '.txt';
+
+  /**
+   * Constructor
+   */
+  public function __construct(ExportDataInterface $data, $filename = '') {
+    parent::__construct($data, $filename);
+    $this->format = new stdClass;
+    $this->format->bol    = '';
+    $this->format->eol    = "\r\n";
+    $this->format->left   = '';
+    $this->format->right  = '';
+    $this->format->sep    = "\t";
+    $this->format->escape = '\\';
+    $this->format->html   = FALSE;
+  }
+
+  public function getInfo() {
+    $info = parent::getInfo();
+    $info = array(
+      'name' => 'Tab-delimited Text Format',
+      'description' => 'Export data in the .txt file format.  Fields separated with tabs.  Lines are separated by \r\n',
+    ) + $info;
+
+    return $info;
+  }
+}
+
 /**
  * Class FlatTextExporter
  */
