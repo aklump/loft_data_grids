@@ -538,6 +538,100 @@ class JSONExporter extends Exporter implements ExporterInterface {
 }
 
 /**
+ * Class MarkdownExporter
+ */
+class MarkdownExporter extends Exporter implements ExporterInterface {
+  protected $extension = '.md';
+
+  public function getInfo() {
+    $info = parent::getInfo();
+    $info = array(
+      'name' => 'Markdown',
+      'description' => 'Export data in Markdown file format. For more information visit: http://daringfireball.net/projects/markdown/.',
+    ) + $info;
+
+    return $info;
+  }
+
+  public function compile($page_id = NULL) {
+    $pages = $this->getData()->get();
+    $this->output = '';
+    $multi = count($pages) > 1 ? '#' : '';
+    $output  = '';
+    foreach ($pages as $page_id => $page) {
+      if ($multi) {
+        $output .= "{$multi}# Page " . ($page_id + 1) . "\n";
+      }
+      foreach ($page as $record_id => $record) {
+        $index = 1;
+        $output .= "{$multi}## Record " . ($record_id + 1) . "\n";
+        foreach ($record as $key => $value) {
+          $output .= $index++ . ". __{$key}__: {$value}\n";
+        }
+        $output .= "\n";
+      }
+      $output .= "\n";
+    }
+    $this->output = $output;
+  }
+}
+
+/**
+ * Class TextListExporter
+ */
+class TextListExporter extends Exporter implements ExporterInterface {
+  protected $extension = '.txt';
+
+  public $line_break  = '-';
+  public $separator   = '  ';
+  public $pad_char    = ' ';
+
+  public function getInfo() {
+    $info = parent::getInfo();
+    $info = array(
+      'name' => 'Plaintext List',
+      'description' => 'Export data in plaintext list file format.',
+    ) + $info;
+
+    return $info;
+  }
+
+  public function compile($page_id = NULL) {
+    $pages = $this->getData()->get();
+    $this->output = '';
+    $output  = '';
+    $longest_key = $longest_value = 0;
+
+    // Determine spacing
+    foreach ($pages as $page_id => $page) {
+      foreach ($page as $record) {
+        foreach ($record as $key => $value) {
+          $longest_key    = max($longest_key, strlen($key));
+          $longest_value  = max($longest_value, strlen($value));
+        }
+      }
+    }
+
+    // Apply spacing and build output
+    foreach ($pages as $page_id => $page) {
+      foreach ($page as $record) {
+        $output .= "<hr />\n";
+        foreach ($record as $key => $value) {
+          $output .= str_pad($key, $longest_key, $this->pad_char) . $this->separator . $value . "\n";
+        }
+        $output .= "\n";
+      }
+      $output .= "\n";
+    }
+
+    $line_break = str_repeat($this->line_break, $longest_key + strlen($this->separator) + $longest_value + 2);
+    $output = str_replace('<hr />', $line_break, $output);
+
+    $this->output = $output;
+  }
+}
+
+/**
  * Class YAMLExporter
  */
 class YAMLExporter extends Exporter implements ExporterInterface {
