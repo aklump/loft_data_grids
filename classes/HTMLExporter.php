@@ -102,6 +102,7 @@ table {
       }
       $this->output .= '</tbody>' . $this->format->cr;
 
+      $page_title = '';
       if (count($pages) > 1) {
         $page_title = '<caption>' . $page_id . '</caption>';
       }
