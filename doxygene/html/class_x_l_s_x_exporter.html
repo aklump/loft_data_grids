@@ -61,18 +61,22 @@ Inheritance diagram for XLSXExporter:</div>
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#ad7f780165fbe3d3576295be13e04e8e5">__construct</a> (<a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> $data, $filename= '', $properties=array())</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#a164026f74736817927e1cacd282a2e28">getInfo</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#a884ba9bb0d54bde7839e798db7964476">setTitle</a> ($title)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#ac1b79f5a16bd9e0216a6ac0969ff666e">setProperties</a> ($properties)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">compile</a> ($page_id=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#a522bfc5466273da36ddcb2c2b60e0da9">getProperty</a> ($property_name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#a5b8d2fbc01b6e091448f513bef7b621d">export</a> ($page_id=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">compile</a> ($page_id=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#a21324fcf5d61fde9d0ff271a2d5cac5a">save</a> ($filename= '', $page_id=NULL)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#ac0b82ef415896b7f1f1fdb290679725d">formatColumnNumberFormat</a> ($column, $format_code)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#ab476521895e38f093a459aee2017eaa2">formatColumn</a> ($column, $format_code)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#acd760a0fc1101ced40a02667f239844f">getPHPExcelColumns</a> ()</td></tr>
 <tr><td colspan="2"><h2>Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">$extension</a> = '.xlsx'</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#aa3d3eeb94f080f4d5da39e93ab5ded2a">$sheets</a> = array()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_x_l_s_x_exporter.html#acd6598663bd0d5306c73d89c1934e24d">$excel</a></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<p>Class <a class="el" href="class_x_l_s_x_exporter.html">XLSXExporter</a> </p>
+<p>Class <a class="el" href="class_x_l_s_x_exporter.html">XLSXExporter</a></p>
+<p><a href="http://www.phpexcel.net">http://www.phpexcel.net</a> </p>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad7f780165fbe3d3576295be13e04e8e5"></a><!-- doxytag: member="XLSXExporter::__construct" ref="ad7f780165fbe3d3576295be13e04e8e5" args="(ExportDataInterface $data, $filename= '', $properties=array())" -->
 <div class="memitem">
@@ -157,16 +161,16 @@ Inheritance diagram for XLSXExporter:</div>
 <p>Returns the PHPExcel object</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>PHPExcel </dd></dl>
 
-<p>Implements <a class="el" href="interface_exporter_interface.html#a5b8d2fbc01b6e091448f513bef7b621d">ExporterInterface</a>.</p>
+<p>Reimplemented from <a class="el" href="class_exporter.html#a5b8d2fbc01b6e091448f513bef7b621d">Exporter</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ac0b82ef415896b7f1f1fdb290679725d"></a><!-- doxytag: member="XLSXExporter::formatColumnNumberFormat" ref="ac0b82ef415896b7f1f1fdb290679725d" args="($column, $format_code)" -->
+<a class="anchor" id="ab476521895e38f093a459aee2017eaa2"></a><!-- doxytag: member="XLSXExporter::formatColumn" ref="ab476521895e38f093a459aee2017eaa2" args="($column, $format_code)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">formatColumnNumberFormat </td>
+          <td class="memname">formatColumn </td>
           <td>(</td>
           <td class="paramtype">$&nbsp;</td>
           <td class="paramname"> <em>column</em>, </td>
@@ -190,11 +194,17 @@ Inheritance diagram for XLSXExporter:</div>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>string</em>&nbsp;</td><td>$column </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>string</em>&nbsp;</td><td>$format_code</td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>string</em>&nbsp;</td><td>$format_code</p>
+<ul>
+<li>USD OR PHPExcel_Style_NumberFormat::setFormatCode()</li>
+</ul>
+</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>$this </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_exporter.html#ab476521895e38f093a459aee2017eaa2">Exporter</a>.</p>
 
 </div>
 </div>
@@ -226,7 +236,58 @@ Inheritance diagram for XLSXExporter:</div>
 </ul>
 </dd></dl>
 
-<p>Implements <a class="el" href="interface_exporter_interface.html#a164026f74736817927e1cacd282a2e28">ExporterInterface</a>.</p>
+<p>Reimplemented from <a class="el" href="class_exporter.html#a164026f74736817927e1cacd282a2e28">Exporter</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acd760a0fc1101ced40a02667f239844f"></a><!-- doxytag: member="XLSXExporter::getPHPExcelColumns" ref="acd760a0fc1101ced40a02667f239844f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getPHPExcelColumns </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Convert a column key into an excel column, e.g. A, AB, etc.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>string</em>&nbsp;</td><td>$column</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>string </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a522bfc5466273da36ddcb2c2b60e0da9"></a><!-- doxytag: member="XLSXExporter::getProperty" ref="a522bfc5466273da36ddcb2c2b60e0da9" args="($property_name)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getProperty </td>
+          <td>(</td>
+          <td class="paramtype">$&nbsp;</td>
+          <td class="paramname"> <em>property_name</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return the value of a single property or NULL</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>string</em>&nbsp;</td><td>$property_name e.g. Creator</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>mixed </dd></dl>
 
 </div>
 </div>
@@ -263,7 +324,7 @@ Inheritance diagram for XLSXExporter:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="interface_exporter_interface.html#a21324fcf5d61fde9d0ff271a2d5cac5a">ExporterInterface</a>.</p>
+<p>Reimplemented from <a class="el" href="class_exporter.html#a21324fcf5d61fde9d0ff271a2d5cac5a">Exporter</a>.</p>
 
 </div>
 </div>
@@ -287,9 +348,9 @@ Inheritance diagram for XLSXExporter:</div>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>array</em>&nbsp;</td><td>$properties</p>
 <ul>
+<li>Title</li>
 <li>Creator</li>
 <li>LastModifiedBy</li>
-<li>Title</li>
 <li>Description</li>
 <li>Keywords</li>
 <li>Category</li>
@@ -299,6 +360,28 @@ Inheritance diagram for XLSXExporter:</div>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>$this </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a884ba9bb0d54bde7839e798db7964476"></a><!-- doxytag: member="XLSXExporter::setTitle" ref="a884ba9bb0d54bde7839e798db7964476" args="($title)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">setTitle </td>
+          <td>(</td>
+          <td class="paramtype">$&nbsp;</td>
+          <td class="paramname"> <em>title</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Set a title for the exported document</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>$this </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_exporter.html#a884ba9bb0d54bde7839e798db7964476">Exporter</a>.</p>
 
 </div>
 </div>
@@ -345,7 +428,7 @@ Inheritance diagram for XLSXExporter:</div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="_exporter_8php.html">Exporter.php</a></li>
+<li><a class="el" href="_x_l_s_x_exporter_8php.html">XLSXExporter.php</a></li>
 </ul>
 </div>
 <!--- window showing the filter options -->
@@ -362,7 +445,7 @@ Inheritance diagram for XLSXExporter:</div>
 </iframe>
 </div>
 
-<hr size="1"/><address style="text-align: right;"><small>Generated on Wed Sep 11 16:21:59 2013 for Loft Data Grids by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Fri Jan 17 20:40:34 2014 for Loft Data Grids by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

@@ -6,11 +6,11 @@
  * @ingroup ExportData
  * @{
  */
-
+namespace AKlump\LoftDataGrids;
+require_once '../vendor/autoload.php';
 require_once(dirname(__FILE__) . '/simpletest/autorun.php');
-require_once(dirname(__FILE__) . '/../classes/Exporter.php');
 
-class ExportDataTests extends UnitTestCase {
+class ExportDataTests extends \UnitTestCase {
 
   public function testConstruct() {
     /**
@@ -90,7 +90,7 @@ class ExportDataTests extends UnitTestCase {
     // The test and result
     $object = new ExportData;
     $return = $object->add('eyes', 'blue');
-    $result = is_object($return) && is_a($return, 'ExportData');
+    $result = is_object($return) && is_a($return, 'AKlump\LoftDataGrids\ExportData');
     $this->assertTrue($result, "Assert the add method returns the object", $_control_group);
 
     // Assert the pointer did not advance after adding on value
@@ -119,7 +119,7 @@ class ExportDataTests extends UnitTestCase {
   }
 
   public function testInputOutput() {
-    $this->control = new stdClass;
+    $this->control = new \stdClass;
     $this->control->page = 'sheet1';
     $this->control->data = array(
       array(
