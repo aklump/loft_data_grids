@@ -99,6 +99,7 @@ interface ExporterInterface {
    *
    * @return array
    *   - name string The human name of this exporter
+   *   - shortname string A more concise human name for ui elements like option lists
    *   - descripttion string A further description
    *   - extension string The file extension used by this class
    */

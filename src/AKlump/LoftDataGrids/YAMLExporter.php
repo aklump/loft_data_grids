@@ -9,15 +9,13 @@ class YAMLExporter extends Exporter implements ExporterInterface {
 
   public function __construct(ExportDataInterface $data, $filename = '') {
     parent::__construct($data, $filename);
-    if (!class_exists('Symfony\Component\Yaml\Yaml')) {
-      $this->dependencies = FALSE;
-    }
   }
 
   public function getInfo() {
     $info = parent::getInfo();
     $info = array(
       'name' => 'YAML Format',
+      'shortname' => 'YAML', 
       'description' => 'Export data in YAML file format. For more information visit: http://www.yaml.org.',
     ) + $info;
 

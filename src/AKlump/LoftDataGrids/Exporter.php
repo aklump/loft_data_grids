@@ -10,16 +10,6 @@ abstract class Exporter implements ExporterInterface {
   protected $header = array();
 
   /**
-   * @var $dependencies
-   * You may check this public variable to see if any dependencies for this
-   * class are missing. If this is false it means a dependency is missing and
-   * the exporter cannot function properly. The way to do this is to instantiate
-   * the class and then immediately check this variable, before calling any
-   * other methods.
-   */
-  public $dependencies = TRUE;
-
-  /**
    * Constructor
    *
    * @param ExportDataInterface $data

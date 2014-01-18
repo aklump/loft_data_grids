@@ -15,6 +15,7 @@ class TextListExporter extends Exporter implements ExporterInterface {
     $info = parent::getInfo();
     $info = array(
       'name' => 'Plaintext List',
+      'shortname' => 'List', 
       'description' => 'Export data in plaintext list file format.',
     ) + $info;
 

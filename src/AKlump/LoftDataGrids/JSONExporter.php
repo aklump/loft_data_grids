@@ -11,6 +11,7 @@ class JSONExporter extends Exporter implements ExporterInterface {
     $info = parent::getInfo();
     $info = array(
       'name' => 'JSON Format',
+      'shortname' => 'JSON', 
       'description' => 'Export data in JSON file format. For more information visit: http://www.json.org.',
     ) + $info;
 

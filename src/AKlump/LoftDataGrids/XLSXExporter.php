@@ -28,12 +28,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
   public function __construct(ExportDataInterface $data, $filename = '', $properties = array()) {
     parent::__construct($data, $filename);
     $this->output = FALSE;
-    if (!class_exists('PHPExcel')) {
-      $this->dependencies = FALSE;
-    }
-    else {
-      $this->excel = new \PHPExcel();
-    }
+    $this->excel = new \PHPExcel();
     if ($properties) {
       $this->setProperties($properties);
     }
@@ -43,6 +38,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
     $info = parent::getInfo();
     $info = array(
       'name' => 'Excel Format',
+      'shortname' => 'Excel', 
       'description' => 'Export data in the .xlsx file format.',
     ) + $info;
 

@@ -26,6 +26,7 @@ class TabTextExporter extends CSVExporter implements ExporterInterface {
     $info = parent::getInfo();
     $info = array(
       'name' => 'Tab-delimited Text Format',
+      'shortname' => 'Tabbed Text', 
       'description' => 'Export data in the .txt file format.  Fields separated with tabs.  Lines are separated by \r\n',
     ) + $info;
 
