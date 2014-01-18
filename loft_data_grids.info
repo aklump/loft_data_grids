@@ -2,3 +2,4 @@ name = "Loft Data Grids"
 description = "PHP Classes to allow data placement in a grid structure and exporting in various data formats."
 version = 0.4.2
 author = Aaron Klump <sourcecode@intheloftstudios.com>
+homepage = http://www.intheloftstudios.com/packages/php/loft_data_grids

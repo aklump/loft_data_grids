@@ -1,8 +1,11 @@
 <?php
 namespace AKlump\LoftDataGrids;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class YAMLExporter
+ *
+ * http://symfony.com/doc/current/components/yaml/introduction.html
  */
 class YAMLExporter extends Exporter implements ExporterInterface {
   protected $extension = '.yaml';
