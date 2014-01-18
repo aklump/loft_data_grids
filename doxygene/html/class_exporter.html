@@ -51,15 +51,17 @@ Inheritance diagram for Exporter:</div>
  <div class="center">
   <img src="class_exporter.gif" usemap="#Exporter_map" alt=""/>
   <map id="Exporter_map" name="Exporter_map">
-<area href="interface_exporter_interface.html" alt="ExporterInterface" shape="rect" coords="360,0,470,24"/>
-<area href="class_c_s_v_exporter.html" alt="CSVExporter" shape="rect" coords="120,112,230,136"/>
-<area href="class_j_s_o_n_exporter.html" alt="JSONExporter" shape="rect" coords="240,112,350,136"/>
-<area href="class_x_l_s_x_exporter.html" alt="XLSXExporter" shape="rect" coords="360,112,470,136"/>
-<area href="class_x_m_l_exporter.html" alt="XMLExporter" shape="rect" coords="480,112,590,136"/>
-<area href="class_y_a_m_l_exporter.html" alt="YAMLExporter" shape="rect" coords="600,112,710,136"/>
-<area href="class_flat_text_exporter.html" alt="FlatTextExporter" shape="rect" coords="0,168,110,192"/>
-<area href="class_h_t_m_l_exporter.html" alt="HTMLExporter" shape="rect" coords="120,168,230,192"/>
-<area href="class_tab_text_exporter.html" alt="TabTextExporter" shape="rect" coords="240,168,350,192"/>
+<area href="interface_exporter_interface.html" alt="ExporterInterface" shape="rect" coords="516,0,635,24"/>
+<area href="class_c_s_v_exporter.html" alt="CSVExporter" shape="rect" coords="129,112,248,136"/>
+<area href="class_j_s_o_n_exporter.html" alt="JSONExporter" shape="rect" coords="258,112,377,136"/>
+<area href="class_markdown_exporter.html" alt="MarkdownExporter" shape="rect" coords="387,112,506,136"/>
+<area href="class_text_list_exporter.html" alt="TextListExporter" shape="rect" coords="516,112,635,136"/>
+<area href="class_x_l_s_x_exporter.html" alt="XLSXExporter" shape="rect" coords="645,112,764,136"/>
+<area href="class_x_m_l_exporter.html" alt="XMLExporter" shape="rect" coords="774,112,893,136"/>
+<area href="class_y_a_m_l_exporter.html" alt="YAMLExporter" shape="rect" coords="903,112,1022,136"/>
+<area href="class_flat_text_exporter.html" alt="FlatTextExporter" shape="rect" coords="0,168,119,192"/>
+<area href="class_h_t_m_l_exporter.html" alt="HTMLExporter" shape="rect" coords="129,168,248,192"/>
+<area href="class_tab_text_exporter.html" alt="TabTextExporter" shape="rect" coords="258,168,377,192"/>
 </map>
  </div>
 </div>
@@ -69,10 +71,12 @@ Inheritance diagram for Exporter:</div>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_exporter.html#a164026f74736817927e1cacd282a2e28">getInfo</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_exporter.html#ab441a5ddefb06b8324cc8e8a583295a9">setFilename</a> ($filename)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_exporter.html#a884ba9bb0d54bde7839e798db7964476">setTitle</a> ($title)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_exporter.html#a95e859a4588a39a1824b717378a84c29">getTitle</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_exporter.html#a2982abe8d7b767602a1485dfb4cf653d">getFilename</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_exporter.html#a81a67162a6288d78fc4c55283325f0b4">getData</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_exporter.html#a158235e0b768c738d0f7d4d7e6d62b83">getHeader</a> ($page_id=0)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_exporter.html#a6e13e5c380efa37d62f1d1719473b9ad">setData</a> (<a class="el" href="interface_export_data_interface.html">ExportDataInterface</a> $data)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_exporter.html#ab476521895e38f093a459aee2017eaa2">formatColumn</a> ($column, $format_code)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">compile</a> ($page_id=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_exporter.html#a5b8d2fbc01b6e091448f513bef7b621d">export</a> ($page_id=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_exporter.html#a21324fcf5d61fde9d0ff271a2d5cac5a">save</a> ($filename= '', $page_id=NULL)</td></tr>
@@ -124,7 +128,7 @@ Inheritance diagram for Exporter:</div>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="class_y_a_m_l_exporter.html#a9358a74a6cc706cf8d40e71d110e8157">YAMLExporter</a>, <a class="el" href="class_c_s_v_exporter.html#a9358a74a6cc706cf8d40e71d110e8157">CSVExporter</a>, <a class="el" href="class_tab_text_exporter.html#a9358a74a6cc706cf8d40e71d110e8157">TabTextExporter</a>, and <a class="el" href="class_flat_text_exporter.html#a9358a74a6cc706cf8d40e71d110e8157">FlatTextExporter</a>.</p>
+<p>Reimplemented in <a class="el" href="class_c_s_v_exporter.html#a9358a74a6cc706cf8d40e71d110e8157">CSVExporter</a>, <a class="el" href="class_flat_text_exporter.html#a9358a74a6cc706cf8d40e71d110e8157">FlatTextExporter</a>, <a class="el" href="class_tab_text_exporter.html#a9358a74a6cc706cf8d40e71d110e8157">TabTextExporter</a>, and <a class="el" href="class_y_a_m_l_exporter.html#a9358a74a6cc706cf8d40e71d110e8157">YAMLExporter</a>.</p>
 
 </div>
 </div>
@@ -147,7 +151,7 @@ Inheritance diagram for Exporter:</div>
 <p>Build $this-&gt;output in prep for export/save</p>
 <p>This is the main method to be extended for the different exporters </p>
 
-<p>Reimplemented in <a class="el" href="class_x_l_s_x_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">XLSXExporter</a>, <a class="el" href="class_x_m_l_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">XMLExporter</a>, <a class="el" href="class_j_s_o_n_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">JSONExporter</a>, <a class="el" href="class_y_a_m_l_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">YAMLExporter</a>, <a class="el" href="class_c_s_v_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">CSVExporter</a>, <a class="el" href="class_flat_text_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">FlatTextExporter</a>, and <a class="el" href="class_h_t_m_l_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">HTMLExporter</a>.</p>
+<p>Reimplemented in <a class="el" href="class_c_s_v_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">CSVExporter</a>, <a class="el" href="class_flat_text_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">FlatTextExporter</a>, <a class="el" href="class_h_t_m_l_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">HTMLExporter</a>, <a class="el" href="class_j_s_o_n_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">JSONExporter</a>, <a class="el" href="class_markdown_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">MarkdownExporter</a>, <a class="el" href="class_text_list_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">TextListExporter</a>, <a class="el" href="class_x_l_s_x_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">XLSXExporter</a>, <a class="el" href="class_x_m_l_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">XMLExporter</a>, and <a class="el" href="class_y_a_m_l_exporter.html#adb5c3d683b4f3d7b1e1b1e351d2d38b9">YAMLExporter</a>.</p>
 
 </div>
 </div>
@@ -226,6 +230,50 @@ Inheritance diagram for Exporter:</div>
 
 </div>
 </div>
+<a class="anchor" id="ab476521895e38f093a459aee2017eaa2"></a><!-- doxytag: member="Exporter::formatColumn" ref="ab476521895e38f093a459aee2017eaa2" args="($column, $format_code)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">formatColumn </td>
+          <td>(</td>
+          <td class="paramtype">$&nbsp;</td>
+          <td class="paramname"> <em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&nbsp;</td>
+          <td class="paramname"> <em>format_code</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Format a single column with format by string</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>string</em>&nbsp;</td><td>$column </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>string</em>&nbsp;</td><td>$format_code</p>
+<ul>
+<li>USD</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>$this </dd></dl>
+
+<p>Implements <a class="el" href="interface_exporter_interface.html#ab476521895e38f093a459aee2017eaa2">ExporterInterface</a>.</p>
+
+<p>Reimplemented in <a class="el" href="class_x_l_s_x_exporter.html#ab476521895e38f093a459aee2017eaa2">XLSXExporter</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a81a67162a6288d78fc4c55283325f0b4"></a><!-- doxytag: member="Exporter::getData" ref="a81a67162a6288d78fc4c55283325f0b4" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -283,7 +331,7 @@ Inheritance diagram for Exporter:</div>
       </table>
 </div>
 <div class="memdoc">
-<p>Return an array containing the header values for a page</p>
+<p>Return an array containing the header row values for a page</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>mixed</em>&nbsp;</td><td>$page_id (Optional) Defaults to 0.</td></tr>
@@ -329,7 +377,26 @@ Inheritance diagram for Exporter:</div>
 
 <p>Implements <a class="el" href="interface_exporter_interface.html#a164026f74736817927e1cacd282a2e28">ExporterInterface</a>.</p>
 
-<p>Reimplemented in <a class="el" href="class_x_l_s_x_exporter.html#a164026f74736817927e1cacd282a2e28">XLSXExporter</a>, <a class="el" href="class_x_m_l_exporter.html#a164026f74736817927e1cacd282a2e28">XMLExporter</a>, <a class="el" href="class_j_s_o_n_exporter.html#a164026f74736817927e1cacd282a2e28">JSONExporter</a>, <a class="el" href="class_y_a_m_l_exporter.html#a164026f74736817927e1cacd282a2e28">YAMLExporter</a>, <a class="el" href="class_c_s_v_exporter.html#a164026f74736817927e1cacd282a2e28">CSVExporter</a>, <a class="el" href="class_tab_text_exporter.html#a164026f74736817927e1cacd282a2e28">TabTextExporter</a>, and <a class="el" href="class_flat_text_exporter.html#a164026f74736817927e1cacd282a2e28">FlatTextExporter</a>.</p>
+<p>Reimplemented in <a class="el" href="class_c_s_v_exporter.html#a164026f74736817927e1cacd282a2e28">CSVExporter</a>, <a class="el" href="class_flat_text_exporter.html#a164026f74736817927e1cacd282a2e28">FlatTextExporter</a>, <a class="el" href="class_j_s_o_n_exporter.html#a164026f74736817927e1cacd282a2e28">JSONExporter</a>, <a class="el" href="class_markdown_exporter.html#a164026f74736817927e1cacd282a2e28">MarkdownExporter</a>, <a class="el" href="class_tab_text_exporter.html#a164026f74736817927e1cacd282a2e28">TabTextExporter</a>, <a class="el" href="class_text_list_exporter.html#a164026f74736817927e1cacd282a2e28">TextListExporter</a>, <a class="el" href="class_x_l_s_x_exporter.html#a164026f74736817927e1cacd282a2e28">XLSXExporter</a>, <a class="el" href="class_x_m_l_exporter.html#a164026f74736817927e1cacd282a2e28">XMLExporter</a>, and <a class="el" href="class_y_a_m_l_exporter.html#a164026f74736817927e1cacd282a2e28">YAMLExporter</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a95e859a4588a39a1824b717378a84c29"></a><!-- doxytag: member="Exporter::getTitle" ref="a95e859a4588a39a1824b717378a84c29" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getTitle </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Implements <a class="el" href="interface_exporter_interface.html#a95e859a4588a39a1824b717378a84c29">ExporterInterface</a>.</p>
 
 </div>
 </div>
@@ -448,6 +515,8 @@ Inheritance diagram for Exporter:</div>
 
 <p>Implements <a class="el" href="interface_exporter_interface.html#a884ba9bb0d54bde7839e798db7964476">ExporterInterface</a>.</p>
 
+<p>Reimplemented in <a class="el" href="class_x_l_s_x_exporter.html#a884ba9bb0d54bde7839e798db7964476">XLSXExporter</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Field Documentation</h2>
@@ -489,7 +558,7 @@ Inheritance diagram for Exporter:</div>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="class_x_l_s_x_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">XLSXExporter</a>, <a class="el" href="class_x_m_l_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">XMLExporter</a>, <a class="el" href="class_j_s_o_n_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">JSONExporter</a>, <a class="el" href="class_y_a_m_l_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">YAMLExporter</a>, <a class="el" href="class_c_s_v_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">CSVExporter</a>, <a class="el" href="class_tab_text_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">TabTextExporter</a>, <a class="el" href="class_flat_text_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">FlatTextExporter</a>, and <a class="el" href="class_h_t_m_l_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">HTMLExporter</a>.</p>
+<p>Reimplemented in <a class="el" href="class_c_s_v_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">CSVExporter</a>, <a class="el" href="class_flat_text_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">FlatTextExporter</a>, <a class="el" href="class_h_t_m_l_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">HTMLExporter</a>, <a class="el" href="class_j_s_o_n_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">JSONExporter</a>, <a class="el" href="class_markdown_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">MarkdownExporter</a>, <a class="el" href="class_tab_text_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">TabTextExporter</a>, <a class="el" href="class_text_list_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">TextListExporter</a>, <a class="el" href="class_x_l_s_x_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">XLSXExporter</a>, <a class="el" href="class_x_m_l_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">XMLExporter</a>, and <a class="el" href="class_y_a_m_l_exporter.html#aed02cd2cd0ee08bd99a2ac1ef4f955ce">YAMLExporter</a>.</p>
 
 </div>
 </div>
@@ -563,7 +632,7 @@ Inheritance diagram for Exporter:</div>
 </iframe>
 </div>
 
-<hr size="1"/><address style="text-align: right;"><small>Generated on Wed Sep 11 16:21:59 2013 for Loft Data Grids by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Fri Jan 17 20:40:34 2014 for Loft Data Grids by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

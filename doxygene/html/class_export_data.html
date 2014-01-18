@@ -58,6 +58,10 @@ Inheritance diagram for ExportData:</div>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td colspan="2"><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_export_data.html#a36b6f91005e8ffd0f18b6939f3bb96e1">__construct</a> ($page_id=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_export_data.html#a36511ba057e7eb4c7168164f18cd57b6">setLocations</a> ($locations)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_export_data.html#a2feb6a618c4295a80a59e8e21083bef5">getLocations</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_export_data.html#a1737a4ce69a4f8848386a2229fbf9ca7">storeLocation</a> ($location_id)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_export_data.html#a3b05aae37407eb21d09da6bc54d27b11">gotoLocation</a> ($location_id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_export_data.html#a53b071ebc71cf6ea4379cacefe343337">setKeys</a> ($key)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_export_data.html#abee98d8a291eeab2f92747662ac4fed9">getKeys</a> ($page_id=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_export_data.html#af1df25980cf1c41f38a43fdc718c1516">getPointer</a> ()</td></tr>
@@ -79,6 +83,7 @@ Inheritance diagram for ExportData:</div>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_export_data.html#af20635b6c08e03bfee9e3fc036fa80f3">$keys</a> = array()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_export_data.html#af5e5973cc2502d9aeb2465689709f15a">$current_pointers</a> = array()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_export_data.html#a8ed60f12a4d49a92cadd596fd881b904">$current_page</a> = 0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_export_data.html#ad6ba91f5c932dec6e72487c45999806b">$locations</a> = array()</td></tr>
 </table>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a36b6f91005e8ffd0f18b6939f3bb96e1"></a><!-- doxytag: member="ExportData::__construct" ref="a36b6f91005e8ffd0f18b6939f3bb96e1" args="($page_id=0)" -->
@@ -131,7 +136,7 @@ Inheritance diagram for ExportData:</div>
       </table>
 </div>
 <div class="memdoc">
-<p>Add data to the current record</p>
+<p>Add (or Set) data to the current record</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>string</em>&nbsp;</td><td>$key </td></tr>
@@ -314,6 +319,35 @@ Inheritance diagram for ExportData:</div>
 
 </div>
 </div>
+<a class="anchor" id="a2feb6a618c4295a80a59e8e21083bef5"></a><!-- doxytag: member="ExportData::getLocations" ref="a2feb6a618c4295a80a59e8e21083bef5" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getLocations </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return an array of location data keyed by location_id</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array<ul>
+<li>keys are location_ids</li>
+<li>values: arrays<ul>
+<li>pointers</li>
+<li>page </li>
+</ul>
+</li>
+</ul>
+</dd></dl>
+
+<p>Implements <a class="el" href="interface_export_data_interface.html#a2feb6a618c4295a80a59e8e21083bef5">ExportDataInterface</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a8aa60aad910d4f87f791ad3d9070bfa0"></a><!-- doxytag: member="ExportData::getPage" ref="a8aa60aad910d4f87f791ad3d9070bfa0" args="($page_id)" -->
 <div class="memitem">
 <div class="memproto">
@@ -359,6 +393,34 @@ Inheritance diagram for ExportData:</div>
 <p>Return the current record pointer for the current page </p>
 
 <p>Implements <a class="el" href="interface_export_data_interface.html#af1df25980cf1c41f38a43fdc718c1516">ExportDataInterface</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3b05aae37407eb21d09da6bc54d27b11"></a><!-- doxytag: member="ExportData::gotoLocation" ref="a3b05aae37407eb21d09da6bc54d27b11" args="($location_id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gotoLocation </td>
+          <td>(</td>
+          <td class="paramtype">$&nbsp;</td>
+          <td class="paramname"> <em>location_id</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Goto to a stored location</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>string</em>&nbsp;</td><td>$location_id A unique key or preset id to remember this location by. If nothing has been stored using this id, nothing happens.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>$this </dd></dl>
+
+<p>Implements <a class="el" href="interface_export_data_interface.html#a3b05aae37407eb21d09da6bc54d27b11">ExportDataInterface</a>.</p>
 
 </div>
 </div>
@@ -471,6 +533,28 @@ Inheritance diagram for ExportData:</div>
 
 </div>
 </div>
+<a class="anchor" id="a36511ba057e7eb4c7168164f18cd57b6"></a><!-- doxytag: member="ExportData::setLocations" ref="a36511ba057e7eb4c7168164f18cd57b6" args="($locations)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">setLocations </td>
+          <td>(</td>
+          <td class="paramtype">$&nbsp;</td>
+          <td class="paramname"> <em>locations</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Set locations using a formatted array.</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_export_data.html#a2feb6a618c4295a80a59e8e21083bef5">getLocations()</a> for formatting. </dd></dl>
+
+<p>Implements <a class="el" href="interface_export_data_interface.html#a36511ba057e7eb4c7168164f18cd57b6">ExportDataInterface</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a5a5da4ca3716f85b6fd777985bc66cd3"></a><!-- doxytag: member="ExportData::setPage" ref="a5a5da4ca3716f85b6fd777985bc66cd3" args="($page_id)" -->
 <div class="memitem">
 <div class="memproto">
@@ -556,6 +640,34 @@ Inheritance diagram for ExportData:</div>
 
 </div>
 </div>
+<a class="anchor" id="a1737a4ce69a4f8848386a2229fbf9ca7"></a><!-- doxytag: member="ExportData::storeLocation" ref="a1737a4ce69a4f8848386a2229fbf9ca7" args="($location_id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">storeLocation </td>
+          <td>(</td>
+          <td class="paramtype">$&nbsp;</td>
+          <td class="paramname"> <em>location_id</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Store the current page and pointer location for later resuming</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>string</em>&nbsp;</td><td>$location_id A unique key or preset id to remember this location by.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>$this </dd></dl>
+
+<p>Implements <a class="el" href="interface_export_data_interface.html#a1737a4ce69a4f8848386a2229fbf9ca7">ExportDataInterface</a>.</p>
+
+</div>
+</div>
 <hr/><h2>Field Documentation</h2>
 <a class="anchor" id="a8ed60f12a4d49a92cadd596fd881b904"></a><!-- doxytag: member="ExportData::$current_page" ref="a8ed60f12a4d49a92cadd596fd881b904" args="" -->
 <div class="memitem">
@@ -609,6 +721,19 @@ Inheritance diagram for ExportData:</div>
 
 </div>
 </div>
+<a class="anchor" id="ad6ba91f5c932dec6e72487c45999806b"></a><!-- doxytag: member="ExportData::$locations" ref="ad6ba91f5c932dec6e72487c45999806b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$locations = array()<code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_export_data_8php.html">ExportData.php</a></li>
 </ul>
@@ -627,7 +752,7 @@ Inheritance diagram for ExportData:</div>
 </iframe>
 </div>
 
-<hr size="1"/><address style="text-align: right;"><small>Generated on Wed Sep 11 16:21:59 2013 for Loft Data Grids by&nbsp;
+<hr size="1"/><address style="text-align: right;"><small>Generated on Fri Jan 17 20:40:34 2014 for Loft Data Grids by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
 </body>

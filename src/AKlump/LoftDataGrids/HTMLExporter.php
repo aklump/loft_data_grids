@@ -1,14 +1,5 @@
 <?php
-/**
- * @file
- * Exporter Class
- *
- * @ingroup loft_data_grids
- * @{
- */
-if (is_file(dirname(__FILE__) . '/../vendor/autoload.php')) {
-  require_once dirname(__FILE__) . '/../vendor/autoload.php';
-}
+namespace AKlump\LoftDataGrids;
 
 /**
  * Class HTMLExporter
@@ -22,7 +13,7 @@ class HTMLExporter extends CSVExporter implements ExporterInterface {
    */
   public function __construct(ExportData $data, $filename = '') {
     parent::__construct($data, $filename);
-    $this->format = new stdClass;
+    $this->format = new \stdClass;
     $this->format->bol      = "<tr>";
     $this->format->cr       = "\n";
     $this->format->eol      = "</tr>" . $this->format->cr;
