@@ -30,6 +30,7 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
     $info = parent::getInfo();
     $info = array(
       'name' => 'Monospace Flatfile Text',
+      'shortname' => 'Flat Text', 
       'description' => 'Export data in a plain-text format.  Columns and rows are drawn with text pipes and hyphens.  Best results when using monospaced fonts.',
     ) + $info;
 

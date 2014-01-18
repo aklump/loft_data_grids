@@ -28,6 +28,7 @@ class CSVExporter extends Exporter implements ExporterInterface {
     $info = parent::getInfo();
     $info = array(
       'name' => 'Comma-separated Values Format',
+      'shortname' => 'CSV', 
       'description' => 'Export data in the .csv file format.  Fields are wrapped with double quotes, separated by commas.  Lines are separated by \r\n',
     ) + $info;
 

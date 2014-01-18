@@ -11,6 +11,7 @@ class MarkdownExporter extends Exporter implements ExporterInterface {
     $info = parent::getInfo();
     $info = array(
       'name' => 'Markdown',
+      'shortname' => 'Markdown',
       'description' => 'Export data in Markdown file format. For more information visit: http://daringfireball.net/projects/markdown/.',
     ) + $info;
 

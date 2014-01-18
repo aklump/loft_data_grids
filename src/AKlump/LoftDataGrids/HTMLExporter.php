@@ -8,6 +8,17 @@ class HTMLExporter extends CSVExporter implements ExporterInterface {
   protected $extension = '.html';
   public $format;
 
+  public function getInfo() {
+    $info = parent::getInfo();
+    $info = array(
+      'name' => 'HTML Format',
+      'shortname' => 'HTML', 
+      'description' => 'Export data in the .html file format.',
+    ) + $info;
+
+    return $info;
+  }  
+
   /**
    * Constructor
    */

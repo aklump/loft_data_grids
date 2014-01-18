@@ -11,6 +11,7 @@ class XMLExporter extends Exporter implements ExporterInterface {
     $info = parent::getInfo();
     $info = array(
       'name' => 'XML Format',
+      'shortname' => 'XML', 
       'description' => 'Export data in XML file format.',
     ) + $info;
 
