@@ -196,8 +196,38 @@ class ExportData implements ExportDataInterface {
     return array_key_exists($key, $data) ? $data[$key] : NULL;
   }
 
+  public function deletePage($page_id) {
+    unset($this->data[$page_id]);
+    unset($this->keys[$page_id]);
+    unset($this->current_pointers[$page_id]);
+
+    // Reset the current page if it was on the deleted page
+    if ($this->current_page == $page_id) {
+      $this->current_page = reset($this->getAllPageIds());
+    }
+
+    // Remove locations pointing to it
+    foreach ($this->locations as $location_id => $stored) {
+      if ($stored['page'] == $page_id) {
+        unset($this->locations[$location_id]);
+      }
+      unset($this->locations[$location_id]['pointers'][$page_id]);
+    }
+
+    return $this;
+  }
+
   public function getPage($page_id) {
     return isset($this->data[$page_id]) ? $this->data[$page_id] : array();
+  }
+
+  public function getPageData($page_id) {
+    $clone = clone $this;
+    foreach ($clone->getAllPageIds() as $page_id) {
+      $clone->deletePage($page_id);
+    }
+    
+    return $clone;
   }
 
   public function normalize($empty_value) {
