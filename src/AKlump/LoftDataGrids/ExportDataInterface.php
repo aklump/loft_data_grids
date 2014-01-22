@@ -162,6 +162,24 @@ interface ExportDataInterface {
   public function getPage($page_id);
 
   /**
+   * Return a single page as an ExportData object
+   *
+   * @param  mixed $page_id
+   *
+   * @return ExportDataInterface
+   */
+  public function getPageData($page_id);
+
+  /**
+   * Delete a single page from the object
+   *
+   * @param  mixed $page_id
+   *
+   * @return $this
+   */
+  public function deletePage($page_id);
+
+  /**
    * Normalize all rows so that they all contain the same number of columns, the
    * column order will be taken from the order of the first column
    *
