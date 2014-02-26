@@ -178,7 +178,9 @@ abstract class Exporter implements ExporterInterface {
    *
    * This is the main method to be extended for the different exporters
    */
-  abstract public function compile($page_id = NULL);
+  public function compile($page_id = NULL) {
+    // Extend this method and build $this->output
+  }
 
   public function export($page_id = NULL) {
     $this->compile($page_id);

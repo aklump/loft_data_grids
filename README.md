@@ -5,6 +5,9 @@ It allows a single data class `ExportData` to be used to organize your data in a
 
 See the code for more documentation.
 
+## Requirements
+1. \>= Php 5.3.0
+
 ## Installation
 1. Please install necessary dependencies using [Composer](http://getcomposer.org/).
 2. Navigate to the root of this package and type: `composer install`      
