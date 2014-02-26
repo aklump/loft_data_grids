@@ -54,6 +54,14 @@ interface ExporterInterface {
   public function getFilename();
 
   /**
+   * Build the string content of $this->output
+   *
+   * @param mixed $page_id
+   *   (Optional) Defaults to NULL.  Set this to only compile a single page.
+   */
+  public function compile($page_id = NULL);
+
+  /**
    * Export data as a string
    *
    * @param mixed $page_id
