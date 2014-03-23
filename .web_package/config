@@ -1,0 +1,9 @@
+template = false
+master = "master"
+develop = "develop"
+remote = origin
+create_tags = patch
+push_tags = auto
+push_master = auto
+push_develop = auto
+micro_prefix = .

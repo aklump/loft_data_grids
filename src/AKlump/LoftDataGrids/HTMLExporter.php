@@ -105,7 +105,7 @@ table {
       $this->output .= '</tbody>' . $this->format->cr;
 
       $page_title = '';
-      if (count($pages) > 1) {
+      if (count($pages) > 1 && $this->getShowPageIds()) {
         $page_title = '<caption>' . $page_id . '</caption>';
       }
       $tables[] = '<table>' . $page_title . $this->format->cr . $this->output . '</table>' . $this->format->cr;

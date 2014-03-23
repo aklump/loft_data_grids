@@ -7,6 +7,32 @@ namespace AKlump\LoftDataGrids;
 interface ExporterInterface {
 
   /**
+   * Set the exporter to display page ids.
+   *
+   * It's up to the class to respect this setting or not.
+   *
+   * @return $this
+   */
+  public function showPageIds();
+  
+  /**
+   * Set the exporter to hide page ids.
+   *
+   * It's up to the class to respect this setting or not.
+   *
+   * @return $this
+   */
+  public function hidePageIds();
+
+
+  /**
+   * Return the showPageIds.
+   *
+   * @return bool
+   */
+  public function getShowPageIds();
+  
+  /**
    * Format a single column with format by string
    *
    * @param string $column
