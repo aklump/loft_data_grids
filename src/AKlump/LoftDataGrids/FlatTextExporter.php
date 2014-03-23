@@ -24,6 +24,7 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
     $this->format->sep    = $this->format->vline;
     $this->format->escape = '';
     $this->format->html   = TRUE;
+    $this->hidePageIds();
   }
 
   public function getInfo() {
@@ -44,6 +45,9 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
       $pages = array($pages[$page_id]);
     }
     foreach ($pages as $page_id => $data) {
+      if ($this->getShowPageIds()) {
+        $this->output .= '-- ' . strtoupper($page_id) . ' --' . $this->format->cr;
+      }      
       $header = $this->getHeader($page_id);
       foreach ($header as $key => $title) {
         $header[$key] = strtoupper($title);
@@ -87,4 +91,53 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
       }
     }
   }
+
+  /**
+   * Collapse a row
+   */
+  protected function collapseRow($row) {
+    $output = '';
+
+    // Check if we're dealing with a simple or complex row
+    if (isset($row['data'])) {
+      foreach ($row as $key => $value) {
+        if ($key == 'data') {
+          $cells = $value;
+        }
+      }
+    }
+    else {
+      $cells = $row;
+    }
+    $output = array();
+    if (count($cells)) {
+      foreach ($cells as $cell) {
+        //compress a complex cell
+        if (is_array($cell)) {
+          $cell = isset($cell['data']) ? $cell['data'] : '';
+        }
+
+        if (!$this->format->html) {
+          $cell = strip_tags($cell);
+        }
+
+        // Escape chars that conflice with delimiters
+        if (!empty($this->format->escape)) {
+          $escapeables = array($this->format->left, $this->format->right);
+          $escapeables = array_filter(array_unique($escapeables));
+          foreach ($escapeables as $find) {
+            $cell = str_replace($find, $this->format->escape . $find, $cell);
+          }
+        }
+
+        // A cell cannot contain line breaks so we replace them
+        $cell = preg_replace('/\r\n|\r|\n/', '; ', $cell);
+
+        $output[] = $this->format->left . $cell . $this->format->right;
+      }
+    }
+    $output = $this->format->bol . implode($this->format->sep, $output) . $this->format->eol;
+
+    return $output;
+  }  
 }

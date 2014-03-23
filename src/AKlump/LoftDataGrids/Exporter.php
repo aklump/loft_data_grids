@@ -9,6 +9,10 @@ abstract class Exporter implements ExporterInterface {
   protected $export_data, $title, $filename, $extension, $output;
   protected $header = array();
 
+  protected $data = array(
+    'showPageIds' => TRUE,
+  );
+  
   /**
    * Constructor
    *
@@ -226,5 +230,21 @@ abstract class Exporter implements ExporterInterface {
     // Send contents
     print $this->output;
     exit();
+  }
+
+  public function showPageIds() {
+    $this->data['showPageIds'] = TRUE;
+  
+    return $this;
+  }
+  
+  public function hidePageIds() {
+    $this->data['showPageIds'] = FALSE;
+  
+    return $this;
+  }
+
+  public function getShowPageIds() {
+    return $this->data['showPageIds'];
   }
 }

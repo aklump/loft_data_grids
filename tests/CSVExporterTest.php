@@ -8,7 +8,7 @@
  */
 
 namespace AKlump\LoftDataGrids;
-require_once '../vendor/autoload.php';
+require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
 class CSVExporterTest extends \PHPUnit_Framework_TestCase {
 
