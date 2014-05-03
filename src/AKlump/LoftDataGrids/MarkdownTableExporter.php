@@ -85,6 +85,8 @@ class MarkdownTableExporter extends FlatTextExporter implements ExporterInterfac
           $header = TRUE;
         }
       }
+
+      $this->output .= $this->format->cr;
     }
   }
 }
