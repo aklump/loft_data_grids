@@ -5,7 +5,7 @@ namespace AKlump\LoftDataGrids;
  * Class FlatTextExporter
  */
 class MarkdownTableExporter extends FlatTextExporter implements ExporterInterface {
-  protected $extension = '.txt';
+  protected $extension = '.md';
   protected $format;
 
   /**
