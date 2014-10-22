@@ -146,6 +146,36 @@ interface ExportDataInterface {
   public function getCurrent($key = NULL);
 
   /**
+   * Return the value of a single column, single row by key.
+   *
+   * Note this is identical to self::getCurrent($key) however more intuitively
+   * named, so it makes more sense.
+   *
+   * @param  string $key
+   *
+   * @return mixed
+   */
+  public function getValue($key);
+
+  /**
+   * Returns the row count of the current page.
+   *
+   * @return int
+   */
+  public function getCount();
+
+  /**
+   * Returns all rows of the current page keyed by pointer.
+   *
+   * Note this is functionally the same as self::getPage($current_page),
+   * however, it doesn't require knowning the page id and it is more
+   * intuitively named.
+   *
+   * @return array
+   */
+  public function getRows();
+
+  /**
    * Get the current page id
    *
    * @return mixed
