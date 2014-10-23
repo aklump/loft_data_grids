@@ -20,8 +20,10 @@ abstract class Exporter implements ExporterInterface {
    * @param string $filename
    *   (Optional) Defaults to ''.
    */
-  public function __construct(ExportDataInterface $data, $filename = '') {
-    $this->setData($data);
+  public function __construct(ExportDataInterface $data = NULL, $filename = '') {
+    if (isset($data)) {
+      $this->setData($data);
+    }
     $this->setFilename($filename);
   }
 

@@ -10,7 +10,7 @@ use Symfony\Component\Yaml\Yaml;
 class YAMLExporter extends Exporter implements ExporterInterface {
   protected $extension = '.yml';
 
-  public function __construct(ExportDataInterface $data, $filename = '') {
+  public function __construct(ExportDataInterface $data = NULL, $filename = '') {
     parent::__construct($data, $filename);
   }
 

@@ -120,7 +120,32 @@ class ExportData implements ExportDataInterface {
     if (!isset($this->hiddenKeys[$this->current_page])) {
       $this->hiddenKeys[$this->current_page] = array();
     }
-    $this->hiddenKeys[$this->current_page] += array_combine($keys, $keys);
+    if ($keys) {
+      $this->hiddenKeys[$this->current_page] += array_combine($keys, $keys);
+    }
+
+    return $this;
+  }
+
+  public function showKeys() {
+    $keys = func_get_args();
+
+    // Boolean values sets all keys.
+    if (count($keys) === 1 && is_bool($keys[0])) {
+
+      // This is important, as it resets our property.
+      if ($keys[0] === TRUE) {
+        $this->hiddenKeys[$this->current_page] = array();
+      }
+      $keys = $keys[0] ? array() : $this->getKeys();
+    }
+
+    if (!isset($this->hiddenKeys[$this->current_page])) {
+      $this->hiddenKeys[$this->current_page] = array();
+    }
+    if ($keys) {
+      $this->hiddenKeys[$this->current_page] = array_diff($this->hiddenKeys[$this->current_page], $keys);
+    }
 
     return $this;
   }
@@ -273,16 +298,24 @@ class ExportData implements ExportDataInterface {
     return $this;
   }
 
-  public function getPage($page_id) {
+  public function getPage($page_id = NULL) {
+    if (!isset($page_id)) {
+      $page_id = $this->current_page;
+    }
     $data = $this->get();
 
     return isset($data[$page_id]) ? $data[$page_id] : array();
   }
 
-  public function getPageData($page_id) {
+  public function getPageData($page_id = NULL) {
+    if (!isset($page_id)) {
+      $page_id = $this->current_page;
+    }    
     $clone = clone $this;
-    foreach ($clone->getAllPageIds() as $page_id) {
-      $clone->deletePage($page_id);
+    foreach ($clone->getAllPageIds() as $id) {
+      if ($id != $page_id) {
+        $clone->deletePage($id);
+      }
     }
     
     return $clone;
