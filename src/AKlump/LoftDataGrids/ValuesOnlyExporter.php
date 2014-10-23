@@ -6,13 +6,14 @@ namespace AKlump\LoftDataGrids;
  */
 class ValuesOnlyExporter extends Exporter implements ExporterInterface {
 
+  public $extension = '.txt';
   public $format;
 
-  public function __construct(ExportDataInterface $data, $filename = '') {
+  public function __construct(ExportDataInterface $data = NULL, $filename = '') {
     parent::__construct($data, $filename);
     $this->format = new \stdClass;
     $this->format->eol    = "\r\n";
-    $this->format->sep    = "\t";
+    $this->format->sep    = "\\";
   }
 
   public function getInfo() {
