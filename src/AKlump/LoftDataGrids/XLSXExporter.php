@@ -25,7 +25,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
    *   (Optional) Defaults to ''.
    * @param array $properties
    */
-  public function __construct(ExportDataInterface $data, $filename = '', $properties = array()) {
+  public function __construct(ExportDataInterface $data = NULL, $filename = '', $properties = array()) {
     parent::__construct($data, $filename);
     $this->output = FALSE;
     $this->excel = new \PHPExcel();

@@ -11,7 +11,7 @@ class MarkdownTableExporter extends FlatTextExporter implements ExporterInterfac
   /**
    * Constructor
    */
-  public function __construct(ExportDataInterface $data, $filename = '') {
+  public function __construct(ExportDataInterface $data = NULL, $filename = '') {
     parent::__construct($data, $filename);
     $this->format = new \stdClass;
     $this->format->cr     = "\n";

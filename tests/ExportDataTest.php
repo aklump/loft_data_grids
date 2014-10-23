@@ -12,6 +12,51 @@ require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
 class ExportDataTest extends \PHPUnit_Framework_TestCase {
 
+  public function testShowKeys() {
+    $obj = $this->obj;
+    $obj->setPage(0);    
+    $control = array (
+      0 =>
+      array (
+        0 => array(),
+        1 => array(),
+        2 => array(),
+      ),
+      1 =>
+      array (
+        0 =>
+        array (
+          'Color' => 'Black',
+          'Make' => 'Subaru',
+        ),
+        1 =>
+        array (
+          'Color' => 'White',
+          'Make' => 'Hyundai',
+        ),
+      ),
+    );
+    $obj->hideKeys(TRUE);
+    $this->assertSame($control, $obj->get());
+
+    $return = $obj->showKeys('Age')->getPage();
+    $control = array (
+      0 =>
+      array (
+        'Age' => 39,
+      ),
+      1 =>
+      array (
+        'Age' => 37,
+      ),
+      2 =>
+      array (
+        'Age' => 7,
+      ),
+    );
+    $this->assertSame($control, $return);
+  }
+
   public function testHideKeys() {
     $obj = $this->obj;
     $obj->setPage(0);

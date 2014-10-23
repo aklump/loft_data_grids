@@ -11,7 +11,7 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
   /**
    * Constructor
    */
-  public function __construct(ExportDataInterface $data, $filename = '') {
+  public function __construct(ExportDataInterface $data = NULL, $filename = '') {
     parent::__construct($data, $filename);
     $this->format = new \stdClass;
     $this->format->cr     = "\n";

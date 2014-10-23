@@ -75,6 +75,18 @@ interface ExportDataInterface {
    * @return $this
    */
   public function hideKeys();
+
+  /**
+   * Inverse of hideKeys.
+   *
+   * To hide all but one column (key) you would do this:
+   * @code
+   *   $obj->hideKeys(TRUE)->showKeys('Column1')->getPage();
+   * @endcode
+   *
+   * @return [type] [description]
+   */
+  public function showKeys();
   
   /**
    * Add (or Set) data to the current record
@@ -200,20 +212,20 @@ interface ExportDataInterface {
   /**
    * Return a single page of data
    *
-   * @param mixed $page_id
+   * @param mixed $page_id Optional, ommitted the current page will be used.
    *
    * @return array
    */
-  public function getPage($page_id);
+  public function getPage($page_id = NULL);
 
   /**
    * Return a single page as an ExportData object
    *
-   * @param  mixed $page_id
+   * @param mixed $page_id Optional, ommitted the current page will be used.
    *
    * @return ExportDataInterface
    */
-  public function getPageData($page_id);
+  public function getPageData($page_id = NULL);
 
   /**
    * Delete a single page from the object
