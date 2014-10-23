@@ -11,6 +11,7 @@ class ExportData implements ExportDataInterface {
   protected $current_pointers = array();
   protected $current_page = 0;
   protected $locations = array();
+  protected $hiddenKeys = array();
 
   /**
    * Constructor
@@ -103,6 +104,27 @@ class ExportData implements ExportDataInterface {
     return $keys;
   }
 
+  public function hideKeys() {
+    $keys = func_get_args();
+
+    // Boolean values sets all keys.
+    if (count($keys) === 1 && is_bool($keys[0])) {
+
+      // This is important, as it resets our property.
+      if ($keys[0] === FALSE) {
+        $this->hiddenKeys[$this->current_page] = array();
+      }
+      $keys = $keys[0] ? $this->getKeys() : array();
+    }
+
+    if (!isset($this->hiddenKeys[$this->current_page])) {
+      $this->hiddenKeys[$this->current_page] = array();
+    }
+    $this->hiddenKeys[$this->current_page] += array_combine($keys, $keys);
+
+    return $this;
+  }
+
   /**
    * Return the current record pointer for the current page
    */
@@ -181,7 +203,28 @@ class ExportData implements ExportDataInterface {
   }
 
   public function get() {
-    return $this->data;
+    $return = $this->data;
+
+    if ($this->hiddenKeys !== array()) {
+      foreach ($return as $page_id => $page) {
+        
+        // Jump to next page if there are none hidden here.
+        if ($this->hiddenKeys[$page_id] === array()) {
+          continue;
+        }
+
+        foreach ($page as $pointer => $record) {
+          foreach ($record as $key => $value) {
+            if (isset($this->hiddenKeys[$page_id])
+              && in_array($key, $this->hiddenKeys[$page_id])) {
+              unset($return[$page_id][$pointer][$key]);
+            }
+          }
+        }
+      }
+    }
+
+    return $return;
   }
 
   public function getValue($key) {
@@ -198,8 +241,9 @@ class ExportData implements ExportDataInterface {
 
   public function getCurrent($key = NULL) {
     $current_pointer = $this->getPointer();
-    $data = isset($this->data[$this->current_page][$current_pointer])
-    ? $this->data[$this->current_page][$current_pointer]
+    $data = $this->get();
+    $data = isset($data[$this->current_page][$current_pointer])
+    ? $data[$this->current_page][$current_pointer]
     : array();
     if ($key === NULL) {
       return $data;
@@ -230,7 +274,9 @@ class ExportData implements ExportDataInterface {
   }
 
   public function getPage($page_id) {
-    return isset($this->data[$page_id]) ? $this->data[$page_id] : array();
+    $data = $this->get();
+
+    return isset($data[$page_id]) ? $data[$page_id] : array();
   }
 
   public function getPageData($page_id) {

@@ -12,6 +12,140 @@ require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
 class ExportDataTest extends \PHPUnit_Framework_TestCase {
 
+  public function testHideKeys() {
+    $obj = $this->obj;
+    $obj->setPage(0);
+
+    $control = array (
+      0 =>
+      array (
+        0 =>
+        array (
+          'Name' => 'Aaron',
+          'Age' => 39,
+        ),
+        1 =>
+        array (
+          'Name' => 'Hillary',
+          'Age' => 37,
+        ),
+        2 =>
+        array (
+          'Name' => 'Maia',
+          'Age' => 7,
+        ),
+      ),
+      1 =>
+      array (
+        0 =>
+        array (
+          'Color' => 'Black',
+          'Make' => 'Subaru',
+        ),
+        1 =>
+        array (
+          'Color' => 'White',
+          'Make' => 'Hyundai',
+        ),
+      ),
+    );
+    $this->assertSame($control, $obj->get());
+
+    $return = $obj->hideKeys('Name');
+    $this->assertInstanceOf('AKlump\LoftDataGrids\ExportData', $return);
+    $control = array (
+      0 =>
+      array (
+        0 =>
+        array (
+          'Age' => 39,
+        ),
+        1 =>
+        array (
+          'Age' => 37,
+        ),
+        2 =>
+        array (
+          'Age' => 7,
+        ),
+      ),
+      1 =>
+      array (
+        0 =>
+        array (
+          'Color' => 'Black',
+          'Make' => 'Subaru',
+        ),
+        1 =>
+        array (
+          'Color' => 'White',
+          'Make' => 'Hyundai',
+        ),
+      ),
+    );
+    $this->assertSame($control, $obj->get());
+
+    $control = array (
+      0 =>
+      array (
+        0 => array(),
+        1 => array(),
+        2 => array(),
+      ),
+      1 =>
+      array (
+        0 =>
+        array (
+          'Color' => 'Black',
+          'Make' => 'Subaru',
+        ),
+        1 =>
+        array (
+          'Color' => 'White',
+          'Make' => 'Hyundai',
+        ),
+      ),
+    );
+    $obj->hideKeys(TRUE);
+    $this->assertSame($control, $obj->get());
+
+    $control = array (
+      0 =>
+      array (
+        0 =>
+        array (
+          'Name' => 'Aaron',
+          'Age' => 39,
+        ),
+        1 =>
+        array (
+          'Name' => 'Hillary',
+          'Age' => 37,
+        ),
+        2 =>
+        array (
+          'Name' => 'Maia',
+          'Age' => 7,
+        ),
+      ),
+      1 =>
+      array (
+        0 =>
+        array (
+          'Color' => 'Black',
+          'Make' => 'Subaru',
+        ),
+        1 =>
+        array (
+          'Color' => 'White',
+          'Make' => 'Hyundai',
+        ),
+      ),
+    );
+    $obj->hideKeys(FALSE);
+    $this->assertSame($control, $obj->get());    
+  }
+
   public function testDeletePage() {
     $obj = $this->obj;
     

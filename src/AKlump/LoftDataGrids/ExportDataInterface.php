@@ -62,6 +62,21 @@ interface ExportDataInterface {
   public function getKeys($page_id = NULL);
 
   /**
+   * Disables one or more keys on the current page from get().
+   *
+   * @param  bool||string  Any number of arguments, which are keys to hide
+   * from self::get().  The data remains in tact, it just will not be output 
+   * in the getters.
+   * Send FALSE to clear out any previously hidden keys.  Send TRUE and all
+   * keys for the current page will be hidden.
+   * This method takes the current page in to account; so it only hides
+   * the keys on the current page.
+   *
+   * @return $this
+   */
+  public function hideKeys();
+  
+  /**
    * Add (or Set) data to the current record
    *
    * @param string $key
