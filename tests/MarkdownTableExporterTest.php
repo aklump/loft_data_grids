@@ -13,8 +13,7 @@ require_once dirname(__FILE__) . '/../vendor/autoload.php';
 class MarkdownTableExporterTest extends \PHPUnit_Framework_TestCase {
 
   function testExport() {
-    $data = new ExportData();
-    $data->setPage('Notes of the Scale');
+    $data = new ExportData('Notes of the Scale');
     $data->add('do', 'C');
     $data->add('re re re', 'D');
     $data->add('mi miiiiii', 'E')->next();

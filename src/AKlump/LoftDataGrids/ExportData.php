@@ -184,6 +184,18 @@ class ExportData implements ExportDataInterface {
     return $this->data;
   }
 
+  public function getValue($key) {
+    return $this->getCurrent($key);
+  }
+
+  public function getRows() {
+    return $this->getPage($this->getCurrentPageId());
+  }
+
+  public function getCount() {
+    return count($this->getPage($this->getCurrentPageId()));
+  }
+
   public function getCurrent($key = NULL) {
     $current_pointer = $this->getPointer();
     $data = isset($this->data[$this->current_page][$current_pointer])

@@ -71,28 +71,40 @@ class CSVExporter extends Exporter implements ExporterInterface {
     }
     $output = array();
     if (count($cells)) {
-      foreach ($cells as $cell) {
-        //compress a complex cell
-        if (is_array($cell)) {
-          $cell = isset($cell['data']) ? $cell['data'] : '';
-        }
-
-        if (!$this->format->html) {
-          $cell = strip_tags($cell);
-        }
-
-        // Escape chars that conflice with delimiters
-        if (!empty($this->format->escape)) {
-          $escapeables = array($this->format->left, $this->format->right);
-          $escapeables = array_filter(array_unique($escapeables));
-          foreach ($escapeables as $find) {
-            $cell = str_replace($find, $this->format->escape . $find, $cell);
-          }
-        }
-        $output[] = $this->format->left . $cell . $this->format->right;
+      foreach ($cells as $column => $cell) {
+        $output[] = $this->collapseCell($cell, $column);
       }
     }
     $output = $this->format->bol . implode($this->format->sep, $output) . $this->format->eol;
+    
     return $output;
+  }
+
+  /**
+   * Collapse a single cell in a row.
+   *
+   * @param  array $cell
+   *
+   * @return string       
+   */
+  protected function collapseCell($cell, $column) {
+    //compress a complex cell
+    if (is_array($cell)) {
+      $cell = isset($cell['data']) ? $cell['data'] : '';
+    }
+
+    if (!$this->format->html) {
+      $cell = strip_tags($cell);
+    }
+
+    // Escape chars that conflice with delimiters
+    if (!empty($this->format->escape)) {
+      $escapeables = array($this->format->left, $this->format->right);
+      $escapeables = array_filter(array_unique($escapeables));
+      foreach ($escapeables as $find) {
+        $cell = str_replace($find, $this->format->escape . $find, $cell);
+      }
+    }
+    return $this->format->left . $cell . $this->format->right; 
   }
 }

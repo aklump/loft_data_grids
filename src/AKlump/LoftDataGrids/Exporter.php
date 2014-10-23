@@ -247,4 +247,11 @@ abstract class Exporter implements ExporterInterface {
   public function getShowPageIds() {
     return $this->data['showPageIds'];
   }
+
+  protected function cssSafe($string) {
+    $string = preg_replace('/[^a-z0-9\-\.]/', '-', strtolower($string));
+    $string = preg_replace('/^\d/', 'c-\0', $string);
+    
+    return preg_replace('/-{2,}/', '-', $string);    
+  }  
 }
