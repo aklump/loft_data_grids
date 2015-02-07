@@ -38,10 +38,22 @@ abstract class Exporter implements ExporterInterface {
   /**
    * Setup default values on object data.
    *
+   * Child classes should implement like this, making sure you don't use 
+   * setting name already defined in the parents.
+   * 
+   * @code
+   *   protected function setSettingsDefault() {
+   *     parent::setSettingsDefault();
+   *     $this->settings->showSponsors = TRUE;
+   *   
+   *     return $this;
+   *   }  
+   * @endcode
+   *
    * @return {$this}
    */
   protected function setSettingsDefault() {
-    $this->settings->ExportInterface->settings = (object) array(
+    $this->settings = (object) array(
       'showPageIds' => TRUE,
     );
   
@@ -49,7 +61,7 @@ abstract class Exporter implements ExporterInterface {
   }
 
   public function setSettings($settings) {
-    $this->settings->ExportInterface->settings = new \stdClass;
+    $this->settings = new \stdClass;
     foreach($settings as $name => $value) {
       $this->addSetting($name, $value);
     }
@@ -58,13 +70,13 @@ abstract class Exporter implements ExporterInterface {
   }
   
   public function addSetting($name, $value) {
-    $this->settings->ExportInterface->settings->{$name} = $value;
+    $this->settings->{$name} = $value;
   
     return $this;
   }
   
   public function getSettings() {
-    return $this->settings->ExportInterface->settings;
+    return $this->settings;
   }  
 
   /**
