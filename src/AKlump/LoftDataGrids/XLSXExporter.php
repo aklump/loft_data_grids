@@ -168,6 +168,10 @@ class XLSXExporter extends Exporter implements ExporterInterface {
    */
   public function formatColumn($column, $format_code) {
 
+    // By default we'll use USD.
+    $format_code     = isset($format_code) ? $format_code : 'USD';
+    $phpexcel_format = \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+
     // Map to specific formats in PHPExcel
     if ($format_code === 'USD') {
       $phpexcel_format = \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;

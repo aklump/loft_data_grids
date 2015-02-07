@@ -138,4 +138,44 @@ interface ExporterInterface {
    *   - extension string The file extension used by this class
    */
   public function getInfo();
+  
+  /**
+   * Set the settings object.
+   *
+   * @param object|array $settings
+   *   If an array, the keys will be used as the property name, and the
+   *   values as values.
+   *
+   * @return $this
+   */
+  public function setSettings($settings);
+  
+  /**
+   * Adds/Updates a single setting by name.
+   *
+   * You can also use $this->getSettings()->{name} = {value}.
+   *
+   * @param string $name
+   * @param mixed $value
+   *
+   * @return $this
+   */
+  public function addSetting($name, $value);
+  
+  /**
+   * Return the settings object.
+   *
+   * To set use $this->addSetting() or:
+   * $this->getSettings()->{name} = {value}
+   *
+   * To get a single setting you will do this:
+   * $this->getSettings()->sponsors
+   *
+   * @return array
+   *
+   * @see addSetting($name, $value) 
+   */
+  public function getSettings();
+  
+
 }
