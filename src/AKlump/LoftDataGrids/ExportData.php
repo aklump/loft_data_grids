@@ -234,7 +234,7 @@ class ExportData implements ExportDataInterface {
       foreach ($return as $page_id => $page) {
         
         // Jump to next page if there are none hidden here.
-        if ($this->hiddenKeys[$page_id] === array()) {
+        if (isset($this->hiddenKeys[$page_id]) && $this->hiddenKeys[$page_id] === array()) {
           continue;
         }
 

@@ -12,6 +12,21 @@ require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
 class CSVExporterTest extends \PHPUnit_Framework_TestCase {
 
+  public function testSettings() {
+    $obj = $this->exporter;
+    $obj->setSettings(array('height' => 50));
+    $this->assertEquals((object) array('height' => 50), $obj->getSettings());
+    $this->assertSame(50, $obj->getSettings()->height);
+
+    $obj->getSettings()->height = 25;
+    $this->assertSame(25, $obj->getSettings()->height);
+    $this->assertEquals((object) array('height' => 25), $obj->getSettings());
+
+    $obj->addSetting('width', 100);
+    $this->assertSame(100, $obj->getSettings()->width);
+    $this->assertEquals((object) array('height' => 25, 'width' => 100,), $obj->getSettings());
+  }
+
   function testGetSetCurrent() {
     $obj = $this->exporter;
 
