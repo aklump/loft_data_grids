@@ -294,9 +294,9 @@ abstract class Exporter implements ExporterInterface {
   }
 
   protected function cssSafe($string) {
-    $string = preg_replace('/[^a-z0-9\-\.]/', '-', strtolower($string));
+    $string = preg_replace('/[^a-z0-9\-]/', '-', strtolower($string));
     $string = preg_replace('/^\d/', 'c-\0', $string);
     
-    return preg_replace('/-{2,}/', '-', $string);    
+    return trim(preg_replace('/-{2,}/', '-', $string), '-');
   }  
 }
