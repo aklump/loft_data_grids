@@ -1,6 +1,6 @@
 template = false
 master = "master"
-develop = "develop"
+develop = "master"
 remote = origin
 create_tags = patch
 push_tags = auto
