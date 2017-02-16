@@ -20,7 +20,7 @@ class JSONExporter extends Exporter implements ExporterInterface {
 
   public function compile($page_id = NULL) {
     $pages = $this->getData()->get();
-    if ($page_id && array_key_exists($page_id, $pages)) {
+    if (!is_null($page_id) && array_key_exists($page_id, $pages)) {
       $pages = array($pages[$page_id]);
     }
     $this->output = json_encode($pages);
