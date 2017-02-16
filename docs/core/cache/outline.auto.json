@@ -1,0 +1,20 @@
+{
+    "chapters": [],
+    "sections": [
+        {
+            "id": "readme",
+            "title": "README",
+            "file": "README.md",
+            "sort": 0
+        },
+        {
+            "id": "_tasklist",
+            "title": "Tasklist",
+            "file": "_tasklist.md",
+            "sort": 1
+        }
+    ],
+    "settings": {
+        "search": "tipuesearch"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "sections": [
+        {
+            "id": "_tasklist",
+            "file": "_tasklist.md",
+            "title": "All Todo Items",
+            "sort": 1000
+        }
+    ],
+    "settings": {
+        "search": "tipuesearch"
+    }
+}

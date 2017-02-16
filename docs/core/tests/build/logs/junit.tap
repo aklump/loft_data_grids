@@ -1,0 +1,18 @@
+TAP version 13
+ok 1 - advancedHelpTest::testImages
+ok 2 - advancedHelpTest::testHelpLinks
+ok 3 - advancedHelpTest::testRemoveH1Tag
+ok 4 - TodosTest::testParseTodosWithPrefix
+ok 5 - TodosTest::test_flatten_todos
+ok 6 - TodosTest::test_get_weight
+ok 7 - TodosTest::testSortTodosRemovesDuplicates
+ok 8 - TodosTest::test_sort_todos
+ok 9 - TodosTest::test_parse_todos
+ok 10 - AKlump\LoftDocs\SearchHtmlTest::testNoTags
+ok 11 - AKlump\LoftDocs\SearchHtmlTest::testTitle
+ok 12 - AKlump\LoftDocs\SearchHtmlTest::testReturnsObject
+ok 13 - AKlump\LoftDocs\SearchPageDataTest::testTagsWithSpacesThrows
+ok 14 - AKlump\LoftDocs\TipueSearchTest::testAddTwoSortsCorrectly
+ok 15 - AKlump\LoftDocs\TipueSearchTest::testAddDuplicatesFilters
+ok 16 - AKlump\LoftDocs\TipueSearchTest::testAddOneGet
+1..16

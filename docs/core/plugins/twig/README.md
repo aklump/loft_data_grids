@@ -1,0 +1,10 @@
+title
+classes
+date
+version
+prev
+prev_id
+prev_title
+next
+next_id
+next_title

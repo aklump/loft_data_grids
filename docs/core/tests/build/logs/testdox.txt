@@ -1,0 +1,26 @@
+advancedHelp
+ [x] Images
+ [x] Help links
+ [x] Remove h 1 tag
+
+Todos
+ [x] Parse todos with prefix
+ [x] flatten todos
+ [x] get weight
+ [x] Sort todos removes duplicates
+ [x] sort todos
+ [x] parse todos
+
+AKlump\LoftDocs\SearchHtml
+ [x] No tags
+ [x] Title
+ [x] Returns object
+
+AKlump\LoftDocs\SearchPageData
+ [x] Tags with spaces throws
+
+AKlump\LoftDocs\TipueSearch
+ [x] Add two sorts correctly
+ [x] Add duplicates filters
+ [x] Add one get
+
