@@ -19,9 +19,6 @@
     "symfony/yaml": "2.3.*"
   },
   "autoload": {
-    "psr-4": {"": "src/"}  
-  },
-  "autoload": {
     "psr-4": {
       "AKlump\\LoftDataGrids\\": "src/AKlump/LoftDataGrids"
     }

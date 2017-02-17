@@ -1,5 +1,6 @@
 <?php
 namespace AKlump\LoftDataGrids;
+
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -17,10 +18,10 @@ class YAMLExporter extends Exporter implements ExporterInterface {
   public function getInfo() {
     $info = parent::getInfo();
     $info = array(
-      'name' => 'YAML Format',
-      'shortname' => 'YAML', 
-      'description' => 'Export data in YAML file format. For more information visit: http://www.yaml.org.',
-    ) + $info;
+        'name'        => 'YAML Format',
+        'shortname'   => 'YAML',
+        'description' => 'Export data in YAML file format. For more information visit: http://www.yaml.org.',
+      ) + $info;
 
     return $info;
   }
@@ -31,6 +32,7 @@ class YAMLExporter extends Exporter implements ExporterInterface {
       $pages = $pages[$page_id];
     }
     $this->output = Yaml::dump($pages);
+    return $this;
   }
 
 }

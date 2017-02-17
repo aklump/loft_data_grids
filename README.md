@@ -61,7 +61,16 @@ Or to get it as JSON...
 
 Or any of the other exporter classes.
 
-##Contact
+### Saving to File
+
+    use AKlump\LoftDataGrids\XLSXExporter;
+
+    $exporter = new XLSXExporter($obj, 'users');
+    $exporter->saveFile();
+
+
+## Contact
+
 * **In the Loft Studios**
 * Aaron Klump - Developer
 * PO Box 29294 Bellingham, WA 98228-1294

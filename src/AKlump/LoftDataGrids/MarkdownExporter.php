@@ -10,10 +10,10 @@ class MarkdownExporter extends Exporter implements ExporterInterface {
   public function getInfo() {
     $info = parent::getInfo();
     $info = array(
-      'name' => 'Markdown',
-      'shortname' => 'Markdown',
-      'description' => 'Export data in Markdown file format. For more information visit: http://daringfireball.net/projects/markdown/.',
-    ) + $info;
+        'name'        => 'Markdown',
+        'shortname'   => 'Markdown',
+        'description' => 'Export data in Markdown file format. For more information visit: http://daringfireball.net/projects/markdown/.',
+      ) + $info;
 
     return $info;
   }
@@ -22,7 +22,7 @@ class MarkdownExporter extends Exporter implements ExporterInterface {
     $pages = $this->getData()->get();
     $this->output = '';
     $multi = count($pages) > 1 ? '#' : '';
-    $output  = '';
+    $output = '';
     foreach ($pages as $page_id => $page) {
       if ($multi) {
         $output .= "{$multi}# Page " . ($page_id + 1) . "\n";
@@ -38,5 +38,6 @@ class MarkdownExporter extends Exporter implements ExporterInterface {
       $output .= "\n";
     }
     $this->output = $output;
+    return $this;
   }
 }

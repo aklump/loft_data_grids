@@ -23,13 +23,6 @@ class ExportData implements ExportDataInterface {
     $this->setPage($page_id);
   }
 
-  public function setLocations($locations) {
-    foreach ($locations as $location_id => $data) {
-      $data = array_intersect_key($data, array_flip(array('page', 'pointers')));
-      $this->locations[$location_id] = $data;
-    }
-  }
-
   public function getLocations() {
     $data = $this->locations;
     $default = (array) array_fill_keys($this->getAllPageIds(), 0) + array(0);
@@ -47,10 +40,17 @@ class ExportData implements ExportDataInterface {
     return $data;
   }
 
+  public function setLocations($locations) {
+    foreach ($locations as $location_id => $data) {
+      $data = array_intersect_key($data, array_flip(array('page', 'pointers')));
+      $this->locations[$location_id] = $data;
+    }
+  }
+
   public function storeLocation($location_id) {
     $this->locations[$location_id] = array(
-      'page'      => (int) $this->current_page,
-      'pointers'   => $this->current_pointers,
+      'page'     => (int) $this->current_page,
+      'pointers' => $this->current_pointers,
     );
 
     return $this;
@@ -58,11 +58,25 @@ class ExportData implements ExportDataInterface {
 
   public function gotoLocation($location_id) {
     if (isset($this->locations[$location_id])) {
-      $this->current_page     = ($page = $this->locations[$location_id]['page']);
+      $this->current_page = ($page = $this->locations[$location_id]['page']);
       $this->current_pointers = $this->locations[$location_id]['pointers'];
     }
 
     return $this;
+  }
+
+  public function getKeys($page_id = NULL) {
+    if ($page_id === NULL) {
+      $page_id = $this->current_page;
+    }
+    $keys = array();
+    foreach ($this->data[$page_id] as $row) {
+      $keys += $row;
+    }
+    $keys = array_keys($keys);
+    $this->setKeys($keys);
+
+    return $keys;
   }
 
   public function setKeys($key) {
@@ -88,20 +102,6 @@ class ExportData implements ExportDataInterface {
     }
 
     return $this;
-  }
-
-  public function getKeys($page_id = NULL) {
-    if ($page_id === NULL) {
-      $page_id = $this->current_page;
-    }
-    $keys = array();
-    foreach ($this->data[$page_id] as $row) {
-      $keys += $row;
-    }
-    $keys = array_keys($keys);
-    $this->setKeys($keys);
-
-    return $keys;
   }
 
   public function hideKeys() {
@@ -232,7 +232,7 @@ class ExportData implements ExportDataInterface {
 
     if ($this->hiddenKeys !== array()) {
       foreach ($return as $page_id => $page) {
-        
+
         // Jump to next page if there are none hidden here.
         if (isset($this->hiddenKeys[$page_id]) && $this->hiddenKeys[$page_id] === array()) {
           continue;
@@ -241,7 +241,8 @@ class ExportData implements ExportDataInterface {
         foreach ($page as $pointer => $record) {
           foreach ($record as $key => $value) {
             if (isset($this->hiddenKeys[$page_id])
-              && in_array($key, $this->hiddenKeys[$page_id])) {
+              && in_array($key, $this->hiddenKeys[$page_id])
+            ) {
               unset($return[$page_id][$pointer][$key]);
             }
           }
@@ -268,8 +269,8 @@ class ExportData implements ExportDataInterface {
     $current_pointer = $this->getPointer();
     $data = $this->get();
     $data = isset($data[$this->current_page][$current_pointer])
-    ? $data[$this->current_page][$current_pointer]
-    : array();
+      ? $data[$this->current_page][$current_pointer]
+      : array();
     if ($key === NULL) {
       return $data;
     }
@@ -310,14 +311,14 @@ class ExportData implements ExportDataInterface {
   public function getPageData($page_id = NULL) {
     if (!isset($page_id)) {
       $page_id = $this->current_page;
-    }    
+    }
     $clone = clone $this;
     foreach ($clone->getAllPageIds() as $id) {
       if ($id != $page_id) {
         $clone->deletePage($id);
       }
     }
-    
+
     return $clone;
   }
 

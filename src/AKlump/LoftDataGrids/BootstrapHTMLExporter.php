@@ -5,28 +5,17 @@ namespace AKlump\LoftDataGrids;
  * Class HTMLExporter
  */
 class BootstrapHTMLExporter extends HTMLExporter implements ExporterInterface {
-  protected $extension = '.html';
   public $format;
-
-  public function getInfo() {
-    $info = parent::getInfo();
-    $info = array(
-      'name' => 'HTML for Bootstrap Format',
-      'shortname' => 'HTML', 
-      'description' => 'Export data in the .html file format using Bootstrap markup.',
-    ) + $info;
-
-    return $info;
-  }  
+  protected $extension = '.html';
 
   /**
    * Constructor
    */
   public function __construct(ExportData $data, $filename = '') {
     parent::__construct($data, $filename);
-    $this->format->bol      = "<tr>";
-    $this->format->eol      = "</tr>" . $this->format->cr;
-    $this->format->html     = '<!DOCTYPE html>
+    $this->format->bol = "<tr>";
+    $this->format->eol = "</tr>" . $this->format->cr;
+    $this->format->html = '<!DOCTYPE html>
 
   <html>
   <head>
@@ -38,6 +27,17 @@ class BootstrapHTMLExporter extends HTMLExporter implements ExporterInterface {
   </html>';
 
     $this->format->css = NULL;
+  }
+
+  public function getInfo() {
+    $info = parent::getInfo();
+    $info = array(
+        'name'        => 'HTML for Bootstrap Format',
+        'shortname'   => 'HTML',
+        'description' => 'Export data in the .html file format using Bootstrap markup.',
+      ) + $info;
+
+    return $info;
   }
 
   public function compile($page_id = NULL) {
@@ -79,5 +79,6 @@ class BootstrapHTMLExporter extends HTMLExporter implements ExporterInterface {
       $this->output = str_replace('<body></body>', '<body>' . $snippet . '</body>', $this->output);
       $this->output = str_replace('<title></title>', '<title>' . $this->title . '</title>', $this->output);
     }
+    return $this;
   }
 }

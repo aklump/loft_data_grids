@@ -10,10 +10,10 @@ class JSONExporter extends Exporter implements ExporterInterface {
   public function getInfo() {
     $info = parent::getInfo();
     $info = array(
-      'name' => 'JSON Format',
-      'shortname' => 'JSON', 
-      'description' => 'Export data in JSON file format. For more information visit: http://www.json.org.',
-    ) + $info;
+        'name'        => 'JSON Format',
+        'shortname'   => 'JSON',
+        'description' => 'Export data in JSON file format. For more information visit: http://www.json.org.',
+      ) + $info;
 
     return $info;
   }
@@ -24,5 +24,7 @@ class JSONExporter extends Exporter implements ExporterInterface {
       $pages = array($pages[$page_id]);
     }
     $this->output = json_encode($pages);
+
+    return $this;
   }
 }

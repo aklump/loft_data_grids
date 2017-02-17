@@ -14,26 +14,26 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
   public function __construct(ExportDataInterface $data = NULL, $filename = '') {
     parent::__construct($data, $filename);
     $this->format = new \stdClass;
-    $this->format->cr     = "\n";
-    $this->format->hline  = "-";
-    $this->format->vline  = "|";
-    $this->format->bol    = $this->format->vline;
-    $this->format->eol    = $this->format->vline . $this->format->cr;
-    $this->format->left   = ' ';
-    $this->format->right  = ' ';
-    $this->format->sep    = $this->format->vline;
+    $this->format->cr = "\n";
+    $this->format->hline = "-";
+    $this->format->vline = "|";
+    $this->format->bol = $this->format->vline;
+    $this->format->eol = $this->format->vline . $this->format->cr;
+    $this->format->left = ' ';
+    $this->format->right = ' ';
+    $this->format->sep = $this->format->vline;
     $this->format->escape = '';
-    $this->format->html   = TRUE;
+    $this->format->html = TRUE;
     $this->hidePageIds();
   }
 
   public function getInfo() {
     $info = parent::getInfo();
     $info = array(
-      'name' => 'Monospace Flatfile Text',
-      'shortname' => 'Flat Text', 
-      'description' => 'Export data in a plain-text format.  Columns and rows are drawn with text pipes and hyphens.  Best results when using monospaced fonts.',
-    ) + $info;
+        'name'        => 'Monospace Flatfile Text',
+        'shortname'   => 'Flat Text',
+        'description' => 'Export data in a plain-text format.  Columns and rows are drawn with text pipes and hyphens.  Best results when using monospaced fonts.',
+      ) + $info;
 
     return $info;
   }
@@ -47,7 +47,7 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
     foreach ($pages as $page_id => $data) {
       if ($this->getShowPageIds()) {
         $this->output .= '-- ' . strtoupper($page_id) . ' --' . $this->format->cr;
-      }      
+      }
       $header = $this->getHeader($page_id);
       foreach ($header as $key => $title) {
         $header[$key] = strtoupper($title);
@@ -74,7 +74,7 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
       }
 
       // Determine the width of a single row in chars
-      $row_width  = 0;
+      $row_width = 0;
       $row_width += array_sum($columns);
       $row_width += strlen($this->format->bol);
       $row_width += strlen($this->format->left) * count($columns);
@@ -90,6 +90,7 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
         $this->output .= $hrule . $this->format->cr;
       }
     }
+    return $this;
   }
 
   /**
@@ -139,5 +140,5 @@ class FlatTextExporter extends CSVExporter implements ExporterInterface {
     $output = $this->format->bol . implode($this->format->sep, $output) . $this->format->eol;
 
     return $output;
-  }  
+  }
 }

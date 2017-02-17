@@ -10,20 +10,19 @@ class XMLExporter extends Exporter implements ExporterInterface {
   public function getInfo() {
     $info = parent::getInfo();
     $info = array(
-      'name' => 'XML Format',
-      'shortname' => 'XML', 
-      'description' => 'Export data in XML file format.',
-    ) + $info;
+        'name'        => 'XML Format',
+        'shortname'   => 'XML',
+        'description' => 'Export data in XML file format.',
+      ) + $info;
 
     return $info;
   }
 
   public function compile($page_id = NULL) {
-    $data = $this->getData()->get();
     $xml = new \SimpleXMLElement('<data/>');
     $pages = $this->getData()->get();
-    if ($page_id && array_key_exists($page_id, $pages)) {
-      $pages = array($pages[$page_id]);
+    if (!is_null($page_id) && array_key_exists($page_id, $pages)) {
+      $pages = array($page_id => $pages[$page_id]);
     }
     foreach ($pages as $page_id => $data) {
       $page = $xml->addChild('page');
@@ -45,5 +44,6 @@ class XMLExporter extends Exporter implements ExporterInterface {
     $this->output = $xml->asXML();
     $this->output = str_replace('&lt;![CDATA[', '<![CDATA[', $this->output);
     $this->output = str_replace(']]&gt;</', ']]></', $this->output);
+    return $this;
   }
 }

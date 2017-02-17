@@ -15,22 +15,22 @@ class CSVExporter extends Exporter implements ExporterInterface {
   public function __construct(ExportDataInterface $data = NULL, $filename = '') {
     parent::__construct($data, $filename);
     $this->format = new \stdClass;
-    $this->format->bol    = '';
-    $this->format->eol    = "\r\n";
-    $this->format->left   = '"';
-    $this->format->right  = '"';
-    $this->format->sep    = ',';
+    $this->format->bol = '';
+    $this->format->eol = "\r\n";
+    $this->format->left = '"';
+    $this->format->right = '"';
+    $this->format->sep = ',';
     $this->format->escape = '"';
-    $this->format->html   = FALSE;
+    $this->format->html = FALSE;
   }
 
   public function getInfo() {
     $info = parent::getInfo();
     $info = array(
-      'name' => 'Comma-separated Values Format',
-      'shortname' => 'CSV', 
-      'description' => 'Export data in the .csv file format.  Fields are wrapped with double quotes, separated by commas.  Lines are separated by \r\n',
-    ) + $info;
+        'name'        => 'Comma-separated Values Format',
+        'shortname'   => 'CSV',
+        'description' => 'Export data in the .csv file format.  Fields are wrapped with double quotes, separated by commas.  Lines are separated by \r\n',
+      ) + $info;
 
     return $info;
   }
@@ -39,7 +39,8 @@ class CSVExporter extends Exporter implements ExporterInterface {
     $pages = $this->getData()->get();
     if (($page_id === NULL
         && count($pages) > 1)
-        || !array_key_exists($page_id, $pages)) {
+      || !array_key_exists($page_id, $pages)
+    ) {
       reset($pages);
       $page_id = key($pages);
     }
@@ -50,6 +51,8 @@ class CSVExporter extends Exporter implements ExporterInterface {
     foreach ($data as $row) {
       $this->output .= $this->collapseRow($row);
     }
+
+    return $this;
   }
 
   /**
@@ -76,7 +79,7 @@ class CSVExporter extends Exporter implements ExporterInterface {
       }
     }
     $output = $this->format->bol . implode($this->format->sep, $output) . $this->format->eol;
-    
+
     return $output;
   }
 
@@ -85,7 +88,7 @@ class CSVExporter extends Exporter implements ExporterInterface {
    *
    * @param  array $cell
    *
-   * @return string       
+   * @return string
    */
   protected function collapseCell($cell, $column) {
     //compress a complex cell
@@ -105,6 +108,6 @@ class CSVExporter extends Exporter implements ExporterInterface {
         $cell = str_replace($find, $this->format->escape . $find, $cell);
       }
     }
-    return $this->format->left . $cell . $this->format->right; 
+    return $this->format->left . $cell . $this->format->right;
   }
 }

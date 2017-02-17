@@ -25,7 +25,7 @@ class Formatter implements FormatterInterface {
     // Extend this method to provide some formatting of $data
     return $data;
   }
-  
+
   public function getUnformatted() {
     return $this->data;
   }

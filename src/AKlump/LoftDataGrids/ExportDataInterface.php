@@ -27,9 +27,10 @@ interface ExportDataInterface {
   /**
    * Store the current page and pointer location for later resuming
    *
-   * @param  string $location_id A unique key or preset id to remember this location by.
+   * @param  string $location_id A unique key or preset id to remember this
+   *                             location by.
    *
-   * @return $this              
+   * @return $this
    */
   public function storeLocation($location_id);
 
@@ -37,9 +38,10 @@ interface ExportDataInterface {
    * Goto to a stored location
    *
    * @param  string $location_id A unique key or preset id to remember this
-   * location by.  If nothing has been stored using this id, nothing happens.
+   *                             location by.  If nothing has been stored using
+   *                             this id, nothing happens.
    *
-   * @return $this              
+   * @return $this
    */
   public function gotoLocation($location_id);
 
@@ -65,7 +67,7 @@ interface ExportDataInterface {
    * Disables one or more keys on the current page from get().
    *
    * @param  bool||string  Any number of arguments, which are keys to hide
-   * from self::get().  The data remains in tact, it just will not be output 
+   * from self::get().  The data remains in tact, it just will not be output
    * in the getters.
    * Send FALSE to clear out any previously hidden keys.  Send TRUE and all
    * keys for the current page will be hidden.
@@ -87,7 +89,7 @@ interface ExportDataInterface {
    * @return [type] [description]
    */
   public function showKeys();
-  
+
   /**
    * Add (or Set) data to the current record
    *
@@ -258,7 +260,7 @@ interface ExportDataInterface {
    * - All rows will be expanded to have all columns
    *
    * @param ExportData $data
-   * @param mixed $empty_value
+   * @param mixed      $empty_value
    *
    * @return $this
    *
@@ -272,10 +274,12 @@ interface ExportDataInterface {
    * @param mixed $value
    * @param mixed $key
    *   (Optional) Defaults to NULL.  Set this to constrain the search by key.
-   * @param int $results
-   *   (Optional) Defaults to 1. The number of results to return.  Enter 0 for no limit.
-   * @param int $direction
-   *   (Optional) Defaults to 0. 0 to search from beginning, 1 to search backward from end.
+   * @param int   $results
+   *   (Optional) Defaults to 1. The number of results to return.  Enter 0 for
+   *   no limit.
+   * @param int   $direction
+   *   (Optional) Defaults to 0. 0 to search from beginning, 1 to search
+   *   backward from end.
    *
    * @return array
    *   - Keys are the pointers.

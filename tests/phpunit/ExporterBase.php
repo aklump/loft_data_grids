@@ -18,6 +18,10 @@ namespace AKlump\LoftDataGrids;
  */
 class ExporterBase extends \PHPUnit_Framework_TestCase {
 
+  public function testCompileReturnsSelf() {
+    $this->assertSame($this->exporter, $this->exporter->compile());
+  }
+
   public function testInfo() {
     $info = $this->exporter->getInfo();
     $this->assertNotEmpty($info['name']);
@@ -27,18 +31,48 @@ class ExporterBase extends \PHPUnit_Framework_TestCase {
     $this->assertNotEmpty($info['extension']);
   }
 
+  /**
+   * @expectedException RuntimeException
+   */
+  public function testSaveFileToUnwriteableDirThrows() {
+    chmod($this->sandbox, 0444);
+    try {
+      $this->exporter->saveFile($this->sandbox);
+    } catch (\Exception $exception) {
+      chmod($this->sandbox, 0777);
+      throw $exception;
+    }
+  }
+
+  /**
+   * Make sure that saveFile works on this exporter
+   *
+   * @param string $control The expected file contents.
+   */
+  public function assertMethodSaveFile($control) {
+    $obj = clone $this->exporter;
+    $path = $this->sandbox . '/' . $obj->setFilename('export');
+    $this->assertFileNotExists($path);
+    $returnPath = $this->exporter->saveFile($this->sandbox, 'export');
+    $this->assertSame($path, $returnPath);
+    $this->assertFileExists($path);
+    $this->assertSame($control, file_get_contents($path));
+    unlink($path);
+    $this->assertFileNotExists($path);
+  }
+
   public function setUp() {
     $this->data = new ExportData();
-    $this->records[0] = array (
-      'Order No.' => 1181,
-      'Customer Billing Country' => 'US',
+    $this->records[0] = array(
+      'Order No.'                        => 1181,
+      'Customer Billing Country'         => 'US',
       'California Taxed Purchase Amount' => 0,
     );
 
-    $this->records[1] = array (
-      'Order No.' => '1182',
+    $this->records[1] = array(
+      'Order No.'        => '1182',
       'Transaction Date' => '11/7/13',
-      'Customer Name' => 'Hope, Roberta',
+      'Customer Name'    => 'Hope, Roberta',
     );
 
     // Page 1
@@ -59,5 +93,9 @@ class ExporterBase extends \PHPUnit_Framework_TestCase {
     $this->data->setPointer(0);
     $this->data->setPage(0);
     $this->data->setPointer(0);
+
+    // Create the sandbox directory for saving
+    $this->sandbox = dirname(__FILE__) . '/../sandbox';
+    $this->assertTrue(is_writable($this->sandbox));
   }
 }

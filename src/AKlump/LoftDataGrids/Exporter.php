@@ -10,12 +10,12 @@ abstract class Exporter implements ExporterInterface {
   protected $header = array();
 
   protected $settings;
-  
+
   /**
    * Constructor
    *
    * @param ExportDataInterface $data
-   * @param string $filename
+   * @param string              $filename
    *   (Optional) Defaults to ''.
    */
   public function __construct(ExportDataInterface $data = NULL, $filename = '') {
@@ -28,97 +28,37 @@ abstract class Exporter implements ExporterInterface {
 
   public function getInfo() {
     return array(
-      'class' => get_class($this),
-      'name' => get_class($this),
+      'class'       => get_class($this),
+      'name'        => get_class($this),
       'description' => get_class($this),
-      'extension' => $this->extension,
+      'extension'   => $this->extension,
     );
   }
 
-  /**
-   * Setup default values on object data.
-   *
-   * Child classes should implement like this, making sure you don't use 
-   * setting name already defined in the parents.
-   * 
-   * @code
-   *   protected function setSettingsDefault() {
-   *     parent::setSettingsDefault();
-   *     $this->settings->showSponsors = TRUE;
-   *   
-   *     return $this;
-   *   }  
-   * @endcode
-   *
-   * @return {$this}
-   */
-  protected function setSettingsDefault() {
-    $this->settings = (object) array(
-      'showPageIds' => TRUE,
-    );
-  
+  public function addSetting($name, $value) {
+    $this->settings->{$name} = $value;
+
     return $this;
+  }
+
+  public function getSettings() {
+    return $this->settings;
   }
 
   public function setSettings($settings) {
     $this->settings = new \stdClass;
-    foreach($settings as $name => $value) {
+    foreach ($settings as $name => $value) {
       $this->addSetting($name, $value);
     }
-  
+
     return $this;
-  }
-  
-  public function addSetting($name, $value) {
-    $this->settings->{$name} = $value;
-  
-    return $this;
-  }
-  
-  public function getSettings() {
-    return $this->settings;
-  }  
-
-  /**
-   * Return a string as a safe filename
-   *
-   * @param string $string
-   *   The candidtate filename.
-   * @param array $options
-   *   - array extensions: allowable extensions no periods
-   *   - string ext: default extension if non found; blank for none no period
-   *
-   * @return string
-   * - lowercased, with only letters, numbers, dots and hyphens
-   *
-   * @see file_munge_filename().
-   */
-  protected function filenameSafe($string, $options = array()) {
-    $options += array(
-      'extensions' => array('txt', 'md'),
-      'ext' => 'txt',
-    );
-    $string = preg_replace('/[^a-z0-9\-\.]/', '-', strtolower($string));
-    $string = preg_replace('/-{2,}/', '-', $string);
-
-    // Add an extension if not found
-    if ($options['ext'] && !preg_match('/\.[a-z]{1,5}$/', $string)) {
-      $string .= '.' . trim($options['ext'], '.');
-    }
-
-    if ($string && function_exists('file_munge_filename')) {
-      $string = file_munge_filename($string, implode(' ', $options['extensions']), FALSE);
-    }
-
-    //@todo Add in the module that cleans name if it's installed
-    return $string;
   }
 
   public function setFilename($filename) {
     $extension = trim($this->extension, '.');
     $filename = $this->filenameSafe($filename, array(
-      'extensions'  => array($extension),
-      'ext'         => $extension,
+      'extensions' => array($extension),
+      'ext'        => $extension,
     ));
     $info = pathinfo($filename);
     if ($info['filename']) {
@@ -172,7 +112,7 @@ abstract class Exporter implements ExporterInterface {
     $this->setData($temp);
 
     $this->export_data->setLocations($locations);
-    $this->export_data->gotoLocation('getData'); 
+    $this->export_data->gotoLocation('getData');
 
     return $this->export_data;
   }
@@ -220,21 +160,25 @@ abstract class Exporter implements ExporterInterface {
     }
 
     return $this->compile();
-  }  
-
-  /**
-   * Build $this->output in prep for export/save
-   *
-   * This is the main method to be extended for the different exporters
-   */
-  public function compile($page_id = NULL) {
-    // Extend this method and build $this->output
   }
 
   public function export($page_id = NULL) {
     $this->compile($page_id);
 
     return $this->output;
+  }
+
+  public function saveFile($directory, $filename = NULL, $page_id = NULL) {
+    // Go through the setter to ensure the file_extension.
+    $filename = $filename ? $this->setFilename($filename) : $this->getFilename();
+    if (!is_writable(($directory))) {
+      throw new \RuntimeException("$directory is not writable; cannot save $filename.");
+    }
+    $path = $directory . '/' . $filename;
+    file_put_contents($path, $this->compile($page_id)
+                                  ->export());
+
+    return $path;
   }
 
   public function save($filename = '', $page_id = NULL) {
@@ -265,7 +209,7 @@ abstract class Exporter implements ExporterInterface {
     // Send download headers
     header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream');
-    header('Content-Disposition: attachment; filename="'. $this->filename .'"');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
     header('Content-Transfer-Encoding: binary');
     header('Expires: 0');
     header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -279,13 +223,13 @@ abstract class Exporter implements ExporterInterface {
 
   public function showPageIds() {
     $this->addSetting('showPageIds', TRUE);
-  
+
     return $this;
   }
-  
+
   public function hidePageIds() {
     $this->addSetting('showPageIds', FALSE);
-  
+
     return $this;
   }
 
@@ -293,10 +237,70 @@ abstract class Exporter implements ExporterInterface {
     return $this->getSettings()->showPageIds;
   }
 
+  /**
+   * Setup default values on object data.
+   *
+   * Child classes should implement like this, making sure you don't use
+   * setting name already defined in the parents.
+   *
+   * @code
+   *   protected function setSettingsDefault() {
+   *     parent::setSettingsDefault();
+   *     $this->settings->showSponsors = TRUE;
+   *
+   *     return $this;
+   *   }
+   * @endcode
+   *
+   * @return {$this}
+   */
+  protected function setSettingsDefault() {
+    $this->settings = (object) array(
+      'showPageIds' => TRUE,
+    );
+
+    return $this;
+  }
+
+  /**
+   * Return a string as a safe filename
+   *
+   * @param string $string
+   *   The candidtate filename.
+   * @param array  $options
+   *   - array extensions: allowable extensions no periods
+   *   - string ext: default extension if non found; blank for none no period
+   *
+   * @return string
+   * - lowercased, with only letters, numbers, dots and hyphens
+   *
+   * @see file_munge_filename().
+   */
+  protected function filenameSafe($string, $options = array()) {
+    $options += array(
+      'extensions' => array('txt', 'md'),
+      'ext'        => 'txt',
+    );
+    $string = preg_replace('/[^a-z0-9\-\.]/', '-', strtolower($string));
+    $string = preg_replace('/-{2,}/', '-', $string);
+
+    // Add an extension if not found
+    if ($options['ext'] && !preg_match('/\.[a-z]{1,5}$/', $string)) {
+      $string .= '.' . trim($options['ext'], '.');
+    }
+
+    if ($string && function_exists('file_munge_filename')) {
+      $string = file_munge_filename($string, implode(' ', $options['extensions']), FALSE);
+    }
+
+    //@todo Add in the module that cleans name if it's installed
+    return $string;
+  }
+
   protected function cssSafe($string) {
     $string = preg_replace('/[^a-z0-9\-]/', '-', strtolower($string));
     $string = preg_replace('/^\d/', 'c-\0', $string);
-    
+
     return trim(preg_replace('/-{2,}/', '-', $string), '-');
-  }  
+  }
 }

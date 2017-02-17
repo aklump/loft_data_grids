@@ -7,20 +7,13 @@ namespace AKlump\LoftDataGrids;
 class HtmlListExporter extends Exporter implements ExporterInterface {
   protected $extension = '.html';
 
-  protected function setSettingsDefault() {
-    parent::setSettingsDefault();
-    $this->settings->pageTag = 'h2';
-  
-    return $this;
-  }  
-
   public function getInfo() {
     $info = parent::getInfo();
     $info = array(
-      'name' => 'HTML List',
-      'shortname' => 'HTML List', 
-      'description' => 'Export data in HTML list format.',
-    ) + $info;
+        'name'        => 'HTML List',
+        'shortname'   => 'HTML List',
+        'description' => 'Export data in HTML list format.',
+      ) + $info;
 
     return $info;
   }
@@ -34,7 +27,7 @@ class HtmlListExporter extends Exporter implements ExporterInterface {
       if ($this->getShowPageIds()) {
         $tag = $this->getSettings()->pageTag;
         $this->output[] = "<{$tag}>$page_id</{$tag}>";
-      }      
+      }
       foreach ($page as $record) {
         $this->output[] = "<hr />";
         $class = $this->cssSafe($page_id);
@@ -43,8 +36,8 @@ class HtmlListExporter extends Exporter implements ExporterInterface {
         $this->output[] = "<tbody>";
         $odd = TRUE;
         foreach ($record as $key => $value) {
-          $zebra          = $odd ? 'odd' : 'even';
-          $odd            = !$odd;
+          $zebra = $odd ? 'odd' : 'even';
+          $odd = !$odd;
           $this->output[] = "<tr class=\"$zebra\"><td class=\"key\">$key</td><td class=\"value\">$value</td></tr>";
         }
         $this->output[] = "</tbody>";
@@ -53,5 +46,13 @@ class HtmlListExporter extends Exporter implements ExporterInterface {
     }
 
     $this->output = implode(PHP_EOL, $this->output);
+    return $this;
+  }
+
+  protected function setSettingsDefault() {
+    parent::setSettingsDefault();
+    $this->settings->pageTag = 'h2';
+
+    return $this;
   }
 }

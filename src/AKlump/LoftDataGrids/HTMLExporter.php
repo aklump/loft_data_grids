@@ -5,19 +5,8 @@ namespace AKlump\LoftDataGrids;
  * Class HTMLExporter
  */
 class HTMLExporter extends CSVExporter implements ExporterInterface {
-  protected $extension = '.html';
   public $format;
-
-  public function getInfo() {
-    $info = parent::getInfo();
-    $info = array(
-      'name' => 'HTML Format',
-      'shortname' => 'HTML', 
-      'description' => 'Export data in the .html file format.',
-    ) + $info;
-
-    return $info;
-  }  
+  protected $extension = '.html';
 
   /**
    * Constructor
@@ -25,14 +14,14 @@ class HTMLExporter extends CSVExporter implements ExporterInterface {
   public function __construct(ExportData $data, $filename = '') {
     parent::__construct($data, $filename);
     $this->format = new \stdClass;
-    $this->format->bol      = "<tr>";
-    $this->format->cr       = "\n";
-    $this->format->eol      = "</tr>" . $this->format->cr;
-    $this->format->sep      = '';
-    $this->format->escape   = '';
-    $this->format->html     = TRUE;
-    $this->format->snippet  = TRUE;
-    $this->format->html     = '<!DOCTYPE html>
+    $this->format->bol = "<tr>";
+    $this->format->cr = "\n";
+    $this->format->eol = "</tr>" . $this->format->cr;
+    $this->format->sep = '';
+    $this->format->escape = '';
+    $this->format->html = TRUE;
+    $this->format->snippet = TRUE;
+    $this->format->html = '<!DOCTYPE html>
 
   <html>
   <head>
@@ -81,6 +70,17 @@ table {
       margin-bottom: 0; }';
   }
 
+  public function getInfo() {
+    $info = parent::getInfo();
+    $info = array(
+        'name'        => 'HTML Format',
+        'shortname'   => 'HTML',
+        'description' => 'Export data in the .html file format.',
+      ) + $info;
+
+    return $info;
+  }
+
   public function compile($page_id = NULL) {
     $pages = $this->getData()->get();
     if ($page_id && array_key_exists($page_id, $pages)) {
@@ -120,6 +120,7 @@ table {
       $this->output = str_replace('<body></body>', '<body>' . $snippet . '</body>', $this->output);
       $this->output = str_replace('<title></title>', '<title>' . $this->title . '</title>', $this->output);
     }
+    return $this;
   }
 
   protected function collapseCell($cell, $column) {

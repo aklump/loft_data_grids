@@ -14,26 +14,26 @@ class MarkdownTableExporter extends FlatTextExporter implements ExporterInterfac
   public function __construct(ExportDataInterface $data = NULL, $filename = '') {
     parent::__construct($data, $filename);
     $this->format = new \stdClass;
-    $this->format->cr     = "\n";
-    $this->format->hline  = "-";
-    $this->format->vline  = "|";
-    $this->format->bol    = $this->format->vline;
-    $this->format->eol    = $this->format->vline . $this->format->cr;
-    $this->format->left   = ' ';
-    $this->format->right  = ' ';
-    $this->format->sep    = $this->format->vline;
+    $this->format->cr = "\n";
+    $this->format->hline = "-";
+    $this->format->vline = "|";
+    $this->format->bol = $this->format->vline;
+    $this->format->eol = $this->format->vline . $this->format->cr;
+    $this->format->left = ' ';
+    $this->format->right = ' ';
+    $this->format->sep = $this->format->vline;
     $this->format->escape = '';
-    $this->format->html   = TRUE;
+    $this->format->html = TRUE;
     $this->showPageIds();
   }
 
   public function getInfo() {
     $info = parent::getInfo();
     $info = array(
-      'name' => 'Advanced Markdown Table',
-      'shortname' => 'Markdown Table', 
-      'description' => 'Export data in markdown table format.',
-    ) + $info;
+        'name'        => 'Advanced Markdown Table',
+        'shortname'   => 'Markdown Table',
+        'description' => 'Export data in markdown table format.',
+      ) + $info;
 
     return $info;
   }
@@ -87,6 +87,7 @@ class MarkdownTableExporter extends FlatTextExporter implements ExporterInterfac
       }
 
       // $this->output .= $this->format->cr;
+      return $this;
     }
   }
 }

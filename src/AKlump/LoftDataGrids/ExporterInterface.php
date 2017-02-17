@@ -14,7 +14,7 @@ interface ExporterInterface {
    * @return $this
    */
   public function showPageIds();
-  
+
   /**
    * Set the exporter to hide page ids.
    *
@@ -31,7 +31,7 @@ interface ExporterInterface {
    * @return bool
    */
   public function getShowPageIds();
-  
+
   /**
    * Format a single column with format by string
    *
@@ -80,10 +80,12 @@ interface ExporterInterface {
   public function getFilename();
 
   /**
-   * Build the string content of $this->output
+   * Build the string content of $this->output and return $this for chaining.
    *
    * @param mixed $page_id
    *   (Optional) Defaults to NULL.  Set this to only compile a single page.
+   *
+   * @return $this
    */
   public function compile($page_id = NULL);
 
@@ -98,11 +100,22 @@ interface ExporterInterface {
   public function export($page_id = NULL);
 
   /**
-   * Save as a file to the server
+   * Compile and and save to a filepath.
+   *
+   * @param string $directory A writable directory in which to save the file.
+   * @param null   $filename
+   * @param null   $page_id
+   *
+   * @return mixed
+   */
+  public function saveFile($directory, $filename = NULL, $page_id = NULL);
+
+  /**
+   * Stream as a file to the server with headers.
    *
    * @param string $filename
    *   The correct extension will be appended to this string
-   * @param mixed $page_id
+   * @param mixed  $page_id
    *   (Optional) Defaults to NULL.  Set this to export a single page.
    */
   public function save($filename = '', $page_id = NULL);
@@ -133,12 +146,13 @@ interface ExporterInterface {
    *
    * @return array
    *   - name string The human name of this exporter
-   *   - shortname string A more concise human name for ui elements like option lists
+   *   - shortname string A more concise human name for ui elements like option
+   *   lists
    *   - descripttion string A further description
    *   - extension string The file extension used by this class
    */
   public function getInfo();
-  
+
   /**
    * Set the settings object.
    *
@@ -149,19 +163,19 @@ interface ExporterInterface {
    * @return $this
    */
   public function setSettings($settings);
-  
+
   /**
    * Adds/Updates a single setting by name.
    *
    * You can also use $this->getSettings()->{name} = {value}.
    *
    * @param string $name
-   * @param mixed $value
+   * @param mixed  $value
    *
    * @return $this
    */
   public function addSetting($name, $value);
-  
+
   /**
    * Return the settings object.
    *
@@ -173,9 +187,9 @@ interface ExporterInterface {
    *
    * @return array
    *
-   * @see addSetting($name, $value) 
+   * @see addSetting($name, $value)
    */
   public function getSettings();
-  
+
 
 }

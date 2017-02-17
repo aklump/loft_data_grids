@@ -19,6 +19,7 @@ class YAMLExporterTest extends ExporterBase {
     $subject = $this->exporter->export(0);
     $this->assertSame($control, $subject);
   }
+
   public function testOutput1() {
     $control = "-
     'Order No.': '1182'
@@ -28,6 +29,7 @@ class YAMLExporterTest extends ExporterBase {
     $subject = $this->exporter->export(1);
     $this->assertSame($control, $subject);
   }
+
   public function testOutput() {
     $control = "-
     - { 'Order No.': 1181, 'Customer Billing Country': US, 'California Taxed Purchase Amount': 0 }
@@ -36,6 +38,8 @@ class YAMLExporterTest extends ExporterBase {
 ";
     $subject = $this->exporter->export();
     $this->assertSame($control, $subject);
+
+    $this->assertMethodSaveFile($control);
   }
 
   public function testInfoValues() {

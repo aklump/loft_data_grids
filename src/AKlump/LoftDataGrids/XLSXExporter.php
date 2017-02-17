@@ -21,9 +21,9 @@ class XLSXExporter extends Exporter implements ExporterInterface {
    * Constructor
    *
    * @param ExportDataInterface $data
-   * @param string $filename
+   * @param string              $filename
    *   (Optional) Defaults to ''.
-   * @param array $properties
+   * @param array               $properties
    */
   public function __construct(ExportDataInterface $data = NULL, $filename = '', $properties = array()) {
     parent::__construct($data, $filename);
@@ -37,10 +37,10 @@ class XLSXExporter extends Exporter implements ExporterInterface {
   public function getInfo() {
     $info = parent::getInfo();
     $info = array(
-      'name' => 'Excel Format',
-      'shortname' => 'Excel', 
-      'description' => 'Export data in the .xlsx file format.',
-    ) + $info;
+        'name'        => 'Excel Format',
+        'shortname'   => 'Excel',
+        'description' => 'Export data in the .xlsx file format.',
+      ) + $info;
 
     return $info;
   }
@@ -80,7 +80,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
    *
    * @param  string $property_name e.g. Creator
    *
-   * @return mixed                
+   * @return mixed
    */
   public function getProperty($property_name) {
     $obj = $this->excel->getProperties();
@@ -96,7 +96,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
    */
   public function export($page_id = NULL) {
     return $this->excel;
-  }  
+  }
 
   public function compile($page_id = NULL) {
     $pages = $this->getData()->get();
@@ -130,6 +130,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
         $row_index++;
       }
     }
+    return $this;
   }
 
   public function save($filename = '', $page_id = NULL) {
@@ -143,11 +144,9 @@ class XLSXExporter extends Exporter implements ExporterInterface {
       $this->setFilename($filename);
     }
 
-    $filename = $this->getFilename();
-
     // Redirect output to a client’s web browser (Excel2007)
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename="' . $this->filename . '"');
+    header('Content-Disposition: attachment;filename="' . $this->getFilename() . '"');
     header('Cache-Control: max-age=0');
 
     $objWriter = \PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
@@ -169,7 +168,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
   public function formatColumn($column, $format_code) {
 
     // By default we'll use USD.
-    $format_code     = isset($format_code) ? $format_code : 'USD';
+    $format_code = isset($format_code) ? $format_code : 'USD';
     $phpexcel_format = \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
 
     // Map to specific formats in PHPExcel
@@ -188,9 +187,11 @@ class XLSXExporter extends Exporter implements ExporterInterface {
     $page = $this->excel->getActiveSheet();
     foreach ($page->getRowIterator() as $row) {
       $row_index = $row->getRowIndex();
-      $page->getStyle("$phpexcel_column$row_index")->getNumberFormat()->setFormatCode($phpexcel_format);
+      $page->getStyle("$phpexcel_column$row_index")
+           ->getNumberFormat()
+           ->setFormatCode($phpexcel_format);
     }
-    
+
     return parent::formatColumn($column, $format_code);
   }
 
