@@ -14,7 +14,7 @@
     }
   ],
   "require": {
-    "php": ">=5.3.3",
+    "php": ">=5.3.5",
     "phpoffice/phpexcel": "~1.8",
     "symfony/yaml": "~3.2"
   },
