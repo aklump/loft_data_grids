@@ -24,7 +24,8 @@ class ValuesOnlyExporterTest extends ExporterBase {
     $control = "1181\\US\\0\r\n1182\\11/7/13\\Hope, Roberta";
     $subject = $this->exporter->export();
     $this->assertSame($control, $subject);
-    $this->assertMethodSaveFile($control);
+    $this->assertMethodSaveFile();
+    $this->assertSandboxFileContents($control);
   }
 
   public function testInfoValues() {

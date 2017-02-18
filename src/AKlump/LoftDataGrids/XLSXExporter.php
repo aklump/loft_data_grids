@@ -154,6 +154,23 @@ class XLSXExporter extends Exporter implements ExporterInterface {
     exit;
   }
 
+  public function saveFile($directory, $filename = '', $page_id = NULL) {
+    // Go through the setter to ensure the file_extension.
+    $filename = $filename ? $this->setFilename($filename) : $this->getFilename();
+    if (!is_writable(($directory))) {
+      throw new \RuntimeException("$directory is not writable; cannot save $filename.");
+    }
+    // Make sure we have rendered the data
+    if (empty($this->output)) {
+      $this->compile($page_id);
+    }
+    $path = $directory . '/' . $filename;
+    $objWriter = \PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
+    $objWriter->save($path);
+
+    return $path;
+  }
+
   /**
    * Format a single column with a number format
    *

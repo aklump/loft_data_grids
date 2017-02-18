@@ -43,7 +43,8 @@ class XMLExporterTest extends ExporterBase {
     $subject = $this->exporter->export();
     $this->assertSame($control, $subject);
 
-    $this->assertMethodSaveFile($control);
+    $this->assertMethodSaveFile();
+    $this->assertSandboxFileContents($control);
   }
 
   public function testInfoValues() {

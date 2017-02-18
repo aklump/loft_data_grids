@@ -26,7 +26,8 @@ class JSONExporterTest extends ExporterBase {
     $control = '[[{"Order No.":1181,"Customer Billing Country":"US","California Taxed Purchase Amount":0}],[{"Order No.":"1182","Transaction Date":"11\/7\/13","Customer Name":"Hope, Roberta"}]]';
     $subject = $this->exporter->export();
     $this->assertSame($control, $subject);
-    $this->assertMethodSaveFile($control);
+    $this->assertMethodSaveFile();
+    $this->assertSandboxFileContents($control);
   }
 
   public function testInfoValues() {

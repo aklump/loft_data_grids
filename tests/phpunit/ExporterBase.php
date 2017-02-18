@@ -45,20 +45,41 @@ class ExporterBase extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Make sure that saveFile works on this exporter
-   *
+   * Make sure that saveFile creates a file and returns the path.
+   */
+  public function assertMethodSaveFile() {
+    $obj = clone $this->exporter;
+    $this->sandboxFilePath = $this->sandbox . '/' . $obj->setFilename('export');
+    $this->assertFileNotExists($this->sandboxFilePath);
+    $returnPath = $this->exporter->saveFile($this->sandbox, 'export');
+    $this->assertSame($this->sandboxFilePath, $returnPath);
+  }
+
+  /**
    * @param string $control The expected file contents.
    */
-  public function assertMethodSaveFile($control) {
+  public function assertSandboxFileContents($control) {
+    $this->assertFileExists($this->sandboxFilePath);
+    $this->assertSame($control, file_get_contents($this->sandboxFilePath));
+    unlink($this->sandboxFilePath);
+    $this->assertFileNotExists($this->sandboxFilePath);
+  }
+
+  /**
+   * Compare the sandbox file against it's control file.
+   *
+   * For .csv we expect a control file sandbox/control.csv to preexist.
+   */
+  public function assertSandboxFileEquals() {
     $obj = clone $this->exporter;
-    $path = $this->sandbox . '/' . $obj->setFilename('export');
-    $this->assertFileNotExists($path);
-    $returnPath = $this->exporter->saveFile($this->sandbox, 'export');
-    $this->assertSame($path, $returnPath);
-    $this->assertFileExists($path);
-    $this->assertSame($control, file_get_contents($path));
-    unlink($path);
-    $this->assertFileNotExists($path);
+    $reflect = new \ReflectionClass($obj);
+    $basepath = $reflect->getShortName();
+    $this->controlFilePath = $this->sandbox . '/' . $obj->setFilename($basepath);
+    $this->assertFileExists($this->sandboxFilePath);
+    $this->assertFileExists($this->controlFilePath);
+    $this->assertFileEquals($this->controlFilePath, $this->sandboxFilePath);
+    unlink($this->sandboxFilePath);
+    $this->assertFileNotExists($this->sandboxFilePath);
   }
 
   public function setUp() {
@@ -97,5 +118,11 @@ class ExporterBase extends \PHPUnit_Framework_TestCase {
     // Create the sandbox directory for saving
     $this->sandbox = dirname(__FILE__) . '/../sandbox';
     $this->assertTrue(is_writable($this->sandbox));
+  }
+
+  public function tearDown() {
+    if (isset($this->sandboxFilePath) && file_exists($this->sandboxFilePath)) {
+      unlink($this->sandboxFilePath);
+    }
   }
 }
