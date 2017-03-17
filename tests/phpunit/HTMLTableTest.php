@@ -11,13 +11,15 @@ namespace AKlump\LoftDataGrids;
 
 
 class HTMLExporterTest extends \PHPUnit_Framework_TestCase {
-  public function testCSSColumnClasses() {
-    $obj = new ExportData;
-    $obj
-      ->add('Vivid Color', 'orange')
-      ->add('Definitive_SHAPE', 'rectangle');
-    $export = new HTMLExporter($obj);
-    $control = '<table>
+
+    public function testCSSColumnClasses()
+    {
+        $obj = new ExportData;
+        $obj
+            ->add('Vivid Color', 'orange')
+            ->add('Definitive_SHAPE', 'rectangle');
+        $export = new HTMLExporter($obj);
+        $control = '<table>
 <thead>
 <tr><td class="colgroup-vivid-color">Vivid Color</th><td class="colgroup-definitive-shape">Definitive_SHAPE</th></tr>
 </thead>
@@ -26,6 +28,6 @@ class HTMLExporterTest extends \PHPUnit_Framework_TestCase {
 </tbody>
 </table>
 ';
-    $this->assertSame($control, $export->export());
-  }
+        $this->assertSame($control, $export->export());
+    }
 }

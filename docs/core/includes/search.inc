@@ -19,6 +19,7 @@ $outline = load_outline($outline);
 if (!empty($outline['settings']['search'])) {
     $search_dir = "$webpage_dir/search";
 
+    # This will grab the search engine files...
     $hook_file = $core_dir . "/includes/webpage." . $outline['settings']['search'] . ".sh";
     if (is_file($hook_file)) {
         system("$hook_file $core_dir $search_dir");
@@ -32,12 +33,23 @@ if (!empty($outline['settings']['search'])) {
     });
 
     try {
+
+        $g = new Data();
         foreach ($source_files as $html_file) {
+            $record = getOutlineRecordByHtmlFile($html_file);
+
+            // Does json or front matter tell us to ignore this file?
+            if ($g->get($record, 'search') === 'noindex'
+                || (($front_matter = getFrontMatterFromHtmlFile($html_file)) && $g->get($front_matter, 'search') === 'noindex')
+            ) {
+                continue;
+            }
+
             $searchHtml = new SearchHtml($build_dir . '/html/' . $html_file, true);
             $data = $searchHtml->getData();
 
             // Get the tags from our front matter
-            if ($tags = getFrontMatterTagsFromHtmlFile($html_file)) {
+            if ($tags = getTags($front_matter)) {
                 $data->addTags($tags);
             }
 
@@ -49,17 +61,46 @@ if (!empty($outline['settings']['search'])) {
     }
 }
 
+function getOutlineRecordByHtmlFile($html_file)
+{
+    global $outline;
+    foreach ($outline['sections'] as $item) {
+        if ($item['file'] === $html_file) {
+            return $item;
+        }
+    }
+
+    return [];
+}
+
 /**
- * Uses the filename of the html file and tries to find a markdown source file, parses frontmatter and returns any found tags.
+ * Pulls out the tags from a front matter array.
+ *
+ * @param array $front_matter
+ *
+ * @return mixed
+ */
+function getTags(array $front_matter)
+{
+    $g = new Data();
+
+    return $g->get($front_matter, 'tags', '', function ($value) {
+        return array_unique(array_filter(explode(' ', $value)));
+    });
+}
+
+
+/**
+ * Uses the filename of the html file and tries to find a markdown source file,
+ * parses frontmatter and returns it.
  *
  * @param string $html_file
  *
  * @return array
  */
-function getFrontMatterTagsFromHtmlFile($html_file)
+function getFrontMatterFromHtmlFile($html_file)
 {
-    global $argv;
-    $g = new Data();
+    global $argv, $outline;
     $markdown_source = $argv[5];
     $md_file = pathinfo($html_file, PATHINFO_FILENAME);
     $exists = false;
@@ -78,7 +119,11 @@ function getFrontMatterTagsFromHtmlFile($html_file)
         $front_matter = $document->getData();
     }
 
-    return $g->get($front_matter, 'tags', '', function ($value) {
-        return array_unique(array_filter(explode(' ', $value)));
-    });
+    // Now look for it in the outline
+    if (!empty($outline['frontmatter'][$html_file])) {
+        $front_matter = $outline['frontmatter'][$html_file] + $front_matter;
+    }
+
+    return $front_matter;
 }
+

@@ -2,9 +2,10 @@
 namespace AKlump\LoftDataGrids;
 
 interface FormatterInterface {
-  public function set($data);
 
-  public function get();
+    public function set($data);
 
-  public function getUnformatted();
+    public function get();
+
+    public function getUnformatted();
 }

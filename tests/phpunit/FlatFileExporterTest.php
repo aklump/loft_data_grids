@@ -12,18 +12,19 @@ namespace AKlump\LoftDataGrids;
 
 class FlatTextExporterTest extends \PHPUnit_Framework_TestCase {
 
-  function testExport() {
-    $data = new ExportData();
-    $data->setPage('Notes of the Scale');
-    $data->add('do', 'C');
-    $data->add('re re re', 'D');
-    $data->add('mi miiiiii', 'E')->next();
-    $data->add('do', 'D');
-    $data->add('re re re', 'E');
-    $data->add('mi miiiiii', 'F#')->next();
-    $obj = new FlatTextExporter($data);
+    function testExport()
+    {
+        $data = new ExportData();
+        $data->setPage('Notes of the Scale');
+        $data->add('do', 'C');
+        $data->add('re re re', 'D');
+        $data->add('mi miiiiii', 'E')->next();
+        $data->add('do', 'D');
+        $data->add('re re re', 'E');
+        $data->add('mi miiiiii', 'F#')->next();
+        $obj = new FlatTextExporter($data);
 
-    $control = <<<EOD
+        $control = <<<EOD
 ------------------------------
 | DO | RE RE RE | MI MIIIIII |
 ------------------------------
@@ -33,9 +34,9 @@ class FlatTextExporterTest extends \PHPUnit_Framework_TestCase {
 ------------------------------
 
 EOD;
-    $this->assertSame($control, $obj->export());
+        $this->assertSame($control, $obj->export());
 
-    $control = <<<EOD
+        $control = <<<EOD
 -- NOTES OF THE SCALE --
 ------------------------------
 | DO | RE RE RE | MI MIIIIII |
@@ -46,9 +47,9 @@ EOD;
 ------------------------------
 
 EOD;
-    $this->assertSame($control, $obj->showPageIds()->export());    
+        $this->assertSame($control, $obj->showPageIds()->export());
 
-    $control = <<<EOD
+        $control = <<<EOD
 ------------------------------
 | DO | RE RE RE | MI MIIIIII |
 ------------------------------
@@ -58,7 +59,7 @@ EOD;
 ------------------------------
 
 EOD;
-    $this->assertSame($control, $obj->hidePageIds()->export());
+        $this->assertSame($control, $obj->hidePageIds()->export());
 
-  }
+    }
 }

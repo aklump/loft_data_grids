@@ -12,265 +12,271 @@ namespace AKlump\LoftDataGrids;
 
 class ExportDataTest extends \PHPUnit_Framework_TestCase {
 
-  public function testShowKeys() {
-    $obj = $this->obj;
-    $obj->setPage(0);    
-    $control = array (
-      0 =>
-      array (
-        0 => array(),
-        1 => array(),
-        2 => array(),
-      ),
-      1 =>
-      array (
-        0 =>
-        array (
-          'Color' => 'Black',
-          'Make' => 'Subaru',
-        ),
-        1 =>
-        array (
-          'Color' => 'White',
-          'Make' => 'Hyundai',
-        ),
-      ),
-    );
-    $obj->hideKeys(TRUE);
-    $this->assertSame($control, $obj->get());
+    public function __construct()
+    {
+        $this->obj = new ExportData();
 
-    $return = $obj->showKeys('Age')->getPage();
-    $control = array (
-      0 =>
-      array (
-        'Age' => 39,
-      ),
-      1 =>
-      array (
-        'Age' => 37,
-      ),
-      2 =>
-      array (
-        'Age' => 7,
-      ),
-    );
-    $this->assertSame($control, $return);
-  }
+        $this->obj->add('Name', 'Aaron')->add('Age', 39)->next();
+        $this->obj->add('Name', 'Hillary')->add('Age', 37)->next();
+        $this->obj->add('Name', 'Maia')->add('Age', 7)->next();
 
-  public function testHideKeys() {
-    $obj = $this->obj;
-    $obj->setPage(0);
+        $this->obj->setPointer(1);
+        $this->assertSame('Hillary', $this->obj->getCurrent('Name'));
+        $return = $this->obj->storeLocation('start');
+        $this->assertInstanceOf('AKlump\LoftDataGrids\ExportData', $return);
 
-    $control = array (
-      0 =>
-      array (
-        0 =>
-        array (
-          'Name' => 'Aaron',
-          'Age' => 39,
-        ),
-        1 =>
-        array (
-          'Name' => 'Hillary',
-          'Age' => 37,
-        ),
-        2 =>
-        array (
-          'Name' => 'Maia',
-          'Age' => 7,
-        ),
-      ),
-      1 =>
-      array (
-        0 =>
-        array (
-          'Color' => 'Black',
-          'Make' => 'Subaru',
-        ),
-        1 =>
-        array (
-          'Color' => 'White',
-          'Make' => 'Hyundai',
-        ),
-      ),
-    );
-    $this->assertSame($control, $obj->get());
+        $this->obj->setPage(1);
+        $this->obj->add('Color', 'Black')->add('Make', 'Subaru')->next();
+        $this->obj->add('Color', 'White')->add('Make', 'Hyundai')->next();
+    }
 
-    $return = $obj->hideKeys('Name');
-    $this->assertInstanceOf('AKlump\LoftDataGrids\ExportData', $return);
-    $control = array (
-      0 =>
-      array (
-        0 =>
-        array (
-          'Age' => 39,
-        ),
-        1 =>
-        array (
-          'Age' => 37,
-        ),
-        2 =>
-        array (
-          'Age' => 7,
-        ),
-      ),
-      1 =>
-      array (
-        0 =>
-        array (
-          'Color' => 'Black',
-          'Make' => 'Subaru',
-        ),
-        1 =>
-        array (
-          'Color' => 'White',
-          'Make' => 'Hyundai',
-        ),
-      ),
-    );
-    $this->assertSame($control, $obj->get());
+    public function testShowKeys()
+    {
+        $obj = $this->obj;
+        $obj->setPage(0);
+        $control = array(
+            0 =>
+                array(
+                    0 => array(),
+                    1 => array(),
+                    2 => array(),
+                ),
+            1 =>
+                array(
+                    0 =>
+                        array(
+                            'Color' => 'Black',
+                            'Make'  => 'Subaru',
+                        ),
+                    1 =>
+                        array(
+                            'Color' => 'White',
+                            'Make'  => 'Hyundai',
+                        ),
+                ),
+        );
+        $obj->hideKeys(true);
+        $this->assertSame($control, $obj->get());
 
-    $control = array (
-      0 =>
-      array (
-        0 => array(),
-        1 => array(),
-        2 => array(),
-      ),
-      1 =>
-      array (
-        0 =>
-        array (
-          'Color' => 'Black',
-          'Make' => 'Subaru',
-        ),
-        1 =>
-        array (
-          'Color' => 'White',
-          'Make' => 'Hyundai',
-        ),
-      ),
-    );
-    $obj->hideKeys(TRUE);
-    $this->assertSame($control, $obj->get());
+        $return = $obj->showKeys('Age')->getPage();
+        $control = array(
+            0 =>
+                array(
+                    'Age' => 39,
+                ),
+            1 =>
+                array(
+                    'Age' => 37,
+                ),
+            2 =>
+                array(
+                    'Age' => 7,
+                ),
+        );
+        $this->assertSame($control, $return);
+    }
 
-    $control = array (
-      0 =>
-      array (
-        0 =>
-        array (
-          'Name' => 'Aaron',
-          'Age' => 39,
-        ),
-        1 =>
-        array (
-          'Name' => 'Hillary',
-          'Age' => 37,
-        ),
-        2 =>
-        array (
-          'Name' => 'Maia',
-          'Age' => 7,
-        ),
-      ),
-      1 =>
-      array (
-        0 =>
-        array (
-          'Color' => 'Black',
-          'Make' => 'Subaru',
-        ),
-        1 =>
-        array (
-          'Color' => 'White',
-          'Make' => 'Hyundai',
-        ),
-      ),
-    );
-    $obj->hideKeys(FALSE);
-    $this->assertSame($control, $obj->get());    
-  }
+    public function testHideKeys()
+    {
+        $obj = $this->obj;
+        $obj->setPage(0);
 
-  public function testDeletePage() {
-    $obj = $this->obj;
-    
-    $return = $obj->deletePage(0);
-    $this->assertInstanceOf('AKlump\LoftDataGrids\ExportDataInterface', $return);
-    $return = $return->getAllPageIds();
-    $this->assertCount(1, $return);
+        $control = array(
+            0 =>
+                array(
+                    0 =>
+                        array(
+                            'Name' => 'Aaron',
+                            'Age'  => 39,
+                        ),
+                    1 =>
+                        array(
+                            'Name' => 'Hillary',
+                            'Age'  => 37,
+                        ),
+                    2 =>
+                        array(
+                            'Name' => 'Maia',
+                            'Age'  => 7,
+                        ),
+                ),
+            1 =>
+                array(
+                    0 =>
+                        array(
+                            'Color' => 'Black',
+                            'Make'  => 'Subaru',
+                        ),
+                    1 =>
+                        array(
+                            'Color' => 'White',
+                            'Make'  => 'Hyundai',
+                        ),
+                ),
+        );
+        $this->assertSame($control, $obj->get());
 
-    $return = $obj->setPage(1)->setPointer(0)->getCurrent();
-    $this->assertSame('Black', $return['Color']);
-    $this->assertSame('Subaru', $return['Make']);
-  }
+        $return = $obj->hideKeys('Name');
+        $this->assertInstanceOf('AKlump\LoftDataGrids\ExportData', $return);
+        $control = array(
+            0 =>
+                array(
+                    0 =>
+                        array(
+                            'Age' => 39,
+                        ),
+                    1 =>
+                        array(
+                            'Age' => 37,
+                        ),
+                    2 =>
+                        array(
+                            'Age' => 7,
+                        ),
+                ),
+            1 =>
+                array(
+                    0 =>
+                        array(
+                            'Color' => 'Black',
+                            'Make'  => 'Subaru',
+                        ),
+                    1 =>
+                        array(
+                            'Color' => 'White',
+                            'Make'  => 'Hyundai',
+                        ),
+                ),
+        );
+        $this->assertSame($control, $obj->get());
 
-  public function testGetPageData() {
-    $obj = $this->obj;
-    $return = $obj->getPageData(1);
-    $this->assertInstanceOf('AKlump\LoftDataGrids\ExportDataInterface', $return);
-    $return = $obj->setPointer(0)->getCurrent();
-    $this->assertSame('Black', $return['Color']);
-    $this->assertSame('Subaru', $return['Make']);
-  }
+        $control = array(
+            0 =>
+                array(
+                    0 => array(),
+                    1 => array(),
+                    2 => array(),
+                ),
+            1 =>
+                array(
+                    0 =>
+                        array(
+                            'Color' => 'Black',
+                            'Make'  => 'Subaru',
+                        ),
+                    1 =>
+                        array(
+                            'Color' => 'White',
+                            'Make'  => 'Hyundai',
+                        ),
+                ),
+        );
+        $obj->hideKeys(true);
+        $this->assertSame($control, $obj->get());
 
+        $control = array(
+            0 =>
+                array(
+                    0 =>
+                        array(
+                            'Name' => 'Aaron',
+                            'Age'  => 39,
+                        ),
+                    1 =>
+                        array(
+                            'Name' => 'Hillary',
+                            'Age'  => 37,
+                        ),
+                    2 =>
+                        array(
+                            'Name' => 'Maia',
+                            'Age'  => 7,
+                        ),
+                ),
+            1 =>
+                array(
+                    0 =>
+                        array(
+                            'Color' => 'Black',
+                            'Make'  => 'Subaru',
+                        ),
+                    1 =>
+                        array(
+                            'Color' => 'White',
+                            'Make'  => 'Hyundai',
+                        ),
+                ),
+        );
+        $obj->hideKeys(false);
+        $this->assertSame($control, $obj->get());
+    }
 
-  public function getAllPageIds() {
-    $obj = new ExportData();
-    $this->assertSame(array(), $obj->getAllPageIds());
-  }
+    public function testDeletePage()
+    {
+        $obj = $this->obj;
 
-  public function testLocations() {
-    $obj = $this->obj;
+        $return = $obj->deletePage(0);
+        $this->assertInstanceOf('AKlump\LoftDataGrids\ExportDataInterface', $return);
+        $return = $return->getAllPageIds();
+        $this->assertCount(1, $return);
 
-    // This is null because page 2 doesn't have a Name column
-    $this->assertNull($obj->getCurrent('Name'));
+        $return = $obj->setPage(1)->setPointer(0)->getCurrent();
+        $this->assertSame('Black', $return['Color']);
+        $this->assertSame('Subaru', $return['Make']);
+    }
 
-    // This is null because we're on row 2
-    $this->assertNull($obj->getCurrent('Color'));
+    public function testGetPageData()
+    {
+        $obj = $this->obj;
+        $return = $obj->getPageData(1);
+        $this->assertInstanceOf('AKlump\LoftDataGrids\ExportDataInterface', $return);
+        $return = $obj->setPointer(0)->getCurrent();
+        $this->assertSame('Black', $return['Color']);
+        $this->assertSame('Subaru', $return['Make']);
+    }
 
-    $return = $obj->setPointer(1)->getCurrent('Color');
-    $this->assertSame('White', $return);
-    $obj->storeLocation('cars');
+    public function getAllPageIds()
+    {
+        $obj = new ExportData();
+        $this->assertSame(array(), $obj->getAllPageIds());
+    }
 
-    $return = $obj->gotoLocation('start');
-    $this->assertInstanceOf('AKlump\LoftDataGrids\ExportData', $return);
-    $this->assertSame('Hillary', $obj->getCurrent('Name'));
-    $this->assertEquals(0, $obj->getCurrentPageId());
-    $this->assertEquals(1, $obj->getPointer());
+    public function testLocations()
+    {
+        $obj = $this->obj;
 
-    $subject = array(
-      'start' => array(
-        'page' => 0,
-        'pointers' => array(0 => 1, 1 => 0),
-      ),
-      'cars' => array(
-        'page' => 1,
-        'pointers' => array(0 => 1, 1 => 1),
-      ),
-    );
-    $this->assertSame($subject, ($locs = $obj->getLocations()));
+        // This is null because page 2 doesn't have a Name column
+        $this->assertNull($obj->getCurrent('Name'));
 
-     $copy = new ExportData();
-     $copy->setLocations($locs);
-     $this->assertSame($subject, $copy->getLocations());
-  }
+        // This is null because we're on row 2
+        $this->assertNull($obj->getCurrent('Color'));
 
-  public function __construct() {
-    $this->obj = new ExportData();
-    
-    $this->obj->add('Name', 'Aaron')->add('Age', 39)->next();
-    $this->obj->add('Name', 'Hillary')->add('Age', 37)->next();
-    $this->obj->add('Name', 'Maia')->add('Age', 7)->next();
-    
-    $this->obj->setPointer(1);
-    $this->assertSame('Hillary', $this->obj->getCurrent('Name'));
-    $return = $this->obj->storeLocation('start');
-    $this->assertInstanceOf('AKlump\LoftDataGrids\ExportData', $return);
+        $return = $obj->setPointer(1)->getCurrent('Color');
+        $this->assertSame('White', $return);
+        $obj->storeLocation('cars');
 
-    $this->obj->setPage(1);
-    $this->obj->add('Color', 'Black')->add('Make', 'Subaru')->next();
-    $this->obj->add('Color', 'White')->add('Make', 'Hyundai')->next();
-  }
+        $return = $obj->gotoLocation('start');
+        $this->assertInstanceOf('AKlump\LoftDataGrids\ExportData', $return);
+        $this->assertSame('Hillary', $obj->getCurrent('Name'));
+        $this->assertEquals(0, $obj->getCurrentPageId());
+        $this->assertEquals(1, $obj->getPointer());
+
+        $subject = array(
+            'start' => array(
+                'page'     => 0,
+                'pointers' => array(0 => 1, 1 => 0),
+            ),
+            'cars'  => array(
+                'page'     => 1,
+                'pointers' => array(0 => 1, 1 => 1),
+            ),
+        );
+        $this->assertSame($subject, ($locs = $obj->getLocations()));
+
+        $copy = new ExportData();
+        $copy->setLocations($locs);
+        $this->assertSame($subject, $copy->getLocations());
+    }
 }
 
 /** @} */ //end of group: loft_data_grids

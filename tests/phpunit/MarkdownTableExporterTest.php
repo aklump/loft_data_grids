@@ -12,17 +12,18 @@ namespace AKlump\LoftDataGrids;
 
 class MarkdownTableExporterTest extends \PHPUnit_Framework_TestCase {
 
-  function testExport() {
-    $data = new ExportData('Notes of the Scale');
-    $data->add('do', 'C');
-    $data->add('re re re', 'D');
-    $data->add('mi miiiiii', 'E')->next();
-    $data->add('do', 'D');
-    $data->add('re re re', 'E');
-    $data->add('mi miiiiii', 'F#')->next();
-    $obj = new MarkdownTableExporter($data);
+    function testExport()
+    {
+        $data = new ExportData('Notes of the Scale');
+        $data->add('do', 'C');
+        $data->add('re re re', 'D');
+        $data->add('mi miiiiii', 'E')->next();
+        $data->add('do', 'D');
+        $data->add('re re re', 'E');
+        $data->add('mi miiiiii', 'F#')->next();
+        $obj = new MarkdownTableExporter($data);
 
-    $control = <<<EOD
+        $control = <<<EOD
 ## Notes of the Scale
 | do | re re re | mi miiiiii |
 |----|----------|------------|
@@ -30,18 +31,18 @@ class MarkdownTableExporterTest extends \PHPUnit_Framework_TestCase {
 | D  | E        | F#         |
 
 EOD;
-    $this->assertSame($control, $obj->export());
+        $this->assertSame($control, $obj->export());
 
-    $control = <<<EOD
+        $control = <<<EOD
 | do | re re re | mi miiiiii |
 |----|----------|------------|
 | C  | D        | E          |
 | D  | E        | F#         |
 
 EOD;
-    $this->assertSame($control, $obj->hidePageIds()->export());
+        $this->assertSame($control, $obj->hidePageIds()->export());
 
-    $control = <<<EOD
+        $control = <<<EOD
 ## Notes of the Scale
 | do | re re re | mi miiiiii |
 |----|----------|------------|
@@ -49,6 +50,6 @@ EOD;
 | D  | E        | F#         |
 
 EOD;
-    $this->assertSame($control, $obj->showPageIds()->export());    
-  }
+        $this->assertSame($control, $obj->showPageIds()->export());
+    }
 }
