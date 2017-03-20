@@ -12,24 +12,12 @@ namespace AKlump\LoftDataGrids;
 
 class ExportDataTest extends \PHPUnit_Framework_TestCase {
 
-    public function __construct()
+
+    public function testToString()
     {
-        $this->obj = new ExportData();
-
-        $this->obj->add('Name', 'Aaron')->add('Age', 39)->next();
-        $this->obj->add('Name', 'Hillary')->add('Age', 37)->next();
-        $this->obj->add('Name', 'Maia')->add('Age', 7)->next();
-
-        $this->obj->setPointer(1);
-        $this->assertSame('Hillary', $this->obj->getCurrent('Name'));
-        $return = $this->obj->storeLocation('start');
-        $this->assertInstanceOf('AKlump\LoftDataGrids\ExportData', $return);
-
-        $this->obj->setPage(1);
-        $this->obj->add('Color', 'Black')->add('Make', 'Subaru')->next();
-        $this->obj->add('Color', 'White')->add('Make', 'Hyundai')->next();
+        $control = 'd4718a0d002ea73c60d3dc96d17665fc5cd7cbce';
+        $this->assertSame($control, (string) $this->obj);
     }
-
     public function testShowKeys()
     {
         $obj = $this->obj;
@@ -276,6 +264,25 @@ class ExportDataTest extends \PHPUnit_Framework_TestCase {
         $copy = new ExportData();
         $copy->setLocations($locs);
         $this->assertSame($subject, $copy->getLocations());
+    }
+
+
+    public function setUp()
+    {
+        $this->obj = new ExportData();
+
+        $this->obj->add('Name', 'Aaron')->add('Age', 39)->next();
+        $this->obj->add('Name', 'Hillary')->add('Age', 37)->next();
+        $this->obj->add('Name', 'Maia')->add('Age', 7)->next();
+
+        $this->obj->setPointer(1);
+        $this->assertSame('Hillary', $this->obj->getCurrent('Name'));
+        $return = $this->obj->storeLocation('start');
+        $this->assertInstanceOf('AKlump\LoftDataGrids\ExportData', $return);
+
+        $this->obj->setPage(1);
+        $this->obj->add('Color', 'Black')->add('Make', 'Subaru')->next();
+        $this->obj->add('Color', 'White')->add('Make', 'Hyundai')->next();
     }
 }
 

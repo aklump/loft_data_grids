@@ -434,4 +434,16 @@ class ExportData implements ExportDataInterface {
 
         return $result_set;
     }
+
+    /**
+     * Returns a hash of the data contents.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $out = new JSONExporter($this);
+
+        return sha1($out->export());
+    }
 }

@@ -71,33 +71,13 @@ class ScheduleData extends ExportData {
         $id = $this->getCurrentPageId();
         $this->deletePage($id);
 
-        $singleDayHours = 0;
-        $date = clone $this->getStartDate();
-        $this->setDatePage($date);
-        foreach ($items as $item) {
-            foreach ($item as $key => $value) {
-                $this->add($key, $value);
-            }
-            $this->next();
+        $this->date = clone $this->getStartDate();
+        $this->avoidHolidaysAndWeekdaysOff();
+        $this->setDatePage($this->date);
 
-            // Test if we've gone over the day.
-            $hours = $item[$this->getHoursColumn()];
-            $singleDayHours += $hours;
-            if (($over = $singleDayHours - $this->getHoursPerDay()) > 0) {
-                //
-                //
-                // Go to the next day.
-                //
-                $date->add(new \DateInterval('P1D'));
-
-                // Advance past dates/weekdays not worked.
-                while ($this->datesOff && $this->weekdaysOff && in_array($date, $this->datesOff) || in_array($date->format('D'), $this->weekdaysOff)) {
-                    $date->add(new \DateInterval('P1D'));
-                }
-
-                $singleDayHours = $over;
-                $this->setDatePage($date);
-            }
+        $dayTotal = 0;
+        while (($item = array_shift($items))) {
+            $this->processItem($item, $item[$this->getHoursKey()], $dayTotal);
         }
 
         return $this;
@@ -118,9 +98,23 @@ class ScheduleData extends ExportData {
      */
     public function setStartDate(\DateTime $startDate)
     {
-        $this->startDate = $startDate;
+        $this->startDate = $startDate
+            ->setTimezone(new \DateTimeZone('UTC'))
+            ->setTime(0, 0, 0);
 
         return $this;
+    }
+
+    /**
+     * Increment the internal date until it falls on neither a holiday nor a
+     * weekday that can't be worked.
+     */
+    protected function avoidHolidaysAndWeekdaysOff()
+    {
+        while (in_array($this->date, $this->datesOff)
+            || in_array($this->date->format('D'), $this->weekdaysOff)) {
+            $this->date->add(new \DateInterval('P1D'));
+        }
     }
 
     /**
@@ -135,30 +129,45 @@ class ScheduleData extends ExportData {
         return $this->setPage($date->format($this->getPageIdFormat()));
     }
 
+    protected function processItem($item, $hours, &$dayTotal)
+    {
+        $available = $this->getHoursPerDay() - $dayTotal;
+        if ($available === 0) {
+            $this->nextDay();
+            $dayTotal = 0;
+
+            return $this->processItem($item, $hours, $dayTotal);
+        }
+        elseif ($hours > $available) {
+            $this->addTodoItem($item, $available);
+            $this->nextDay();
+            $dayTotal = 0;
+            $remain = $hours - $available;
+
+            return $this->processItem($item, $remain, $dayTotal);
+        }
+
+        $dayTotal += $hours;
+
+        return $this->addTodoItem($item, $hours);
+    }
+
     /**
      * @return mixed
      */
-    public function getHoursColumn()
+    public function getHoursKey()
     {
         return $this->hoursKey;
     }
 
     /**
-     * @return mixed
-     */
-    public function getHoursPerDay()
-    {
-        return $this->hoursPerDay;
-    }
-
-    /**
-     * @param mixed $hoursPerDay
+     * @param mixed $hoursKey
      *
      * @return ScheduleData
      */
-    public function setHoursPerDay($hoursPerDay)
+    public function setHoursKey($hoursKey)
     {
-        $this->hoursPerDay = intval($hoursPerDay);
+        $this->hoursKey = $hoursKey;
 
         return $this;
     }
@@ -184,15 +193,49 @@ class ScheduleData extends ExportData {
     }
 
     /**
-     * @param mixed $hoursKey
+     * @return mixed
+     */
+    public function getHoursPerDay()
+    {
+        return $this->hoursPerDay;
+    }
+
+    /**
+     * @param mixed $hoursPerDay
      *
      * @return ScheduleData
      */
-    public function setHoursKey($hoursKey)
+    public function setHoursPerDay($hoursPerDay)
     {
-        $this->hoursKey = $hoursKey;
+        $this->hoursPerDay = intval($hoursPerDay);
 
         return $this;
+    }
+
+    /**
+     * Advance to the next available work day.
+     */
+    protected function nextDay()
+    {
+        $this->date->add(new \DateInterval('P1D'));
+        $this->avoidHolidaysAndWeekdaysOff();
+        $this->setDatePage($this->date);
+    }
+
+    protected function addTodoItem($item, $hours)
+    {
+        foreach ($item as $key => $value) {
+            switch ($key) {
+                case $this->getHoursKey():
+                    $this->add($key, $hours);
+                    break;
+                default:
+                    $this->add($key, $value);
+
+                    break;
+            }
+        }
+        $this->next();
     }
 
     /**
@@ -222,7 +265,9 @@ class ScheduleData extends ExportData {
      */
     public function addDateOff(\DateTime $holiday)
     {
-        $this->datesOff[] = $holiday;
+        $this->datesOff[] = $holiday
+            ->setTimezone(new \DateTimeZone('UTC'))
+            ->setTime(0, 0, 0);
 
         return $this;
     }
