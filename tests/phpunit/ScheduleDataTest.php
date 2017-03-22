@@ -20,8 +20,8 @@ class ScheduleDataTest extends \PHPUnit_Framework_TestCase {
     {
         $tests = array();
         $tests[] = array(
-            '{"03\/27\/2017":[{"task":"do","time":8}],"03\/28\/2017":[{"task":"do","time":8}],"03\/29\/2017":[{"task":"do","time":4},{"task":"re","time":2},{"task":"mi","time":2}],"03\/30\/2017":[{"task":"mi","time":3}]}',
-            '5149bd16eabce6e0ff0fdafc8989c40d3cd893cd',
+            '{"03\/27\/2017":[{"task":"do","time":8}],"03\/28\/2017":[{"task":"do","time":8}],"03\/29\/2017":[{"task":"do","time":4},{"task":"re","time":2},{"task":"mi","time":2}],"03\/30\/2017":[{"task":"mi","time":3}],"Schedule Statistics":[{"start date":"03\/27\/2017","end date":"03\/30\/2017","total hours":27,"total items":3,"hours per day":8,"days off":0,"weekdays off":"Sat, Sun","dates off":""}]}',
+            '183c4ed456d5aa89641bbbf420174e0ca4332c6f',
             8,
             array(
                 array('do', 20),
@@ -32,16 +32,19 @@ class ScheduleDataTest extends \PHPUnit_Framework_TestCase {
             array('sat', 'sun'),
             // then entire first week off.
             array('2017-03-20','2017-03-21','2017-03-22','2017-03-23','2017-03-24'),
+            true,
         );
         $tests[] = array(
-            '{"03\/20\/2017":[{"task":"do","time":8}],"03\/22\/2017":[{"task":"re","time":8}]}',
-            'b102f84ae1892ce6730c4a3fc5ae0bc0d5325d5d',
+            '{"03\/20\/2017":[{"task":"do","time":8}],"03\/22\/2017":[{"task":"re","time":8}],"Schedule Statistics":[{"start date":"03\/20\/2017","end date":"03\/22\/2017","total hours":16,"total items":2,"hours per day":8,"days off":1,"weekdays off":"Sun, Tue","dates off":"03\/21\/2017"}]}',
+            'a3cc0f58b15a3e9708387441e3955e055dd24191',
             8,
             array(
                 array('do', 8),
                 array('re', 8),
             ),
             array('sun', 'tue'),
+            array(),
+            true,
         );
 
         $tests[] = array(
@@ -88,7 +91,7 @@ class ScheduleDataTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider DataForTestMakeScheduleProvider
      */
-    public function testMakeSchedule($json, $hash, $hoursPerDay, $todos, $weekdays = array(), $holidays = array())
+    public function testMakeSchedule($json, $hash, $hoursPerDay, $todos, $weekdays = array(), $holidays = array(), $stats = false)
     {
         $data = $this->obj;
         $data->setHoursPerDay($hoursPerDay)
@@ -112,6 +115,9 @@ class ScheduleDataTest extends \PHPUnit_Framework_TestCase {
 
         // Now schedule
         $data->makeSchedule();
+        if ($stats) {
+            $data->addStatsPage();
+        }
 
         $out = new JSONExporter($data);
         $this->assertSame($json, $out->export());

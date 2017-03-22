@@ -59,6 +59,9 @@ class ScheduleData extends ExportData {
      */
     protected $pageIdFormat = 'm/d/Y';
 
+    protected $stats = array();
+    protected $todoStatsPage = false;
+
     /**
      * Split the current page up into a number of pages based on workload.
      *
@@ -73,11 +76,22 @@ class ScheduleData extends ExportData {
 
         $this->date = clone $this->getStartDate();
         $this->avoidHolidaysAndWeekdaysOff();
+        $this->stats['start date'] = $this->date->format($this->getPageIdFormat());
+        $this->stats['hours per day'] = $this->getHoursPerDay();
+        $this->stats['total items'] = count($items);
+        $this->stats['dates off'] = array();
         $this->setDatePage($this->date);
 
         $dayTotal = 0;
+        $this->stats['total hours'] = 0;
         while (($item = array_shift($items))) {
+            $this->stats['total hours'] += $item[$this->getHoursKey()];
             $this->processItem($item, $item[$this->getHoursKey()], $dayTotal);
+        }
+        $this->stats['end date'] = $this->date->format($this->getPageIdFormat());
+
+        if ($this->todoStatsPage) {
+            $this->addStatsPage($this->todoStatsPage);
         }
 
         return $this;
@@ -113,63 +127,9 @@ class ScheduleData extends ExportData {
     {
         while (in_array($this->date, $this->datesOff)
             || in_array($this->date->format('D'), $this->weekdaysOff)) {
+            $this->stats['dates off'][] = $this->date->format($this->getPageIdFormat());
             $this->date->add(new \DateInterval('P1D'));
         }
-    }
-
-    /**
-     * Set a page based on a datetime object.
-     *
-     * @param \DateTime $date
-     *
-     * @return $this
-     */
-    public function setDatePage(\DateTime $date)
-    {
-        return $this->setPage($date->format($this->getPageIdFormat()));
-    }
-
-    protected function processItem($item, $hours, &$dayTotal)
-    {
-        $available = $this->getHoursPerDay() - $dayTotal;
-        if ($available === 0) {
-            $this->nextDay();
-            $dayTotal = 0;
-
-            return $this->processItem($item, $hours, $dayTotal);
-        }
-        elseif ($hours > $available) {
-            $this->addTodoItem($item, $available);
-            $this->nextDay();
-            $dayTotal = 0;
-            $remain = $hours - $available;
-
-            return $this->processItem($item, $remain, $dayTotal);
-        }
-
-        $dayTotal += $hours;
-
-        return $this->addTodoItem($item, $hours);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHoursKey()
-    {
-        return $this->hoursKey;
-    }
-
-    /**
-     * @param mixed $hoursKey
-     *
-     * @return ScheduleData
-     */
-    public function setHoursKey($hoursKey)
-    {
-        $this->hoursKey = $hoursKey;
-
-        return $this;
     }
 
     /**
@@ -208,6 +168,86 @@ class ScheduleData extends ExportData {
     public function setHoursPerDay($hoursPerDay)
     {
         $this->hoursPerDay = intval($hoursPerDay);
+
+        return $this;
+    }
+
+    /**
+     * Set a page based on a datetime object.
+     *
+     * @param \DateTime $date
+     *
+     * @return $this
+     */
+    public function setDatePage(\DateTime $date)
+    {
+        return $this->setPage($date->format($this->getPageIdFormat()));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHoursKey()
+    {
+        return $this->hoursKey;
+    }
+
+    /**
+     * @param mixed $hoursKey
+     *
+     * @return ScheduleData
+     */
+    public function setHoursKey($hoursKey)
+    {
+        $this->hoursKey = $hoursKey;
+
+        return $this;
+    }
+
+    protected function processItem($item, $hours, &$dayTotal)
+    {
+        $available = $this->getHoursPerDay() - $dayTotal;
+        if ($available === 0) {
+            $this->nextDay();
+            $dayTotal = 0;
+
+            return $this->processItem($item, $hours, $dayTotal);
+        }
+        elseif ($hours > $available) {
+            $this->addTodoItem($item, $available);
+            $this->nextDay();
+            $dayTotal = 0;
+            $remain = $hours - $available;
+
+            return $this->processItem($item, $remain, $dayTotal);
+        }
+
+        $dayTotal += $hours;
+
+        return $this->addTodoItem($item, $hours);
+    }
+
+    public function addStatsPage($title = 'Schedule Statistics')
+    {
+        if (empty($this->stats)) {
+            $id = $this->getCurrentPageId();
+            $this->setPage($title);
+            // Add this to ensure placement in the page orders FIFO
+            $this->add('start date', null);
+            $this->todoStatsPage = $title;
+            $this->setPage($id);
+        }
+        else {
+            $this->setPage($title);
+            $this->add('days off', count($this->stats['dates off']));
+            $this->add('weekdays off', implode(', ', $this->weekdaysOff));
+            $this->stats['dates off'] = implode(', ', $this->stats['dates off']);
+            foreach ($this->stats as $key => $value) {
+                $this->add($key, $value);
+            }
+            $this->next();
+            $this->setKeys('start date', 'end date', 'total hours', 'total items', 'hours per day', 'days off', 'weekdays off', 'dates off');
+        }
 
         return $this;
     }
