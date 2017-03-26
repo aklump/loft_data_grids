@@ -1,4 +1,5 @@
 <?php
+
 namespace AKlump\LoftDataGrids;
 
 /*
@@ -79,7 +80,8 @@ class ExportData implements ExportDataInterface {
             $page_id = $this->current_page;
         }
         $keys = array();
-        foreach ($this->data[$page_id] as $row) {
+        $rows = isset($this->data[$page_id]) ? $this->data[$page_id] : array();
+        foreach ($rows as $row) {
             $keys += $row;
         }
         $keys = array_keys($keys);

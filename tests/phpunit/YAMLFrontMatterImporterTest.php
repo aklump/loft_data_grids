@@ -5,6 +5,12 @@ namespace AKlump\LoftDataGrids;
 
 class YAMLFrontMatterImporterTest extends \PHPUnit_Framework_TestCase {
 
+    public function testAddSettingReturnsThis()
+    {
+        $obj = new YAMLFrontMatterImporter();
+        $this->assertSame($obj, $obj->addSetting('bodyKey', 'footer'));
+    }
+
     public function testImportWithoutFrontMatter()
     {
         $subject = '<h1> {{ title }} </h1>

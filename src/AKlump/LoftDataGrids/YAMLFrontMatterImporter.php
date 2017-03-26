@@ -34,15 +34,15 @@ class YAMLFrontMatterImporter implements ImporterInterface {
     public function addSetting($key, $value)
     {
         $this->settings[$key] = $value;
+
+        return $this;
     }
 
     public function import($string)
     {
         $obj = new ExportData();
         $header = $body = null;
-
-        // Give the body a default empty string.
-        $obj->add($this->settings['bodyKey'], '');
+        $bodyKey = $this->settings['bodyKey'];
 
         $chunk = strtok($string, '---');
         while (($chunk !== false)) {
@@ -55,16 +55,21 @@ class YAMLFrontMatterImporter implements ImporterInterface {
                     }
                 } catch (\Exception $exception) {
                     $header = false;
-                    $obj->add($this->settings['bodyKey'], $chunk);
+                    $obj->add($bodyKey, $chunk);
                 }
             }
             elseif (is_null($body)) {
-                $obj->add($this->settings['bodyKey'], $chunk);
+                $obj->add($bodyKey, $chunk);
             }
             else {
                 break;
             }
             $chunk = strtok('---');
+        }
+
+        // Give the body a default empty string.
+        if (!in_array($bodyKey, $obj->getKeys())) {
+            $obj->add($bodyKey, '');
         }
 
         return $obj;
