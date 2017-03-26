@@ -1,4 +1,5 @@
 <?php
+
 namespace AKlump\LoftDataGrids;
 
 /**
@@ -155,13 +156,10 @@ abstract class Exporter implements ExporterInterface {
 
     public function getHeader($page_id = 0)
     {
-        $header = array();
-        foreach ($this->export_data->getPage($page_id) as $row) {
-            $keys = array_keys($row);
-            $header += array_combine($keys, $keys);
-        }
+        $rows = $this->export_data->getPage($page_id);
+        $keys = array_keys(reset($rows));
 
-        return $header;
+        return array_combine($keys, $keys);
     }
 
     public function setData(ExportDataInterface $data)
