@@ -125,7 +125,7 @@ abstract class Exporter implements ExporterInterface {
     {
 
         // @todo I feel like this is a really bloated way of doing this
-        // by creating a new object, etc.  Maybe we can do t his differntly...
+        // by creating a new object, etc.  Maybe we can do this differntly...
 
         // We pause our locations so that our iterations don't mess with things,
         // we'll later resume below.

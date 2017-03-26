@@ -242,7 +242,7 @@ interface ExportDataInterface {
 
     /**
      * Normalize all rows so that they all contain the same number of columns,
-     * the column order will be taken from the order of the first column
+     * the column order will be taken from the order of the first row.
      *
      * @param array|mixed $empty_value
      *   If this is an array then you may provide default values by column key,

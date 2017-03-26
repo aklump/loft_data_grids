@@ -1,4 +1,5 @@
 <?php
+
 namespace AKlump\LoftDataGrids;
 
 /**
@@ -129,27 +130,25 @@ interface ExporterInterface {
     public function getData();
 
     /**
-     * Return an array containing the header row values for a page
+     * Return an array each of the keys present in the data on a page.
      *
      * @param mixed $page_id
      *   (Optional) Defaults to 0.
      *
      * @return array
-     * - The keys of the header MUST match the keys of each row of data
+     *   - The keys of the header MUST match the keys of each row of data.
+     *   - The values can be human titles for the keys.
      */
     public function getHeader($page_id = 0);
 
     /**
      * Return info about this class
      *
-     * @param type $string
-     *   description
-     *
      * @return array
      *   - name string The human name of this exporter
      *   - shortname string A more concise human name for ui elements like
      *   option lists
-     *   - descripttion string A further description
+     *   - description string A further description
      *   - extension string The file extension used by this class
      */
     public function getInfo();
@@ -191,6 +190,4 @@ interface ExporterInterface {
      * @see addSetting($name, $value)
      */
     public function getSettings();
-
-
 }

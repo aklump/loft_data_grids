@@ -148,11 +148,25 @@ class CSVExporterTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame('ti', $obj->getTitle());
     }
 
+    public function testHeadersAnotherWay()
+    {
+        $data = new ExportData();
+        $data->add('do', 1)->next();
+        $data->add('re', 2)->next();
+        $data->add('mi', 3)->next();
+        $exporter = new CSVExporter($data);
+
+        $control = array('do', 're', 'mi');
+        $control = array_combine($control, $control);
+        $this->assertSame($control, $exporter->getHeader());
+    }
+
     function testHeaders()
     {
         $subject = $this->records[0];
         $return = $this->exporter->getHeader();
-        $this->assertSame(array_combine(array_keys($subject), array_keys($subject)), $return);
+        $control = array_combine(array_keys($subject), array_keys($subject));
+        $this->assertSame($control, $return);
     }
 }
 
