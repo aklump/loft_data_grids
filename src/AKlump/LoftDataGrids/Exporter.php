@@ -28,32 +28,6 @@ abstract class Exporter implements ExporterInterface {
         $this->setFilename($filename);
     }
 
-    /**
-     * Setup default values on object data.
-     *
-     * Child classes should implement like this, making sure you don't use
-     * setting name already defined in the parents.
-     *
-     * @code
-     *   protected function setSettingsDefault() {
-     *     parent::setSettingsDefault();
-     *     $this->settings->showSponsors = TRUE;
-     *
-     *     return $this;
-     *   }
-     * @endcode
-     *
-     * @return {$this}
-     */
-    protected function setSettingsDefault()
-    {
-        $this->settings = (object) array(
-            'showPageIds' => true,
-        );
-
-        return $this;
-    }
-
     public function getInfo()
     {
         return array(
@@ -278,6 +252,83 @@ abstract class Exporter implements ExporterInterface {
     public function getShowPageIds()
     {
         return $this->getSettings()->showPageIds;
+    }
+
+    /**
+     * Setup default values on object data.
+     *
+     * Child classes should implement like this, making sure you don't use
+     * setting name already defined in the parents.
+     *
+     * @code
+     *   protected function setSettingsDefault() {
+     *     parent::setSettingsDefault();
+     *     $this->settings->showSponsors = TRUE;
+     *
+     *     return $this;
+     *   }
+     * @endcode
+     *
+     * @return {$this}
+     */
+    protected function setSettingsDefault()
+    {
+        $this->settings = (object) array(
+            'showPageIds' => true,
+            'dateFormat'  => false,
+        );
+
+        return $this;
+    }
+
+    /**
+     * Iterate over all cells and transform data as appropriate.
+     */
+    protected function dataTransform(&$value)
+    {
+        if (is_object($value)) {
+
+            // Convert dates to the settings for date_format.
+            if (($dateFormat = $this->getSettings()->dateFormat) && $value instanceof \DateTime) {
+                $value = $value->format($dateFormat);
+            }
+
+            // Handle other objects as needed.
+            if (method_exists($this, 'objectHandler')) {
+                $value = $this->objectHandler($key, $value);
+            }
+        }
+    }
+
+    /**
+     * Convert ExportData to an array transforming every cell.
+     *
+     * @param mixed $page_id           The page id from which to pull data or
+     *                                 empty for all pages.
+     * @param mixed $page_id_key       If $page_id is provided, set this to the
+     *                                 key value to use to indicate the page
+     *                                 id, for example JSON keeps this as NULL
+     *                                 and XML uses the page id.
+     *
+     * @return array
+     *
+     * @see $this->dataTransform().
+     */
+    protected function getDataAsTransformedArray($page_id = null, $page_id_key = null)
+    {
+        $data = $this->getData()->get();
+        if (!is_null($page_id)) {
+            $data = is_null($page_id_key) ? array($data[$page_id]) : array($page_id_key => $data[$page_id]);
+        }
+        foreach ($data as &$page) {
+            foreach ($page as &$row) {
+                foreach ($row as &$cell) {
+                    $this->dataTransform($cell);
+                }
+            }
+        }
+
+        return $data;
     }
 
     /**

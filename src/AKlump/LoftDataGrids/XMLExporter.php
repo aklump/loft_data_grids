@@ -23,10 +23,7 @@ class XMLExporter extends Exporter implements ExporterInterface {
     public function compile($page_id = null)
     {
         $xml = new \SimpleXMLElement('<data/>');
-        $pages = $this->getData()->get();
-        if (!is_null($page_id) && array_key_exists($page_id, $pages)) {
-            $pages = array($page_id => $pages[$page_id]);
-        }
+        $pages = $this->getDataAsTransformedArray($page_id, $page_id);
         foreach ($pages as $page_id => $data) {
             $page = $xml->addChild('page');
             $page->addAttribute('id', $page_id);

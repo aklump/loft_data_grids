@@ -47,6 +47,18 @@ class ExporterBase extends \PHPUnit_Framework_TestCase {
         }
     }
 
+    public function assertDateHandlerWorks($control)
+    {
+        $data = new ExportData;
+        $date = new \DateTime('2010-04-04');
+        $control = $control($date->format(\DATE_ISO8601));
+        $data->add('date', $date);
+        $output = $this->exporter->setData($data)
+                                 ->addSetting('dateFormat', \DATE_ISO8601)
+                                 ->addSetting('prune', true)->export();
+        $this->assertSame($control, $output);
+    }
+
     /**
      * Make sure that saveFile creates a file and returns the path.
      */

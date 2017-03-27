@@ -10,6 +10,15 @@ namespace AKlump\LoftDataGrids;
 
 class YAMLExporterTest extends ExporterBase {
 
+    public function testDateTimeObjectHandling()
+    {
+        $this->assertDateHandlerWorks(function ($date) {
+            return "-
+    - { date: '$date' }
+";
+        });
+    }
+
     public function testOutput0()
     {
         $control = "-

@@ -10,6 +10,15 @@ namespace AKlump\LoftDataGrids;
 
 class XMLExporterTest extends ExporterBase {
 
+    public function testDateTimeObjectHandling()
+    {
+        $this->assertDateHandlerWorks(function ($date) {
+            return '<?xml version="1.0"?>
+<data><page id="0"><record id="0"><date>' . $date . '</date></record></page></data>
+';
+        });
+    }
+
     public function testCData()
     {
         $data = new ExportData();

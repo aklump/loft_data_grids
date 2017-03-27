@@ -31,7 +31,7 @@ class YAMLExporter extends Exporter implements ExporterInterface {
 
     public function compile($page_id = null)
     {
-        $pages = $this->getData()->get();
+        $pages = $this->getDataAsTransformedArray();
         if (!is_null($page_id) && array_key_exists($page_id, $pages)) {
             $pages = $pages[$page_id];
         }

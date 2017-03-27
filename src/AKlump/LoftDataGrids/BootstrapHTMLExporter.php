@@ -45,10 +45,7 @@ class BootstrapHTMLExporter extends HTMLExporter implements ExporterInterface {
 
     public function compile($page_id = null)
     {
-        $pages = $this->getData()->get();
-        if ($page_id && array_key_exists($page_id, $pages)) {
-            $pages = array($pages[$page_id]);
-        }
+        $pages = $this->getDataAsTransformedArray($page_id, null);
         $tables = array();
         foreach ($pages as $page_id => $data) {
             $this->output = '';

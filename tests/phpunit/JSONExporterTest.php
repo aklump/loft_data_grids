@@ -17,6 +17,24 @@ class JSONExporterTest extends ExporterBase {
         $this->assertSame($control, $subject);
     }
 
+    public function testDateTimeObjectHandling()
+    {
+        $this->assertDateHandlerWorks(function ($date) {
+            return json_encode(array('date' => $date));
+        });
+    }
+
+    public function testPrunePage()
+    {
+        $obj = clone $this->exporter;
+        $obj->addSetting('prune', true);
+
+        $data = new ExportData;
+        $data->add('name', 'Bob');
+
+        $this->assertSame('{"name":"Bob"}', $obj->setData($data)->export());
+    }
+
     public function testExportPage1()
     {
         $control = '[[{"Order No.":"1182","Transaction Date":"11\/7\/13","Customer Name":"Hope, Roberta"}]]';
