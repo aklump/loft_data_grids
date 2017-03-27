@@ -8,10 +8,16 @@
             "sort": 0
         },
         {
+            "id": "objects",
+            "title": "Exporters: objects as values",
+            "file": "objects.md",
+            "sort": 1
+        },
+        {
             "id": "_tasklist",
             "title": " Tasklist",
             "file": "_tasklist.md",
-            "sort": 1
+            "sort": 2
         }
     ],
     "settings": {
