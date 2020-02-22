@@ -9,8 +9,9 @@
 
 namespace AKlump\LoftDataGrids;
 
+use PHPUnit\Framework\TestCase;
 
-class ExportDataTest extends \PHPUnit_Framework_TestCase {
+class ExportDataTest extends TestCase {
 
 
     public function testToString()

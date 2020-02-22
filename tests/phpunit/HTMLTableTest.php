@@ -9,8 +9,9 @@
 
 namespace AKlump\LoftDataGrids;
 
+use PHPUnit\Framework\TestCase;
 
-class HTMLExporterTest extends \PHPUnit_Framework_TestCase {
+class HTMLExporterTest extends TestCase {
 
     public function testCSSColumnClasses()
     {

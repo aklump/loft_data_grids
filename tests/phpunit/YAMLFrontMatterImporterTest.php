@@ -2,8 +2,9 @@
 
 namespace AKlump\LoftDataGrids;
 
+use PHPUnit\Framework\TestCase;
 
-class YAMLFrontMatterImporterTest extends \PHPUnit_Framework_TestCase {
+class YAMLFrontMatterImporterTest extends TestCase {
 
     public function testAddSettingReturnsThis()
     {

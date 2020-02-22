@@ -9,8 +9,9 @@
 
 namespace AKlump\LoftDataGrids;
 
+use PHPUnit\Framework\TestCase;
 
-class DollarFormatterTest extends \PHPUnit_Framework_TestCase {
+class DollarFormatterTest extends TestCase {
 
     public function testFormatting()
     {

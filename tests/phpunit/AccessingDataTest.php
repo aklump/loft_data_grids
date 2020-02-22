@@ -9,8 +9,9 @@
 
 namespace AKlump\LoftDataGrids;
 
+use PHPUnit\Framework\TestCase;
 
-class AccessingDataTest extends \PHPUnit_Framework_TestCase {
+class AccessingDataTest extends TestCase {
 
     public function testGetRows()
     {

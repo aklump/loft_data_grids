@@ -8,9 +8,10 @@
  */
 
 namespace AKlump\LoftDataGrids;
+use PHPUnit\Framework\TestCase;
 
 
-class MarkdownTableExporterTest extends \PHPUnit_Framework_TestCase {
+class MarkdownTableExporterTest extends TestCase {
 
     function testExport()
     {

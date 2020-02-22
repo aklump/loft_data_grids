@@ -8,9 +8,8 @@
         colors="true"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
+        convertWarningsToExceptions="false"
         forceCoversAnnotation="false"
-        mapTestClassNameToCoveredClassName="false"
         printerClass="PHPUnit_TextUI_ResultPrinter"
         processIsolation="false"
         stopOnError="false"
@@ -18,7 +17,6 @@
         stopOnIncomplete="false"
         stopOnSkipped="false"
         stopOnRisky="false"
-        testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
         timeoutForSmallTests="1"
         timeoutForMediumTests="10"
         timeoutForLargeTests="60"
@@ -40,13 +38,16 @@
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="./tests/phpunit/build/coverage" lowUpperBound="35"
+        <log type="coverage-html" target="./tests/phpunit/build/coverage"
+             lowUpperBound="35"
              highLowerBound="70"/>
         <!--<log type="coverage-clover" target="./tests/phpunit/build/logs/clover.xml"/>-->
         <!--log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/-->
         <log type="tap" target="./tests/phpunit/build/logs/junit.tap"/>
-        <log type="junit" target="./tests/phpunit/build/logs/junit.xml" logIncompleteSkipped="false"/>
-        <log type="testdox-html" target="./tests/phpunit/build/logs/testdox.html"/>
-        <log type="testdox-text" target="./tests/phpunit/build/logs/testdox.txt"/>
+        <log type="junit" target="./tests/phpunit/build/logs/junit.xml"/>
+        <log type="testdox-html"
+             target="./tests/phpunit/build/logs/testdox.html"/>
+        <log type="testdox-text"
+             target="./tests/phpunit/build/logs/testdox.txt"/>
     </logging>
 </phpunit>
