@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>{{ title }}</title>
+  <link href="search/tipuesearch.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+
+<body class="{{ classes|join(' ') }}">
+<header>
+  {% include 'nav.twig' %}
+</header>
+<section class="sub-header">
+  {% include('breadcrumbs.twig') %}
+  {% if search %}
+    {% include 'search-form.twig' %}
+  {% endif %}
+</section>
+
+
+<h1>{{ content_title }}</h1>
+
+{{ content|raw }}
+
+<div class="search__results">
+  <div id="tipue_search_content"></div>
+</div>
+
+<footer>
+  {% include 'nav.twig' %}
+  
+  <div id="footer-legaleeze">
+    <p class="legaleeze center">Version: {{ version }} &bull; Last Updated: {{ date }}</p>
+  </div>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+{% if search %}
+  <script src="search/tipuesearch_content.js"></script>
+  <script src="search/tipuesearch_set.js"></script>
+  <script src="search/tipuesearch.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#tipue_search_input').tipuesearch()
+    })
+  </script>
+{% endif %}
+<script src="js/core.js"></script>
+</body>
+</html>
+
