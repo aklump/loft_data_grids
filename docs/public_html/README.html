@@ -54,10 +54,23 @@
 
 <h2>Automated Tests</h2>
 
+<h3>PhpUnit</h3>
+
 <ol>
-<li>Download a copy of <a href="http://simpletest.org/">simpletest</a> to the <code>tests</code> directory</li>
-<li>Visit <code>tests/all_tests.php</code> in your browser to run all tests at once; or visit a single test file instead.</li>
-<li>If you're getting forbidden errors, take a look at the <code>.htaccess</code> file.</li>
+<li>Run the PhpUnit tests using <em>phpunit.xml</em> in the directory <em>tests/phpunit/</em></li>
+</ol>
+
+<h3>Legacy: Simpletest</h3>
+
+<ol>
+<li>Ensure you have downloaded a copy of <a href="http://simpletest.org/">simpletest</a> as <code>tests/simpletest/simpletest/</code> directory.</li>
+<li>Run <code>php all_tests.php</code> from the CLI using a supported PHP version.</li>
+<li><p>You should see:</p>
+
+<pre><code>all_tests.php
+OK
+Test cases run: 1/1, Passes: 32, Failures: 0, Exceptions: 0
+</code></pre></li>
 </ol>
 
 <h2>Example Usage</h2>
@@ -138,7 +151,7 @@ $exporter-&gt;saveFile();
 </div>
   
   <div id="footer-legaleeze">
-    <p class="legaleeze center">Version: 1.0 &bull; Last Updated: Tue, 30 Jan 2018 14:26:39 -0800</p>
+    <p class="legaleeze center">Version: 1.0 &bull; Last Updated: Sat, 22 Feb 2020 15:26:29 -0800</p>
   </div>
 </footer>
 

@@ -16,9 +16,21 @@ See the code for more documentation.
 1. Refer to the Doxygene documentation included in this package.
 
 ## Automated Tests
-1. Download a copy of [simpletest](http://simpletest.org/) to the `tests` directory
-2. Visit `tests/all_tests.php` in your browser to run all tests at once; or visit a single test file instead.
-3. If you're getting forbidden errors, take a look at the `.htaccess` file.
+
+### PhpUnit
+
+1. Run the PhpUnit tests using _phpunit.xml_ in the directory _tests/phpunit/_
+
+### Legacy: Simpletest
+
+1. Ensure you have downloaded a copy of [simpletest](http://simpletest.org/) as `tests/simpletest/simpletest/` directory.
+1. Run `php all_tests.php` from the CLI using a supported PHP version.
+1. You should see:
+
+        all_tests.php
+        OK
+        Test cases run: 1/1, Passes: 32, Failures: 0, Exceptions: 0
+
 
 ## Example Usage
 
