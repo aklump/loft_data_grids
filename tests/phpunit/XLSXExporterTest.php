@@ -17,7 +17,7 @@ class XLSExporterTest extends ExporterBase {
     public function testOutput()
     {
         $subject = $this->exporter->export();
-        $this->assertInstanceOf('PHPExcel', $subject);
+        $this->assertInstanceOf('\PhpOffice\PhpSpreadsheet\Spreadsheet', $subject);
         $this->assertMethodSaveFile();
     }
 
@@ -76,7 +76,7 @@ class XLSExporterTest extends ExporterBase {
     function testExport()
     {
         $result = $this->exporter2->export();
-        $this->assertInstanceOf('PHPExcel', $result);
+        $this->assertInstanceOf('\PhpOffice\PhpSpreadsheet\Spreadsheet', $result);
     }
 
     function testGetInfo()

@@ -13,7 +13,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
 
     /**
      * @var $worksheet
-     * The PHPExcel object
+     * The \PhpOffice\PhpSpreadsheet\Spreadsheet object
      */
     protected $excel;
 
@@ -29,7 +29,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
     {
         parent::__construct($data, $filename);
         $this->output = false;
-        $this->excel = new \PHPExcel();
+        $this->excel = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         if ($properties) {
             $this->setProperties($properties);
         }
@@ -80,9 +80,9 @@ class XLSXExporter extends Exporter implements ExporterInterface {
     }
 
     /**
-     * Returns the PHPExcel object
+     * Returns the \PhpOffice\PhpSpreadsheet\Spreadsheet object
      *
-     * @return PHPExcel
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
      */
     public function export($page_id = null)
     {
@@ -138,12 +138,12 @@ class XLSXExporter extends Exporter implements ExporterInterface {
             $this->setFilename($filename);
         }
 
-        // Redirect output to a client’s web browser (Excel2007)
+        // Redirect output to a client’s web browser (Xlsx)
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="' . $this->getFilename() . '"');
         header('Cache-Control: max-age=0');
 
-        $objWriter = \PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
+        $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($this->excel, 'Xlsx');
         $objWriter->save('php://output');
         exit;
     }
@@ -160,7 +160,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
             $this->compile($page_id);
         }
         $path = $directory . '/' . $filename;
-        $objWriter = \PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
+        $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($this->excel, 'Xlsx');
         $objWriter->save($path);
 
         return $path;
@@ -173,7 +173,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
      *
      * @param string $column
      * @param string $format_code
-     * - USD OR PHPExcel_Style_NumberFormat::setFormatCode()
+     * - USD OR \PhpOffice\PhpSpreadsheet\Style\NumberFormat::setFormatCode()
      *
      * @return $this
      */
@@ -182,13 +182,13 @@ class XLSXExporter extends Exporter implements ExporterInterface {
 
         // By default we'll use USD.
         $format_code = isset($format_code) ? $format_code : 'USD';
-        $phpexcel_format = \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+        $phpexcel_format = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
 
-        // Map to specific formats in PHPExcel
+        // Map to specific formats in \PhpOffice\PhpSpreadsheet\Spreadsheet
         if ($format_code === 'USD') {
-            $phpexcel_format = \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+            $phpexcel_format = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
         }
-        elseif ($format_code === \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD_SIMPLE) {
+        elseif ($format_code === \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE) {
             $format_code = 'USD';
         }
 
