@@ -41,31 +41,28 @@ class YAMLFrontMatterImporter implements ImporterInterface {
     public function import($string)
     {
         $obj = new ExportData();
-        $header = $body = null;
         $bodyKey = $this->settings['bodyKey'];
-
-        $chunk = strtok($string, '---');
-        while (($chunk !== false)) {
-            $chunk = trim($chunk);
-            if (is_null($header)) {
-                try {
-                    $header = Yaml::parse($chunk);
-                    foreach ($header as $key => $item) {
-                        $obj->add($key, $item);
-                    }
-                } catch (\Exception $exception) {
-                    $header = false;
-                    $obj->add($bodyKey, $chunk);
-                }
-            }
-            elseif (is_null($body)) {
-                $obj->add($bodyKey, $chunk);
-            }
-            else {
-                break;
-            }
-            $chunk = strtok('---');
+        $header = null;
+        $body = $string;
+        $chunks = array_values(array_filter(explode('---', $string, 3)));
+        if(count($chunks) === 2) {
+          $header = trim($chunks[0]);
+          $body = trim($chunks[1]);
         }
+        if($header) {
+          try {
+            $header = Yaml::parse($header);
+            if(is_array($header)) {
+              foreach ($header as $key => $item) {
+                $obj->add($key, $item);
+              }
+            }
+          } catch (\Exception $exception) {
+            $header = null;
+          }
+        }
+
+      $obj->add($bodyKey, $body);
 
         // Give the body a default empty string.
         if (!in_array($bodyKey, $obj->getKeys())) {
