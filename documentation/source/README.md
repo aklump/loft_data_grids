@@ -1,12 +1,14 @@
 ## Summary
+
+**There will be no new features added to this project. Use for new projects is not advised.**
+
+---
+
 This package is a PHP object-oriented solution for modelling data in two (rows + columns) or three dimensions (rows + columns + pages).  It can be thought of like a spreadsheet.
 
 It allows a single data class `ExportData` to be used to organize your data in a grid, with various output styles `Exporter` so you can easily get a `.csv` file or a `.xlsx` file, among many others.
 
 See the code for more documentation.
-
-## Requirements
-1. \>= Php 5.3.0
 
 ## Installation
 1. Please install necessary dependencies using [Composer](http://getcomposer.org/).
