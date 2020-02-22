@@ -7,3 +7,4 @@ push_tags = auto
 push_master = auto
 push_develop = auto
 micro_prefix = .
+info_file = composer.json
