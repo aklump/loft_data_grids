@@ -15,8 +15,8 @@
   ],
   "require": {
     "php": ">=5.3.5",
-    "phpoffice/phpexcel": "~1.8",
-    "symfony/yaml": ">=2.0"
+    "symfony/yaml": ">=2.0",
+    "phpoffice/phpspreadsheet": "^1.10"
   },
   "autoload": {
     "psr-4": {
