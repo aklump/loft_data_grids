@@ -6,10 +6,12 @@
  * @ingroup ExportData
  * @{
  */
-namespace AKlump\LoftDataGrids;
+namespace Tests\AKlump\LoftDataGrids;
 
 require_once dirname(__FILE__) . '/../../vendor/autoload.php';
 require_once(dirname(__FILE__) . '/simpletest/autorun.php');
+
+use AKlump\LoftDataGrids\ExportData;
 
 class ExportDataTests extends \UnitTestCase {
 
