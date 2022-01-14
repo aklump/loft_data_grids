@@ -2,3 +2,4 @@ composer.lock
 vendor
 .idea
 tests/phpunit/build
+.DS_Store
