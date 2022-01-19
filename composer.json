@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": ">=7.1",
-        "symfony\/yaml": "^3.4",
+        "symfony\/yaml": "^3.4 || ^4 || ˆ5",
         "phpoffice\/phpspreadsheet": "^1.10"
     },
     "autoload": {
