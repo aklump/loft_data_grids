@@ -1,7 +1,7 @@
 {
     "name": "aklump\/loft_data_grids",
     "type": "library",
-    "version": "0.5.3",
+    "version": "0.5.2",
     "description": "PHP Classes to allow data placement in a grid structure and exporting in various data formats.",
     "keywords": [
         "spreadsheet",
@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": ">=7.1",
-        "symfony\/yaml": "^3.4 || ^4 || \u02c65",
+        "symfony\/yaml": "^3.4 || ^4 || ^5",
         "phpoffice\/phpspreadsheet": "^1.10"
     },
     "autoload": {
