@@ -1,7 +1,7 @@
 {
     "name": "aklump\/loft_data_grids",
     "type": "library",
-    "version": "0.5.2",
+    "version": "0.5.3",
     "description": "PHP Classes to allow data placement in a grid structure and exporting in various data formats.",
     "keywords": [
         "spreadsheet",
