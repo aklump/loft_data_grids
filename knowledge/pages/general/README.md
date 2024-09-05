@@ -1,4 +1,9 @@
-# Loft Data Grids
+<!--
+id: readme
+tags: ''
+-->
+
+# {{ book.title }}
 
 ![](https://badgen.net/static/status/deprecated/red) [![Packagist link](https://badgen.net/packagist/name/aklump/loft_data_grids)](https://packagist.org/packages/aklump/loft_data_grids) ![](https://badgen.net/packagist/php/aklump/loft_data_grids) ![](https://badgen.net/github/license/aklump/dom-testing-selectors)
 
@@ -12,13 +17,7 @@ It allows a single data class `ExportData` to be used to organize your data in a
 
 See the code for more documentation.
 
-## Install with Composer
-
-1. Require this package:
-   
-    ```
-    composer require aklump/loft_data_grids:^0.5
-    ```
+{{ composer.install|raw }}
 
 ## Usage
 

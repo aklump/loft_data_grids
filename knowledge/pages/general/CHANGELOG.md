@@ -1,3 +1,8 @@
+<!--
+id: changelog
+tags: ''
+-->
+
 # Changelog
 
 There are no plans to add any new features to this project.
@@ -29,3 +34,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Support for PHP < 7.1
+  

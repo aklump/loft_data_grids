@@ -1,9 +1,0 @@
-{
-    "name": "Twig",
-    "machine": "twig",
-    "handlers": {
-        "theme": "tpl",
-        "file": "page.sh",
-        "post": "index.sh"
-    }
-}
