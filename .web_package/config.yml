@@ -1,0 +1,9 @@
+master: master
+remote: origin
+create_tags: patch
+push_tags: auto
+push_master: auto
+push_develop: auto
+micro_prefix: .
+version_file: .web_package/config.yml
+version: 0.5.3

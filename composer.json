@@ -1,35 +1,39 @@
 {
-    "name": "aklump\/loft_data_grids",
-    "type": "library",
-    "version": "0.5.3",
-    "description": "PHP Classes to allow data placement in a grid structure and exporting in various data formats.",
-    "keywords": [
-        "spreadsheet",
-        "csv",
-        "excel",
-        "export"
-    ],
-    "homepage": "http:\/\/www.intheloftstudios.com\/packages\/php\/loft_data_grids",
-    "license": "BSD-3-Clause",
-    "authors": [
-        {
-            "name": "Aaron Klump",
-            "email": "sourcecode@intheloftstudios.com",
-            "homepage": "http:\/\/www.intheloftstudios.com",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": ">=7.1",
-        "symfony\/yaml": "^3.4 || ^4 || ^5",
-        "phpoffice\/phpspreadsheet": "^1.10"
-    },
-    "autoload": {
-        "psr-4": {
-            "AKlump\\LoftDataGrids\\": "src\/AKlump\/LoftDataGrids"
-        }
-    },
-    "require-dev": {
-        "phpunit\/phpunit": "^7"
+  "name": "aklump/loft_data_grids",
+  "type": "library",
+  "description": "PHP Classes to allow data placement in a grid structure and exporting in various data formats.",
+  "keywords": [
+    "spreadsheet",
+    "csv",
+    "excel",
+    "export"
+  ],
+  "homepage": "http://www.intheloftstudios.com/packages/php/loft_data_grids",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Aaron Klump",
+      "email": "sourcecode@intheloftstudios.com",
+      "homepage": "https://www.intheloftstudios.com",
+      "role": "Developer"
     }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "symfony/yaml": "^3.4 || ^4 || ^5",
+    "phpoffice/phpspreadsheet": "^1.10"
+  },
+  "autoload": {
+    "psr-4": {
+      "AKlump\\LoftDataGrids\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AKlump\\LoftDataGrids\\Tests\\Unit\\": "./tests_unit"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6"
+  }
 }
