@@ -7,10 +7,18 @@
  * @{
  */
 
-namespace AKlump\LoftDataGrids;
+namespace AKlump\LoftDataGrids\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use AKlump\LoftDataGrids\ExportData;
+use AKlump\LoftDataGrids\FlatTextExporter;
 
+/**
+ * @covers \AKlump\LoftDataGrids\FlatTextExporter
+ * @uses \AKlump\LoftDataGrids\ExportData
+ * @uses \AKlump\LoftDataGrids\Exporter
+ * @uses \AKlump\LoftDataGrids\CSVExporter
+ */
 class FlatTextExporterTest extends TestCase {
 
     function testExport()

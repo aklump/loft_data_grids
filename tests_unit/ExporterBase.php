@@ -6,9 +6,13 @@
  * @ingroup loft_data_grids
  */
 
-namespace AKlump\LoftDataGrids;
+namespace AKlump\LoftDataGrids\Tests\Unit;
 
+use DateTime;
+use Exception;
 use PHPUnit\Framework\TestCase;
+use AKlump\LoftDataGrids\ExportData;
+use RuntimeException;
 
 /**
  * Class ExporterBase
@@ -32,15 +36,13 @@ class ExporterBase extends TestCase {
     $this->assertNotEmpty($info['extension']);
   }
 
-  /**
-   * @expectedException RuntimeException
-   */
   public function testSaveFileToUnwriteableDirThrows() {
+    $this->expectException(RuntimeException::class);
     chmod($this->sandbox, 0444);
     try {
       $this->exporter->saveFile($this->sandbox);
     }
-    catch (\Exception $exception) {
+    catch (Exception $exception) {
       chmod($this->sandbox, 0777);
       throw $exception;
     }
@@ -48,7 +50,7 @@ class ExporterBase extends TestCase {
 
   public function assertDateHandlerWorks($control) {
     $data = new ExportData;
-    $date = new \DateTime('2010-04-04');
+    $date = new DateTime('2010-04-04');
     $control = $control($date->format(\DATE_ISO8601));
     $data->add('date', $date);
     $output = $this->exporter->setData($data)
@@ -63,7 +65,7 @@ class ExporterBase extends TestCase {
   public function assertMethodSaveFile() {
     $obj = clone $this->exporter;
     $this->sandboxFilePath = $this->sandbox . '/' . $obj->setFilename('export');
-    $this->assertFileNotExists($this->sandboxFilePath);
+    $this->assertFileDoesNotExist($this->sandboxFilePath);
     $returnPath = $this->exporter->saveFile($this->sandbox, 'export');
     $this->assertSame($this->sandboxFilePath, $returnPath);
   }
@@ -75,7 +77,7 @@ class ExporterBase extends TestCase {
     $this->assertFileExists($this->sandboxFilePath);
     $this->assertSame($control, file_get_contents($this->sandboxFilePath));
     unlink($this->sandboxFilePath);
-    $this->assertFileNotExists($this->sandboxFilePath);
+    $this->assertFileDoesNotExist($this->sandboxFilePath);
   }
 
   /**
@@ -92,10 +94,10 @@ class ExporterBase extends TestCase {
     $this->assertFileExists($this->controlFilePath);
     $this->assertFileEquals($this->controlFilePath, $this->sandboxFilePath);
     unlink($this->sandboxFilePath);
-    $this->assertFileNotExists($this->sandboxFilePath);
+    $this->assertFileDoesNotExist($this->sandboxFilePath);
   }
 
-  public function setUp() {
+  public function setUp(): void {
     $this->data = new ExportData();
     $this->records[0] = array(
       'Order No.' => 1181,
@@ -129,11 +131,14 @@ class ExporterBase extends TestCase {
     $this->data->setPointer(0);
 
     // Create the sandbox directory for saving
-    $this->sandbox = dirname(__FILE__) . '/../sandbox';
-    $this->assertTrue(is_writable($this->sandbox));
+    $this->sandbox = __DIR__ . '/testing_files';
+    if (!file_exists($this->sandbox)) {
+      mkdir($this->sandbox, 0755, TRUE);
+    }
+    $this->assertIsWritable($this->sandbox);
   }
 
-  public function tearDown() {
+  public function tearDown(): void {
     if (isset($this->sandboxFilePath) && file_exists($this->sandboxFilePath)) {
       unlink($this->sandboxFilePath);
     }

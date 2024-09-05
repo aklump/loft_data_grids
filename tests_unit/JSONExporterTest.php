@@ -6,8 +6,16 @@
  * @ingroup loft_data_grids
  */
 
-namespace AKlump\LoftDataGrids;
+namespace AKlump\LoftDataGrids\Tests\Unit;
 
+use AKlump\LoftDataGrids\ExportData;
+use AKlump\LoftDataGrids\JSONExporter;
+
+/**
+ * @covers \AKlump\LoftDataGrids\JSONExporter
+ * @uses \AKlump\LoftDataGrids\ExportData
+ * @uses \AKlump\LoftDataGrids\Exporter
+ */
 class JSONExporterTest extends ExporterBase {
 
     public function testExportPage0()
@@ -57,7 +65,7 @@ class JSONExporterTest extends ExporterBase {
         $this->assertSame('.json', $info['extension']);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->exporter = new JSONExporter($this->data);

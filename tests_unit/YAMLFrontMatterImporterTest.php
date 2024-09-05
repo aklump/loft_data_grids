@@ -1,9 +1,14 @@
 <?php
 
-namespace AKlump\LoftDataGrids;
+namespace AKlump\LoftDataGrids\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use AKlump\LoftDataGrids\YAMLFrontMatterImporter;
 
+/**
+ * @covers \AKlump\LoftDataGrids\YAMLFrontMatterImporter
+ * @uses \AKlump\LoftDataGrids\ExportData
+ */
 class YAMLFrontMatterImporterTest extends TestCase {
 
     public function testAddSettingReturnsThis()

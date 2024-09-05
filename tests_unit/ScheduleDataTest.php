@@ -1,16 +1,22 @@
 <?php
 
-namespace AKlump\LoftDataGrids;
+namespace AKlump\LoftDataGrids\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use AKlump\LoftDataGrids\JSONExporter;
+use AKlump\LoftDataGrids\ScheduleData;
 
 
+/**
+ * @covers \AKlump\LoftDataGrids\ScheduleData
+ * @uses \AKlump\LoftDataGrids\JSONExporter
+ * @uses \AKlump\LoftDataGrids\ExportData
+ * @uses \AKlump\LoftDataGrids\Exporter
+ */
 class ScheduleDataTest extends TestCase {
 
-  /**
-   * @expectedException InvalidArgumentException
-   */
   public function testBadWeekdayFormatThrows() {
+    $this->expectException(\InvalidArgumentException::class);
     $this->obj->addWeekdayOff('fish');
   }
 
@@ -161,7 +167,7 @@ class ScheduleDataTest extends TestCase {
     $this->assertSame('time', $this->obj->getHoursKey());
   }
 
-  public function setUp() {
+  public function setUp(): void {
     $this->obj = new ScheduleData();
   }
 }

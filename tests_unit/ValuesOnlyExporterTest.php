@@ -6,8 +6,15 @@
  * @ingroup loft_data_grids
  */
 
-namespace AKlump\LoftDataGrids;
+namespace AKlump\LoftDataGrids\Tests\Unit;
 
+use AKlump\LoftDataGrids\ValuesOnlyExporter;
+
+/**
+ * @covers \AKlump\LoftDataGrids\ValuesOnlyExporter
+ * @uses \AKlump\LoftDataGrids\ExportData
+ * @uses \AKlump\LoftDataGrids\Exporter
+ */
 class ValuesOnlyExporterTest extends ExporterBase {
 
     public function testOutput0()
@@ -39,7 +46,7 @@ class ValuesOnlyExporterTest extends ExporterBase {
         $this->assertSame('.txt', $info['extension']);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->exporter = new ValuesOnlyExporter($this->data);

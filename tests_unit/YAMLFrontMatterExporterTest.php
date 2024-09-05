@@ -6,8 +6,16 @@
  * @ingroup loft_data_grids
  */
 
-namespace AKlump\LoftDataGrids;
+namespace AKlump\LoftDataGrids\Tests\Unit;
 
+use AKlump\LoftDataGrids\ExportData;
+use AKlump\LoftDataGrids\YAMLFrontMatterExporter;
+
+/**
+ * @covers \AKlump\LoftDataGrids\YAMLFrontMatterExporter
+ * @uses \AKlump\LoftDataGrids\ExportData
+ * @uses \AKlump\LoftDataGrids\Exporter
+ */
 class YAMLFrontMatterExporterTest extends ExporterBase {
 
     public function testExportNoFrontMatter()
@@ -66,7 +74,7 @@ Page content here...';
         $this->assertSame('AKlump\LoftDataGrids\YAMLFrontMatterExporter', $info['class']);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->exporter = new YAMLFrontMatterExporter($this->data);

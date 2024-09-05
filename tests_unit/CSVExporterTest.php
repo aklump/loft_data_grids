@@ -7,13 +7,22 @@
  * @{
  */
 
-namespace AKlump\LoftDataGrids;
+namespace AKlump\LoftDataGrids\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use AKlump\LoftDataGrids\CSVExporter;
+use AKlump\LoftDataGrids\ExportData;
 
+/**
+ * @covers \AKlump\LoftDataGrids\CSVExporter
+ * @uses \AKlump\LoftDataGrids\ExportData
+ * @uses \AKlump\LoftDataGrids\Exporter
+ * @uses \AKlump\LoftDataGrids\DollarFormatter
+ * @uses \AKlump\LoftDataGrids\Formatter
+ */
 class CSVExporterTest extends TestCase {
 
-  function setUp() {
+  function setUp(): void {
     $this->data = new ExportData();
     $this->records[0] = array(
       'Order No.' => '1181',

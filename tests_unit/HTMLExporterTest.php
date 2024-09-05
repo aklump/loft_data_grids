@@ -7,10 +7,18 @@
  * @{
  */
 
-namespace AKlump\LoftDataGrids;
+namespace AKlump\LoftDataGrids\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use AKlump\LoftDataGrids\ExportData;
+use AKlump\LoftDataGrids\HTMLExporter;
 
+/**
+ * @covers \AKlump\LoftDataGrids\HTMLExporter
+ * @uses \AKlump\LoftDataGrids\ExportData
+ * @uses \AKlump\LoftDataGrids\Exporter
+ * @uses \AKlump\LoftDataGrids\CSVExporter
+ */
 class HTMLExporterTest extends TestCase {
 
     public function testCSSColumnClasses()

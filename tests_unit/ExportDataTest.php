@@ -7,10 +7,16 @@
  * @{
  */
 
-namespace AKlump\LoftDataGrids;
+namespace AKlump\LoftDataGrids\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use AKlump\LoftDataGrids\ExportData;
 
+/**
+ * @covers \AKlump\LoftDataGrids\ExportData
+ * @uses \AKlump\LoftDataGrids\Exporter
+ * @uses \AKlump\LoftDataGrids\JSONExporter
+ */
 class ExportDataTest extends TestCase {
 
 
@@ -268,7 +274,7 @@ class ExportDataTest extends TestCase {
     }
 
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->obj = new ExportData();
 

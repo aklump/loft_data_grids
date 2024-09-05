@@ -6,8 +6,16 @@
  * @ingroup loft_data_grids
  */
 
-namespace AKlump\LoftDataGrids;
+namespace AKlump\LoftDataGrids\Tests\Unit;
 
+use AKlump\LoftDataGrids\ExportData;
+use AKlump\LoftDataGrids\XMLExporter;
+
+/**
+ * @covers \AKlump\LoftDataGrids\XMLExporter
+ * @uses \AKlump\LoftDataGrids\ExportData
+ * @uses \AKlump\LoftDataGrids\Exporter
+ */
 class XMLExporterTest extends ExporterBase {
 
     public function testDateTimeObjectHandling()
@@ -66,7 +74,7 @@ class XMLExporterTest extends ExporterBase {
         $this->assertSame('.xml', $info['extension']);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->exporter = new XMLExporter($this->data);
