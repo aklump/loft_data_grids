@@ -163,6 +163,14 @@ class XLSXExporter extends Exporter implements ExporterInterface {
     return $path;
   }
 
+  private function getPhpSpreadsheetNumberFormat() {
+    if (defined('NumberFormat::FORMAT_CURRENCY_USD_INTEGER')) {
+      return NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
+    }
+
+    return NumberFormat::FORMAT_CURRENCY_USD_SIMPLE;
+  }
+
   /**
    * Format a single column with a number format
    *
@@ -176,10 +184,14 @@ class XLSXExporter extends Exporter implements ExporterInterface {
    * @see \PhpOffice\PhpSpreadsheet\Style\NumberFormat::setFormatCode
    */
   public function formatColumn($column, $format_code) {
+
+    // This will be used to convert to USD for our parent call, see below...
+    $phpexcel_usd_format = $this->getPhpSpreadsheetNumberFormat();
+
     // Normalize to Excel USD format.
     // Migrate from the deprecated format: '"$"#,##0_-'
-    if (NumberFormat::FORMAT_CURRENCY_USD_SIMPLE === $format_code || 'USD' === strtoupper($format_code) || empty($format_code)) {
-      $format_code = NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
+    if (empty($format_code) || NumberFormat::FORMAT_CURRENCY_USD_SIMPLE === $format_code || 'USD' === strtoupper($format_code)) {
+      $format_code = $phpexcel_usd_format;
     }
 
     $columns = $this->getPHPExcelColumns();
@@ -198,8 +210,12 @@ class XLSXExporter extends Exporter implements ExporterInterface {
     // The parent method does not know about
     // \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_* so if we can
     // convert that constant to 'USD' we will do that here.
-    if (NumberFormat::FORMAT_CURRENCY_USD_INTEGER === $format_code) {
-      $format_code = 'USD';
+    switch ($format_code) {
+      case $phpexcel_usd_format;
+      case '"$"#,##0_-':
+      case '$#,##0_-':
+        $format_code = 'USD';
+        break;
     }
 
     return parent::formatColumn($column, $format_code);

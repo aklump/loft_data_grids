@@ -16,10 +16,10 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 /**
  * @covers \AKlump\LoftDataGrids\XLSXExporter
- * @uses \AKlump\LoftDataGrids\ExportData
- * @uses \AKlump\LoftDataGrids\Exporter
- * @uses \AKlump\LoftDataGrids\Formatter
- * @uses \AKlump\LoftDataGrids\DollarFormatter
+ * @uses   \AKlump\LoftDataGrids\ExportData
+ * @uses   \AKlump\LoftDataGrids\Exporter
+ * @uses   \AKlump\LoftDataGrids\Formatter
+ * @uses   \AKlump\LoftDataGrids\DollarFormatter
  */
 class XLSExporterTest extends ExporterBase {
 
@@ -41,9 +41,9 @@ class XLSExporterTest extends ExporterBase {
     $tests[] = ['USD'];
     $tests[] = [''];
     $tests[] = [NULL];
-    $tests[] = [NumberFormat::FORMAT_CURRENCY_USD_SIMPLE];
+    //@see NumberFormat::FORMAT_CURRENCY_USD_SIMPLE
     $tests[] = ['"$"#,##0_-'];
-    $tests[] = [NumberFormat::FORMAT_CURRENCY_USD_INTEGER];
+    // @see NumberFormat::FORMAT_CURRENCY_USD_INTEGER
     $tests[] = ['$#,##0_-'];
 
     return $tests;
