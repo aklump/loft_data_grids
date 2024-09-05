@@ -164,7 +164,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
   }
 
   private function getPhpSpreadsheetNumberFormat() {
-    if (defined('NumberFormat::FORMAT_CURRENCY_USD_INTEGER')) {
+    if (defined('\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_INTEGER')) {
       return NumberFormat::FORMAT_CURRENCY_USD_INTEGER;
     }
 
@@ -189,8 +189,7 @@ class XLSXExporter extends Exporter implements ExporterInterface {
     $phpexcel_usd_format = $this->getPhpSpreadsheetNumberFormat();
 
     // Normalize to Excel USD format.
-    // Migrate from the deprecated format: '"$"#,##0_-'
-    if (empty($format_code) || NumberFormat::FORMAT_CURRENCY_USD_SIMPLE === $format_code || 'USD' === strtoupper($format_code)) {
+    if (empty($format_code) || 'USD' === strtoupper($format_code)) {
       $format_code = $phpexcel_usd_format;
     }
 

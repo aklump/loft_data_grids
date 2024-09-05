@@ -20,7 +20,7 @@
   "require": {
     "php": ">=7.1 || <=8.1",
     "symfony/yaml": "^3.4 || ^4 || ^5",
-    "phpoffice/phpspreadsheet": "^1.10"
+    "phpoffice/phpspreadsheet": "^1.10 || ^2.2"
   },
   "autoload": {
     "psr-4": {
