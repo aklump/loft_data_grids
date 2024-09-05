@@ -49,9 +49,7 @@ class CSVExporter extends Exporter implements ExporterInterface {
             $page_id = key($pages);
         }
         $data = $this->getData()->getPage($page_id);
-        $this->output = '';
-        $this->output .= $this->collapseRow($this->getHeader($page_id));
-        // Format the rows:
+        $this->output = $this->collapseRow($this->getHeader($page_id));
         foreach ($data as $row) {
             $this->output .= $this->collapseRow($row);
         }
