@@ -3,11 +3,13 @@ id: readme
 tags: ''
 -->
 
+# {{ book.title }}
+
+![](https://badgen.net/static/status/deprecated/red) [![Packagist link](https://badgen.net/packagist/name/aklump/loft_data_grids)](https://packagist.org/packages/aklump/loft_data_grids) ![](https://badgen.net/packagist/php/aklump/loft_data_grids) ![](https://badgen.net/github/license/aklump/dom-testing-selectors)
+
+> There will be no new features added to this project. I suggest using the [Symfony Serializer Component](https://symfony.com/doc/current/components/serializer.html) instead for similar functionality. The project will not receive ongoing support.
+
 ## Summary
-
-**There will be no new features added to this project. Use for new projects is not advised.**
-
----
 
 This package is a PHP object-oriented solution for modelling data in two (rows + columns) or three dimensions (rows + columns + pages). It can be thought of like a spreadsheet.
 
@@ -15,90 +17,124 @@ It allows a single data class `ExportData` to be used to organize your data in a
 
 See the code for more documentation.
 
-## Installation
+{{ composer.install|raw }}
 
-1. Please install necessary dependencies using [Composer](http://getcomposer.org/).
-2. Navigate to the root of this package and type: `composer install`
+## Usage
 
-## Documentation
+Let's build a two-layer data grid. (Layers are called _pages_.) The first page will contain names and ages of three people. The second page will contain vehicle information. It can be pictured in two tables:
 
-1. Refer to the Doxygene documentation included in this package.
+*Page 0*
+| Name | Age |
+|---------|-----|
+| Adam | 39 |
+| Brandon | 37 |
+| Charlie | 7 |
 
-## Automated Tests
+*Page 1*
+| Color | Make |
+|-------|-------|
+| Black | Honda |
+| White | BMW |
 
-### PhpUnit
+### In Code
 
-1. Run the PhpUnit tests with `./bin/run_unit_tests.sh`
+```php
+$data_grid = new \AKlump\LoftDataGrids\ExportData();
 
-### Legacy: Simpletest
+// By default we're on page 0, row 0.
+$data_grid->add('Name', 'Adam')->add('Age', 39)->next();
+$data_grid->add('Name', 'Brandon')->add('Age', 37)->next();
+$data_grid->add('Name', 'Charlie')->add('Age', 7)->next();
 
-1. Ensure you have downloaded a copy of [simpletest](http://simpletest.org/) as `tests/simpletest/simpletest/` directory.
-1. Run `php all_tests.php` from the CLI using a supported PHP version.
-1. You should see:
-
-        all_tests.php
-        OK
-        Test cases run: 1/1, Passes: 32, Failures: 0, Exceptions: 0
-
-## Example Usage
-
-### Building a data object
-
-In this example we'll build a 2 paged model, the first page contains two columns (names and ages) of three people. The second page will contain two rows of vehicle information (color and make).
-
-    $obj = new ExportData();
-    
-    // By default we're on page 0, row 0.
-    $obj->add('Name', 'Aaron')->add('Age', 39)->next();
-    $obj->add('Name', 'Hillary')->add('Age', 37)->next();
-    $obj->add('Name', 'Maia')->add('Age', 7)->next();
-
-    // Switch to page 1; we'll be placed on row 0 when the new page is created.
-    $obj->setPage(1);
-    $obj->add('Color', 'Black')->add('Make', 'Subaru')->next();
-    $obj->add('Color', 'White')->add('Make', 'Hyundai')->next();
+// Switch to page 1; we'll be placed on row 0.
+$data_grid->setPage(1);
+$data_grid->add('Color', 'Black')->add('Make', 'Honda')->next();
+$data_grid->add('Color', 'White')->add('Make', 'BMW')->next();
+```
 
 ### Accessing data from the object
 
-    $obj->setPage(0)->setPointer(0)->getValue('Name') === 'Aaron'
-    $obj->getValue('Name') === 'Aaron'
-    $obj->setPointer(2)->getValue('Name') === 'Maia'
-    $obj->setPointer(0)->get() === array('Name' => 'Aaron', 'Age' => 39)
+Think of _pointer_ as a row in a table.
 
-    $obj->setPage(1)->setPointer(1)->getValue('Color') === 'White'
+```php
+$value = $data_grid->setPage(0)->setPointer(0)->getValue('Name') // $value === 'Adam'
+$value = $data_grid->getValue('Name') // $value === 'Adam'
+$value = $data_grid->setPointer(2)->getValue('Name') // $value === 'Charlie'
+$value = $data_grid->setPointer(0)->get() // $value === array('Name' => 'Adam', 'Age' => 39)
+$value = $data_grid->setPage(1)->setPointer(1)->getValue('Color') // $value === 'White'
+```
 
 ### Exporting data to other formats
 
-And now to get that as a CSV file we do...
+We can export both pages in CSV like this:
 
-    $exporter = new CSVExporter($obj);
-    $csv_string = $exporter->export();
+```php
+$exporter = new \AKlump\LoftDataGrids\CSVExporter($data_grid);
+
+$csv_string = $exporter->export();
+// "Name","Age"
+// "Adam","39"
+// "Brandon","37"
+// "Charlie","7"
+
+$csv_string = $exporter->export(1);
+// "Color","Make"
+// "Black","Honda"
+// "White","BMW"
+```
 
 Or to get it as JSON...
 
-    $exporter = new JSONExporter($obj);
-    $json_string = $exporter->export();
+```php
+$exporter = new \AKlump\LoftDataGrids\JSONExporter($data_grid);
+$json_string = $exporter->export();
+```
+
+_(This has been formatted for easier-reading; the actual JSON is minified.)_
+
+```json
+[
+  [
+    {
+      "Name": "Adam",
+      "Age": 39
+    },
+    {
+      "Name": "Brandon",
+      "Age": 37
+    },
+    {
+      "Name": "Charlie",
+      "Age": 7
+    }
+  ],
+  [
+    {
+      "Color": "Black",
+      "Make": "Honda"
+    },
+    {
+      "Color": "White",
+      "Make": "BMW"
+    }
+  ]
+]
+```
 
 Or any of the other exporter classes.
 
 ### Saving to File
 
-    use AKlump\LoftDataGrids\XLSXExporter;
-
-    $exporter = new XLSXExporter($obj, 'users');
-    $exporter->saveFile();
+```php
+$exporter = new \AKlump\LoftDataGrids\XLSXExporter($data_grid, 'users');
+$exporter->saveFile();
+```
 
 ## Exporters: objects as values
 
 * Exporters can handle objects if they implement the `objectHandler` method.
 * Exporters can handle \DateTime objects if they set a value for 'dateFormat'.
 
-## Contact
+## Testing
 
-* **In the Loft Studios**
-* Aaron Klump - Developer
-* PO Box 29294 Bellingham, WA 98228-1294
-* _aim_: theloft101
-* _skype_: intheloftstudios
-* _d.o_: aklump
-* <http://www.InTheLoftStudios.com>
+1. Run the PhpUnit tests with `./bin/run_unit_tests.sh`

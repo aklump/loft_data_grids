@@ -2,4 +2,3 @@ page_order:
   general:
     - readme
     - changelog
-    - objects

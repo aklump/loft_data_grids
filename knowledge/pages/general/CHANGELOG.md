@@ -14,30 +14,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.0] - 2024-09-04
 
-### Added
-
-- lorem
-
 ### Changed
 
-- Documentation engine from Loft Docs to [Knowledge](https://github.com/aklump/knowledge)
-
-### Deprecated
-
-- lorem
+- Simplified PSR-4 directory structure by removing unnecessary directory nesting. (e.g. src/AKlump/LoftDataGrids/ArrayExporter.php -> src/ArrayExporter.php).
+- Changed documentation engine from Loft Docs to [Knowledge](https://github.com/aklump/knowledge).
+- Upgraded tests to PhpUnit 9.
 
 ### Removed
 
 - Doxygene files.
 - Simpletest tests.
-
-### Fixed
-
-- lorem
-
-### Security
-
-- lorem
 
 ## [0.5.0] - 2020-02-22
 
