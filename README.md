@@ -17,7 +17,7 @@ See the code for more documentation.
 1. Require this package:
    
     ```
-    composer require aklump/loft_data_grids:^0.5
+    composer require aklump/loft_data_grids:^0.6
     ```
 
 ## Usage
