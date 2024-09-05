@@ -6,4 +6,4 @@ push_master: auto
 push_develop: auto
 micro_prefix: .
 version_file: .web_package/config.yml
-version: 0.6.0
+version: 0.7.0
