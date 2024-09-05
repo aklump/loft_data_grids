@@ -43,12 +43,12 @@ class TextListExporter extends Exporter implements ExporterInterface {
         // Apply spacing and build output
         foreach ($pages as $page_id => $page) {
             if ($this->getShowPageIds()) {
-                $output .= $page_id . PHP_EOL;
+                $output .= $page_id . \PHP_EOL;
             }
             foreach ($page as $record) {
                 $output .= "<hr />\n";
                 foreach ($record as $key => $value) {
-                    $output .= str_pad($key, $longest_key, $this->pad_char) . $this->separator . $value . PHP_EOL;
+                    $output .= str_pad($key, $longest_key, $this->pad_char) . $this->separator . $value . \PHP_EOL;
                 }
                 $output .= "\n";
             }

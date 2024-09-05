@@ -360,7 +360,7 @@ abstract class Exporter implements ExporterInterface {
         }
 
         if ($string && function_exists('file_munge_filename')) {
-            $string = file_munge_filename($string, implode(' ', $options['extensions']), false);
+            $string = \file_munge_filename($string, implode(' ', $options['extensions']), FALSE);
         }
 
         //@todo Add in the module that cleans name if it's installed

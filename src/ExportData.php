@@ -5,6 +5,7 @@ namespace AKlump\LoftDataGrids;
 /*
  * Class ExportData
  */
+
 class ExportData implements ExportDataInterface {
 
     protected $data = array();
