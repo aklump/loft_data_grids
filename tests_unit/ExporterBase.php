@@ -71,6 +71,23 @@ class ExporterBase extends TestCase {
   }
 
   /**
+   * Helps compatibility between PhpUnit 8 and 9 without deprecation notices.
+   *
+   * @param string $filename
+   * @param string $message
+   *
+   * @return null
+   */
+  public static function assertFileDoesNotExist(string $filename, string $message = ''): void {
+    if (method_exists(parent::class, 'assertFileDoesNotExist')) {
+      parent::assertFileDoesNotExist($filename, $message);
+    }
+    elseif (method_exists(parent::class, 'assertFileNotExists')) {
+      parent::assertFileNotExists($filename, $message);
+    }
+  }
+
+  /**
    * @param string $control The expected file contents.
    */
   public function assertSandboxFileContents($control) {

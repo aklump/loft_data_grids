@@ -35,6 +35,7 @@ verbose=''
 if [[ "${*}" == *'-v'* ]]; then
   verbose='-v'
 fi
+! ./vendor/bin/phpswap use 7.2 $verbose './vendor/bin/phpunit -c ./tests_unit/phpunit.8.xml' && failed "     PHP 7.2 tests failed.     " && exit 1
 ! ./vendor/bin/phpswap use 7.3 $verbose './vendor/bin/phpunit -c ./tests_unit/phpunit.xml' && failed "     PHP 7.3 tests failed.     " && exit 1
 ! ./vendor/bin/phpswap use 7.4 $verbose './vendor/bin/phpunit -c ./tests_unit/phpunit.xml' && failed "     PHP 7.4 tests failed.     " && exit 1
 ! ./vendor/bin/phpswap use 8.0 $verbose './vendor/bin/phpunit -c ./tests_unit/phpunit.xml' && failed "     PHP 8.0 tests failed.     " && exit 1
